@@ -20,7 +20,7 @@ class Configuration
              'localhost',
              'root',
              'Ariel3009',
-             'gauchoroquet');
+             'gauchorocket');
      }
  
      private function getPrinter() {
