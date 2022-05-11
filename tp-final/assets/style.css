@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: 'Tomorrow', sans-serif;
+   
+}
+
+footer{
+    margin-top: 20px;
+}
+
+footer p {
+    padding: 15px 0;
+}
+
+.d-flex{
+    display: flex;
+}
+
+.justify-center{
+ justify-content: center;
+}
+
+.texto1{
+    color:azure;
+    font-family: 'Tomorrow', sans-serif;
+}
+/* animaciones*/
+.desplazar{
+    -webkit-animation-name:  moverIzquierda; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+    animation-name:  moverIzquierda;
+    animation-duration: 4s;
+}
+.desplazar2{
+    -webkit-animation-name:  moverDerecha; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
+    animation-name:  moverDerecha;
+    animation-duration: 4s;
+}
+
+@keyframes moverIzquierda{
+	0%{
+		opacity: 0;
+		transform: translateX(-100px);
+	}
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+@keyframes moverDerecha{
+	0%{
+		opacity: 0;
+		transform: translateX(100px);
+	}
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+.rotacion{
+	animation-name: rotacion;
+	animation-duration: 3s;
+	animation-iteration-count: 3s;
+	animation-timing-function: linear;
+}
+
+@keyframes rotacion {
+  0% {
+    transform:rotate(0deg);
+  }
+  100% {
+    transform:rotate(360deg);
+  }
+}
+
+.parpadeo {
+    animation: parpadeo-animation 1s steps(5, start) infinite;
+    -webkit-animation: parpadeo-animation 1s steps(5, start) infinite;
+  }
+  @keyframes parpadeo-animation {
+    to {
+      visibility: hidden;
+    }
+  }
+  @-webkit-keyframes parpadeo-animation {
+    to {
+      visibility: hidden;
+    }
+  }
