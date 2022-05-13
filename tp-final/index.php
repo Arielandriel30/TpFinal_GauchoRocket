@@ -7,9 +7,11 @@ if(isset($_GET['page'])){
 $page = 'index';
 }
 
-if($page == "ingreso"){
-    $controller = $configuration->getLoginController();
-} else{
+if($page == "login"){
+    $controller = $configuration->getLoginViewController();
+} else if($page == "registro"){
+    $controller = $configuration->getRegistroViewController();
+}else{
     $controller = $configuration->getPrincipalController();
 }
 

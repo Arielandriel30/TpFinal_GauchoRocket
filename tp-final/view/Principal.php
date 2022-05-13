@@ -5,7 +5,8 @@
   <h4 class="texto1">GAUCHO ROCKET</h4>
   <h1 class=" w3-animate-bottom texto1" >LOS MEJORES VIAJES ESPACIALES</h1>
     <div class="w3-padding-32">
-    <a href='index.php?page=ingreso' target="_parent"><button class="w3-btn w3-xlarge w3-dark-grey parpadeo w3-round-large w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">INGRESAR</button></a>
+    <a href='index.php?page=login' target="_parent"><button class="w3-btn w3-xlarge w3-dark-grey parpadeo w3-round-large w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">INGRESAR</button></a>
+    <a href='index.php?page=registro' target="_parent"><button class="w3-btn w3-xlarge w3-dark-grey parpadeo w3-round-large w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">REGISTRARSE</button></a>
     </div>
   </div>
 </header>

@@ -1,13 +1,19 @@
 <?php
 include_once('helper/MySqlDatabase.php');
 include_once('helper/Printer.php');
-include_once('controller/LoginController.php');
+include_once('controller/LoginViewController.php');
 include_once('controller/PrincipalController.php');
+include_once('controller/RegistroViewController.php');
+
 
 class Configuration
 {
-    public function getLoginController() {
-        return new LoginController($this->getPrinter());
+    public function getLoginViewController() {
+        return new LoginViewController($this->getPrinter());
+
+    }
+    public function getRegistroViewController() {
+        return new RegistroViewController($this->getPrinter());
 
     }
 
@@ -21,8 +27,10 @@ class Configuration
              'root',
              'Ariel3009',
              'gauchorocket');
+             echo 'estas conectado';
      }
  
+
      private function getPrinter() {
          return new Printer();
      }

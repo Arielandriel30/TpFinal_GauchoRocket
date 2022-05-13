@@ -1,17 +1,34 @@
 <?php
 
+class LoginController
+{
+    private $usuario;
+    private $pass;
 
-class LoginController {
+  public function __construct($usuario,$pass, $loginModel)
+  {
+    $this->usuario = $usuario;
+    $this->pass = $pass;
+    $this->loginModel = $loginModel;
+  }  
 
-    private $printer;
-
-    public function __construct($printer) {
-        $this->printer = $printer;
-    }
-
-    public function execute() {
-        $this->printer->generateView('IngresoLogin.php');
-    }
+  public function validate()
+  {
+    $result  = $this->loginModel->getLogin($this->usuario,$this->pass);
+    
+    if (!$result){
+      header("location:../index.php");
+      exit();
+  } else {
+    header("location:../logueado.php");
+  }
+  }
 }
+
+
+
+
+
+
 
 ?>
