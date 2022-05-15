@@ -4,8 +4,8 @@
 <div>
 <form id="form" action="view/Login.php" method="POST" class="topBefore desplazar">
 
-		 <input id="emaillogin" type="text" placeholder="Usuario" name="name">
-		 <input id="messagelogin" name="pass" type="password" placeholder="CONTRASEÑA"></input>
+		 <input id="emaillogin" type="text" placeholder="Usuario" required name="name">
+		 <input id="messagelogin" name="pass" type="password" required placeholder="CONTRASEÑA"></input>
          
          <input id="submit"  type="submit" value="INGRESAR">
   
