@@ -3,7 +3,7 @@ include_once('../controller/RegisterController.php');
 include_once('../model/RegisterModel.php');
 include_once('MySqlDatabase.php');
 
-class ValidRegister
+class ConfigurationRegister
 {
     private function getDatabase() {
         return new MySqlDatabase(

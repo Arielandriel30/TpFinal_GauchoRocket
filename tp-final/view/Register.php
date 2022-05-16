@@ -1,6 +1,6 @@
 <?php
-include_once("../helper/ValidRegister.php");
-$valid = new ValidRegister;
+include_once("../helper/ConfigurationRegister.php");
+$valid = new ConfigurationRegister;
 
 
 $controller = $valid->getRegisterController();

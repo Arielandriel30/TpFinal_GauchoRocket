@@ -1,6 +1,6 @@
 <?php
-include_once("../helper/ValidLogin.php");
-$valid = new ValidLogin;
+include_once("../helper/ConfigurationLogin.php");
+$valid = new ConfigurationLogin;
 
 
 $controller = $valid->getLoginController();

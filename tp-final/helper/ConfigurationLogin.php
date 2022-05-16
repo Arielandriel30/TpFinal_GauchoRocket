@@ -3,7 +3,7 @@ include_once('../controller/LoginController.php');
 include_once('../model/LoginModel.php');
 include_once('MySqlDatabase.php');
 
-class ValidLogin
+class ConfigurationLogin
 {
     private function getDatabase() {
         return new MySqlDatabase(
