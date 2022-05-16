@@ -4,6 +4,7 @@ class LoginController
 {
     private $usuario;
     private $pass;
+    private $loginModel;
 
   public function __construct($usuario,$pass, $loginModel)
   {
