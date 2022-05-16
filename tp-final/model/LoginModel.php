@@ -10,6 +10,6 @@ class LoginModel {
 
     public function  getLogin($usuario, $pass){
         return $this->database->query("SELECT * FROM usuario 
-        where nameU = '$usuario' AND passwordU = '$pass'");
+        where nameU = '$usuario' AND passwordU = md5('$pass')");
     }
 }
