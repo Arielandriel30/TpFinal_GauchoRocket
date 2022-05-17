@@ -6,11 +6,12 @@ include_once('MySqlDatabase.php');
 class ConfigurationRegister
 {
     private function getDatabase() {
+        $configDatabase_ini = $this->getConfiguration();
         return new MySqlDatabase(
-             'localhost',
-             'root',
-             'Ariel3009',
-             'gauchorocket');
+            $configDatabase_ini["servername"],
+            $configDatabase_ini["username"],
+            $configDatabase_ini["password"],
+            $configDatabase_ini["dbname"]);
              
      }
     //////////////////ver donde se pone////////
@@ -29,6 +30,10 @@ class ConfigurationRegister
        return new RegisterModel($this->getDatabase());
     }
 //////////////////////////
+///
+    private  function getConfiguration(){
+        return parse_ini_file("../configuration/conexiondatabase.ini");
+    }
 }
 
 

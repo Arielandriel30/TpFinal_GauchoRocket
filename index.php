@@ -1,5 +1,5 @@
 <?php
-include_once ("helper/Configuration.php");
+include_once ("./helper/Configuration.php");
 $configuration = new Configuration();
 if(isset($_GET['page'])){
     $page = $_GET["page"]; 
