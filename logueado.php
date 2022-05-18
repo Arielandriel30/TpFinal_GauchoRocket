@@ -1,7 +1,11 @@
 <?php
+include_once("helper/ConfigurationLogin.php");
+$valid = new ConfigurationLogin;
 
-echo 'Estas logueado!';
 
+$controller = $valid->getLoginController();
+
+$controller->validate();
 
 
 ?>

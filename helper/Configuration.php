@@ -1,9 +1,9 @@
 <?php
-include_once('MySqlDatabase.php');
-include_once('Printer.php');
-include_once('controller/LoginViewController.php');
-include_once('controller/PrincipalController.php');
-include_once('controller/RegistroViewController.php');
+include_once("MySqlDatabase.php");
+include_once("Printer.php");
+include_once("controller/LoginViewController.php");
+include_once("controller/PrincipalController.php");
+include_once("controller/RegistroViewController.php");
 
 
 class Configuration

@@ -5,12 +5,14 @@ class LoginController
     private $usuario;
     private $pass;
     private $loginModel;
+    private $LogueadoViewController;
 
-  public function __construct($usuario,$pass, $loginModel)
+  public function __construct($usuario,$pass, $loginModel, $LogueadoViewController)
   {
     $this->usuario = $usuario;
     $this->pass = $pass;
     $this->loginModel = $loginModel;
+    $this->LogueadoViewController = $LogueadoViewController;
   }  
 
   public function validate()
@@ -18,10 +20,10 @@ class LoginController
     $result  = $this->loginModel->getLogin($this->usuario,$this->pass);
     
     if (!$result){
-      header("location:../index.php");
+      header("location:index.php");
       exit();
   } else {
-    header("location:../logueado.php");
+    $this->LogueadoViewController->execute();
   }
   }
 }

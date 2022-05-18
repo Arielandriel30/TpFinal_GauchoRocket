@@ -1,7 +1,9 @@
 <?php
-include_once('../controller/LoginController.php');
-include_once('../model/LoginModel.php');
+include_once('controller/LoginController.php');
+include_once('controller/LogueadoViewController.php');
+include_once('model/LoginModel.php');
 include_once('MySqlDatabase.php');
+include_once('Printer.php');
 
 class ConfigurationLogin
 {
@@ -14,13 +16,14 @@ class ConfigurationLogin
             $configDatabase_ini["dbname"]);
              
      }
-    //////////////////ver donde se pone////////
+  
     public function getLoginController()
     {
         return new LoginController (
            $_POST["name"],
            $_POST["pass"],
-           $this->getLoginModel()
+           $this->getLoginModel(),
+           $this->getLogueadoViewController()
         );
     }
 
@@ -29,11 +32,17 @@ class ConfigurationLogin
        return new LoginModel($this->getDatabase());
     }
 
-//////////////////////////
-///
+    public function getLogueadoViewController() {
+        return new LogueadoViewController($this->getPrinter());
+
+    }
+
+    private function getPrinter() {
+        return new Printer();
+    }
 
     private  function getConfiguration(){
-        return parse_ini_file("../configuration/conexiondatabase.ini");
+        return parse_ini_file("configuration/conexiondatabase.ini");
     }
 }
 
