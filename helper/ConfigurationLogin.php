@@ -1,5 +1,6 @@
 <?php
 include_once('controller/LoginController.php');
+include_once('controller/LoginViewController.php');
 include_once('controller/LogueadoViewController.php');
 include_once('model/LoginModel.php');
 include_once('MySqlDatabase.php');
@@ -23,7 +24,8 @@ class ConfigurationLogin
            $_POST["name"],
            $_POST["pass"],
            $this->getLoginModel(),
-           $this->getLogueadoViewController()
+           $this->getLogueadoViewController(),
+           $this->getLoginViewController()
         );
     }
 
@@ -34,6 +36,11 @@ class ConfigurationLogin
 
     public function getLogueadoViewController() {
         return new LogueadoViewController($this->getPrinter());
+
+    }
+
+    public function getLoginViewController() {
+        return new LoginViewController($this->getPrinter());
 
     }
 

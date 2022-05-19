@@ -14,7 +14,7 @@
 <form action="view/Busqueda.php" class="desplazar2 w3-margin"  method="POST">
   
   <div class="w3-third w3-margin">
-    <input class="w3-input w3-border" name="viaje"type="text"  placeholder="Busca tu próximo viaje">
+    <input class="w3-input w3-border" name="viaje" type="text"  placeholder="Busca tu próximo viaje">
   </div>
   <div class="w3-third w3-margin">
     <input class="w3-btn w3-large w3-food-spearmint w3-round-large  w3-hover-pink" style="width:100px; font-weight:900;" type="submit" placeholder="Buscar">
