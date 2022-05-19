@@ -1,9 +1,10 @@
 <?php
-include_once("MySqlDatabase.php");
-include_once("Printer.php");
-include_once("controller/LoginViewController.php");
-include_once("controller/PrincipalController.php");
-include_once("controller/RegistroViewController.php");
+include_once('MySqlDatabase.php');
+include_once('Printer.php');
+include_once('controller/LoginViewController.php');
+include_once('controller/PrincipalController.php');
+include_once('controller/RegistroViewController.php');
+include_once('controller/BusquedaViewController.php');
 
 
 class Configuration
@@ -14,6 +15,11 @@ class Configuration
     }
     public function getRegistroViewController() {
         return new RegistroViewController($this->getPrinter());
+
+    }
+
+    public function getBusquedaViewController() {
+        return new BusquedaViewController($this->getPrinter());
 
     }
 
