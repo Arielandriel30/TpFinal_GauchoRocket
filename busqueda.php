@@ -1,7 +1,9 @@
 <?php
+include_once("helper/ConfigurationBusqueda.php");
+$valid = new ConfigurationBusqueda();
 
-echo 'Estas en la pagina de busqueda';
 
+$controller = $valid->getBusquedaController();
 
+$controller->validate();
 
-?>

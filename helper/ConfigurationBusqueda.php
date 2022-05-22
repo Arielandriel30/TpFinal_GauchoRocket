@@ -1,6 +1,6 @@
 <?php
-include_once('../controller/BusquedaController.php');
-include_once('../model/BusquedaModel.php');
+include_once('./controller/BusquedaController.php');
+include_once('./model/BusquedaModel.php');
 include_once('MySqlDatabase.php');
 
 class ConfigurationBusqueda
@@ -32,6 +32,6 @@ class ConfigurationBusqueda
 ///
 
     private  function getConfiguration(){
-        return parse_ini_file("../configuration/conexiondatabase.ini");
+        return parse_ini_file("./configuration/conexiondatabase.ini");
     }
 }

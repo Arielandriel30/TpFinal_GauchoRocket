@@ -11,7 +11,7 @@
   </div>
   </header>
   <div class="w3-row-padding">
-<form action="view/Busqueda.php" class="desplazar2 w3-margin"  method="POST">
+<form action="index.php?page=busqueda" class="desplazar2 w3-margin"  method="POST">
   
   <div class="w3-third w3-margin">
     <input class="w3-input w3-border" name="viaje" type="text"  placeholder="Busca tu próximo viaje">

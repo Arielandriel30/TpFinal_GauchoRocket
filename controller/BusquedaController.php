@@ -19,7 +19,8 @@ class BusquedaController
             header("location:../index.php");
             exit();
         } else {
-            header("location:../busqueda.php");
+          /*  header("location:../busqueda.php");*/
+            $this->printer->generateView('Busqueda.php');
         }
     }
 }
