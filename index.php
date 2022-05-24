@@ -12,7 +12,7 @@ if($page == "login"){
 } else if($page == "registro"){
     $controller = $configuration->getRegistroViewController();
 } else if($page == "busqueda"){
-    $controller = $configuration->getBusquedaViewController();
+    $controller = $configuration->getBusquedaController();
 }
 else{
     $controller = $configuration->getPrincipalController();

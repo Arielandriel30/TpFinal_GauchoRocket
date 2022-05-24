@@ -4,9 +4,10 @@ include_once('Printer.php');
 include_once('controller/LoginViewController.php');
 include_once('controller/PrincipalController.php');
 include_once('controller/RegistroViewController.php');
-include_once('controller/BusquedaViewController.php');
 
 
+include_once('controller/BusquedaController.php');
+include_once 'model/BusquedaModel.php';
 class Configuration
 {
     public function getLoginViewController() {
@@ -18,9 +19,19 @@ class Configuration
 
     }
 
-    public function getBusquedaViewController() {
-        return new BusquedaViewController($this->getPrinter());
+    public function getBusquedaController()
+    {
+        return new BusquedaController(
+            $_POST["viaje"],
+            $this->getBusquedaModel(),
+            $this->getPrinter()
+        );
+    }
 
+    public function getBusquedaModel()
+    {
+        $Model = new BusquedaModel($this->getDatabase());
+        return $Model;
     }
 
     public function getPrincipalController() {
@@ -43,7 +54,7 @@ class Configuration
          return new Printer();
      }
      private  function getConfiguration(){
-         return parse_ini_file("../configuration/conexiondatabase.ini");
+         return parse_ini_file("configuration/conexiondatabase.ini");
      }
 }
 

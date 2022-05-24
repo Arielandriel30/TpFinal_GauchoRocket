@@ -11,7 +11,7 @@ class Printer {
         $data = ["canciones" => $canciones];
         $this->printer->generateView('songView.php', $data);
     }*/
-    public function generateView($content) {
+    public function generateView($content,$data = []) {
         include_once('view/header.php');
         include_once("view/" .$content);
         include_once('view/footer.php');
