@@ -2,19 +2,20 @@
 
 class BusquedaController
 {
-    private $viaje;
+  
     private $printer;
     private $busquedaModel;
 
-    public function __construct($viaje,$busquedaModel,$printer) {
+    public function __construct($busquedaModel,$printer) {
         $this->printer = $printer;
         $this->busquedaModel=$busquedaModel;
-        $this->viaje=$viaje;
+     
     }
 
     public function validate()
     {
-        $result  = $this->busquedaModel->getUsuario($this->viaje);
+        $busqueda = $_POST["viaje"];
+        $result  = $this->busquedaModel->getSpaceFligh($busqueda);
         var_dump($result);
         if (!$result){
             header("location:../index.php");
@@ -27,7 +28,8 @@ class BusquedaController
         }
     }
     public function execute() {
-        $result  = $this->busquedaModel->getUsuario($this->viaje);
+        $busqueda = $_POST["viaje"];
+        $result  = $this->busquedaModel->getUsuario($busqueda);
         var_dump($result);
         if (!$result){
             header("location:../index.php");

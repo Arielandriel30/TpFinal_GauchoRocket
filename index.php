@@ -1,25 +1,14 @@
 <?php
 include_once ("helper/Configuration.php");
+
 $configuration = new Configuration();
-if(isset($_GET['page'])){
-    $page = $_GET["page"]; 
-}else{  
-$page = 'index';
-}
+$router = $configuration->getRouter();
 
-if($page == "login"){
-    $controller = $configuration->getLoginViewController();
-} else if($page == "registro"){
-    $controller = $configuration->getRegistroViewController();
-} else if($page == "busqueda"){
-    $controller = $configuration->getBusquedaController();
-}
-else{
-    $controller = $configuration->getPrincipalController();
-}
 
-$controller->execute();
+$controller = isset($_GET["controller"])? $_GET['controller'] : "";
+$method = isset($_GET["method"])? $_GET['method'] : "";
 
+$router->executeMethodFromController($controller, $method);
 
 ?>
 

@@ -2,28 +2,35 @@
 
 class RegisterController
 {
-    private $usuario;
-    private $pass;
-    private $type;
-    private $RegisterModel;
 
-    public function __construct($usuario, $pass, $type, $RegisterModel)
+    private $printer;
+    private $RegisterModel;
+    private $LogueadoController;
+
+    public function __construct($printer, $RegisterModel, $LogueadoController)
     {
-      $this->usuario = $usuario;
-      $this->pass = $pass;
-      $this->type = $type;
+
+      $this->printer = $printer;
       $this->RegisterModel = $RegisterModel;
+      $this->LogueadoController =  $LogueadoController;
     }  
+
+    public function execute() {
+      $this->printer->generateView('Registro.php');
+    }
 
     public function validate()
     {
-      $result  = $this->RegisterModel->getUsuario($this->usuario);
-      
-      if (!$result){
-        $this->RegisterModel->getRegister($this->usuario,$this->pass,$this->type);
-        header("location:../registrado.php");
+    $usuario = $_POST["usuario"];
+    $pass = $_POST["pass"];
+    $type = $_POST["type"];
+    $result  = $this->RegisterModel->getUsuario($usuario);
+    if (!$result){
+        $this->RegisterModel->getRegister($usuario, $pass, $type);
+        $this->LogueadoController->execute();
+        exit();
     } else {
-        header("location:../index.php");
+      $this->execute();
         exit();
     }
     }

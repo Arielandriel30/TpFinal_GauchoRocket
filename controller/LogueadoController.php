@@ -1,7 +1,7 @@
 <?php
 
 
-class RegistroViewController {
+class LogueadoController {
 
     private $printer;
 
@@ -10,7 +10,7 @@ class RegistroViewController {
     }
 
     public function execute() {
-        $this->printer->generateView('IngresoRegistro.php');
+        $this->printer->generateView('Logueado.php');
     }
 }
 

@@ -2,32 +2,40 @@
 
 class LoginController
 {
-    private $usuario;
-    private $pass;
+ 
     private $loginModel;
-    private $LogueadoViewController;
-    private $LoginViewController;
+    private $printer;
+    private $LogueadoController;
+   
 
-  public function __construct($usuario,$pass, $loginModel, $LogueadoViewController, $LoginViewController)
+  public function __construct($loginModel, $printer, $LogueadoController)
   {
-    $this->usuario = $usuario;
-    $this->pass = $pass;
+
     $this->loginModel = $loginModel;
-    $this->LogueadoViewController = $LogueadoViewController;
-    $this->LoginViewController = $LoginViewController;
+    $this->printer = $printer;
+    $this->LogueadoController = $LogueadoController;
+    
+
   }  
+
 
   public function validate()
   {
-    $result  = $this->loginModel->getLogin($this->usuario,$this->pass);
+    $usuario = $_POST["usuario"];
+    $pass = $_POST["pass"];
+    $result  = $this->loginModel->getLogin($usuario,$pass);
     
     if (!$result){
-      $this->LoginViewController->execute();
+      $this->execute();
       exit();
   } else {
-    $this->LogueadoViewController->execute();
+    $this->LogueadoController->execute();
   }
   }
+
+  public function execute() {
+    $this->printer->generateView('Login.php');
+}
 }
 
 
