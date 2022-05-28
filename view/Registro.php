@@ -2,7 +2,7 @@
 <header class="w3-container desplazar w3-padding" style="background-image: url('assets/img/img1.png')">Completar Datos para el Registro</header>
 <link rel="stylesheet" href="assets/styleprincipal.css">
 <div>
-<form id="form" action="index.php?controller=register&method=validate" target="_parent" method="POST" class="topBefore desplazar">
+<form id="form" action="/register/validate" target="_parent" method="POST" class="topBefore desplazar">
 		
 		  
 		 <input id="email" type="text" placeholder="Usuario" name="usuario">
