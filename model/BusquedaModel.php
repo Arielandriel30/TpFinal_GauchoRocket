@@ -7,7 +7,28 @@ class BusquedaModel{
         $this->database = $database;
     }
 
-    public function  getUsuario($usuario){
+    public function  getOrbitales(){
+        return $this->database->query("SELECT * FROM usuario ");
+    }
+
+    public function  getSubOrbitales(){
+        return $this->database->query("SELECT * FROM usuario");
+    }
+
+    public function  getTours(){
+        /*SELECT 'L' as Dia , 5 as Duracion,'calandria' as Equipos Partida
+union
+select  'M' ,5,'
+        D	35días	Guanaco	BUE
+
+ */
+
+        return $this->database->query("SELECT 'L' as Dia , '5dias' as Duracion,'calandria' as Equipos ,'BUE' as Partida
+                                        union
+                                        select 'D','35días','Guanaco','BUE'");
+    }
+
+    public function  getCircuitos($usuario){
         return $this->database->query("SELECT * FROM usuario 
         where nameU = '$usuario'");
     }

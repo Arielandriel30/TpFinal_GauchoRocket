@@ -17,5 +17,5 @@ Options -Indexes
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/(.*)/(.*)$ index.php?controller=$1&method=$2&$3 [L,QSA]
     RewriteRule ^(.*)/(.*)$ index.php?controller=$1&method=$2 [L,QSA]
-    RewriteRule ^(.*)$ index.php?controller=$1&method=method [L,QSA]
+    RewriteRule ^(.*)$ index.php?controller=$1&method=execute [L,QSA]
 </IfModule>
