@@ -12,7 +12,14 @@ class BusquedaModel{
     }
 
     public function  getSubOrbitales(){
-        return $this->database->query("SELECT * FROM usuario");
+
+        return $this->database->query("SELECT 'L' as Dia , '8hs' as Duracion,'calandria' as Equipos ,'BUE' as Partida, 'O1' as Id
+                                        union
+                                        select 'L' as Dia , '8hs' ,'calandria' as Equipos ,'BUE', 'O2'
+                                         union
+                                        select 'L' , '8hs','calandria'  ,'BUE', 'O3'
+                                          union
+                                        select 'L' , '8hs','Colibri'  ,'ANK', 'O4'");
     }
 
     public function  getTours(){

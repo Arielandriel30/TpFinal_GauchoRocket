@@ -34,37 +34,31 @@ class BusquedaController
 
     public function getOrbitales()
     {
-        /*
-            $busqueda = $_POST["viaje"];
-             $result  = $this->busquedaModel->getSpaceFligh($busqueda);
-             var_dump($result);
+
+
+             $result  = $this->busquedaModel->getOrbitales();
+
              if (!$result){
                  header("location:../index.php");
                  exit();
              } else {
-                 header("location:../busqueda.php");
-                 /*$data=array("usuario"=>$result);
-                 $this->printer->generateView('Busqueda.php',$data);*/
-        //return $result;
-        // }
-        //*/
+
+              $data=array("usuario"=>$result);
+                 $this->printer->generateView('BusquedaOrbitales.php',$data);
+             }
+
     }
     public function getSubOrbitales()
     {
-        /*
-            $busqueda = $_POST["viaje"];
-             $result  = $this->busquedaModel->getSpaceFligh($busqueda);
-             var_dump($result);
+             $result  = $this->busquedaModel-> getSubOrbitales();
+
              if (!$result){
                  header("location:../index.php");
                  exit();
              } else {
-                 header("location:../busqueda.php");
-                 /*$data=array("usuario"=>$result);
-                 $this->printer->generateView('Busqueda.php',$data);*/
-        //return $result;
-        // }
-        //*/
+                 $data=array("SubOrbital"=>$result);
+                 $this->printer->generateView('BusquedaSubOrbitales.php',$data);
+         }
     }
 
     public function getTours()
