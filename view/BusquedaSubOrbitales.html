@@ -31,17 +31,15 @@
                     <th>Equipo</th>
                     <th>Partida</th>
                 </tr>
-                <?php
-                 foreach ($data["SubOrbital"] as $vuelo){
-                     echo   "<tr>
-                                 <td>" . $vuelo['day'] . "</td>
-                                 <td>" . $vuelo['duration'] . "</td>
-                                 <td>" . $vuelo['team'] . "</td>
-                                 <td>" . $vuelo['departure'] . "</td>
-                                 <td> <a href='#' >Reservar</a> </td>
-                             </tr>";
-                 }
-                 ?>
+                {{#SubOrbital}}
+                <tr>
+                    <td>{{day}}</td>
+                    <td>{{duration}}</td>
+                    <td>{{team}}</td>
+                    <td>{{departure}}</td>
+                    <td> <a href='#' >Reservar</a> </td>
+                </tr>
+                {{/SubOrbital}}
             </table>
 
         </div>
