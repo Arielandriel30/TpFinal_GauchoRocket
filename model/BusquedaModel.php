@@ -35,9 +35,12 @@ select  'M' ,5,'
                                         select 'D','35días','Guanaco','BUE'");
     }
 
-    public function  getCircuitos($usuario){
-        return $this->database->query("SELECT * FROM usuario 
-        where nameU = '$usuario'");
+    public function  getCircuitos(){
+        return $this->database->query("select r.name  as Circuitoname, l.duration, s.name,  sft.short_name
+                                    FROM route r
+                                    JOIN lane l on l.route_id=r.id
+                                    join station s on s.id = l.station_id
+                                    JOIN space_flight_type sft on sft.id = l.flight_type_id");
     }
 
     public function  getSpaceFligh($station){

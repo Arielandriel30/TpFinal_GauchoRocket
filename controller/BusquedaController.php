@@ -35,15 +35,15 @@ class BusquedaController
     public function getOrbitales()
     {
 
-
-             $result  = $this->busquedaModel->getOrbitales();
+//             $result  = $this->busquedaModel->getOrbitales();
+             $result  = $this->busquedaModel->getCircuitos();
 
              if (!$result){
                  header("location:../index.php");
                  exit();
              } else {
 
-              $data=array("usuario"=>$result);
+              $data=array("Circuitos"=>$result);
                  $this->printer->generateView('BusquedaOrbitales.php',$data);
              }
 
