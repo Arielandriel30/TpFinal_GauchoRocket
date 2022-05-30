@@ -12,8 +12,9 @@
   </div>
   </header>
   <div class="w3-row-padding">
-<form action="index.php?controller=busqueda&method=validate" class="desplazar2 w3-margin"  method="POST">
-  
+<!--<form action="index.php?controller=busqueda&method=validate" class="desplazar2 w3-margin"  method="POST">-->
+<form action="/busqueda/validate" class="desplazar2 w3-margin"  method="POST">
+
   <div class="w3-third w3-margin">
     <input class="w3-input w3-border" name="viaje" type="text"  placeholder="Busca tu próximo viaje">
   </div>
@@ -24,7 +25,7 @@
 </div>
 
 <div class="w3-row-padding w3-center w3-margin-top">
-<div onclick="location.href='/busqueda/getOrbitales';" style="cursor:pointer"; class="w3-third">
+<div  onclick="location.href='/busqueda/getOrbitales';" style="cursor:pointer;"class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3>VIAJES ORBITALES</h3><br>
   <i class="fa fa-space-shuttle desplazar w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
@@ -35,7 +36,7 @@
   </div>
 </div>
 
-<div onclick="location.href='/busqueda/getSubOrbitales';" style="cursor:pointer"; class="w3-third">
+<div  onclick="location.href='/busqueda/getSubOrbitales';" style="cursor:pointer;"class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3>VIAJES SUB-ORBITALES</h3><br>
   <i class="fa fa-globe w3-margin-bottom rotacion w3-text-theme" style="font-size:120px"></i>
@@ -46,7 +47,7 @@
   </div>
 </div>
 
-<div onclick="location.href='/busqueda/getTours';" style="cursor:pointer"; class="w3-third">
+<div  onclick="location.href='/busqueda/getTours';" style="cursor:pointer;" class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3>TOUR</h3><br>
   <i class="fa fa-space-shuttle desplazar w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
