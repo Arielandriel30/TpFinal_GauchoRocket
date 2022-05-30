@@ -43,7 +43,7 @@ class BusquedaController
                  exit();
              } else {
 
-              $data=array("usuario"=>$result);
+              $data=array("Orbital"=>$result);
                  $this->printer->generateView('BusquedaOrbitales.php',$data);
              }
 

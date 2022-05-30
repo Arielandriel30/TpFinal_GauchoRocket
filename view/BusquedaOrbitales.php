@@ -31,12 +31,12 @@
                     <th>Partida</th>
                 </tr>
                 <?php
-                 foreach ($data["SubOrbital"] as $vuelo){
+                 foreach ($data["Orbital"] as $vuelo){
                      echo   "<tr>
-                                 <td>" . $vuelo['Dia'] . "</td>
-                                 <td>" . $vuelo['Duracion'] . "</td>
-                                 <td>" . $vuelo['Equipos'] . "</td>
-                                 <td>" . $vuelo['Partida'] . "</td>
+                                 <td>" . $vuelo['day'] . "</td>
+                                 <td>" . $vuelo['duration'] . "</td>
+                                 <td>" . $vuelo['team'] . "</td>
+                                 <td>" . $vuelo['departure'] . "</td>
                                  <td> <a href='#' >Reservar</a> </td>
                              </tr>";
                  }

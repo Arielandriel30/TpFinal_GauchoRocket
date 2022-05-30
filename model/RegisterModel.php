@@ -17,7 +17,7 @@ class RegisterModel {
     }
 
     public function  getRegister($usuario, $pass, $type, $email){
-        $mailer = new Mailer($this->getMessageSubject(), $this->getRegisterMessage(), $email);
+        $mailer = new Mailer($this->getMessageSubject($usuario), $this->getRegisterMessage(), $email);
         $mailer->sendMessage();
         $this->generateRandomHash();
         $encryptedPass =  $this->encryptedPass($pass);
@@ -43,8 +43,8 @@ class RegisterModel {
         return md5($pass);
     }
 
-    private function getMessageSubject(){
-        return 'Bienvenido a Gaucho Rocket';
+    private function getMessageSubject($usuario){
+        return "Bienvenido $usuario a Gaucho Rocket";
     }
     private function getRegisterMessage(){
         return "Para terminar con la activación dirigirse al siguiente link http://localhost/Registro.php?".$this->hash;
