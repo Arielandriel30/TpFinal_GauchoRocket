@@ -32,12 +32,12 @@
                     <th>Partida</th>
                 </tr>
                 <!-- Templated para reemplazar el php-->
-                               {{Tours}}
+                               {{#Tours}}
                                <tr>
-                                   <td>"{{'day'}}"</td>
-                                   <td>"{{'duration'}}"</td>
-                                   <td>"{{'team'}}"</td>
-                                   <td>"{{'departure'}}"</td>
+                                   <td>{{day}}</td>
+                                   <td>{{duration}}</td>
+                                   <td>{{team}}</td>
+                                   <td>{{departure}}</td>
                                    <td> <a href='#' >Reservar</a> </td>
                                </tr>
                                {{/Tours}}
