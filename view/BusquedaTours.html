@@ -1,3 +1,4 @@
+{{> header}}
 <body>
 <link rel="stylesheet" href="assets/style.css">
 <header class="w3-container w3-padding" style="background-image: url('assets/img/img1.png')" id="myHeader">
@@ -21,7 +22,7 @@
 
         <!-- The Band Section -->
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
-            <h2 class="w3-wide">Vuelos SubOrbitales Encontrados/Disponibles</h2>
+            <h2 class="w3-wide">Tours Encontrados/Disponibles</h2>
 <!--            <caption>Tours Encontrados</caption>-->
             <table class="w3-table w3-striped w3-bordered">
                 <tr  class="w3-theme">
@@ -31,7 +32,7 @@
                     <th>Partida</th>
                 </tr>
                 <?php
-                 foreach ($data["SubOrbital"] as $vuelo){
+                 foreach ($data["Tours"] as $vuelo){
                      echo   "<tr>
                                  <td>" . $vuelo['day'] . "</td>
                                  <td>" . $vuelo['duration'] . "</td>
@@ -50,3 +51,4 @@
     </div>
 
 </div>
+{{> footer}}

@@ -1,6 +1,7 @@
+{{> header}}
 <body>
 <link rel="stylesheet" href="assets/style.css">
-<header class="w3-container w3-padding" style="background-image: url('assets/img/img1.png')" id="myHeader">
+<header class="w3-container w3-padding" style="background-image: url('public/img/img1.png')" id="myHeader">
 
     <div class="w3-center">
         <h4 class="texto1">GAUCHO ROCKET</h4>
@@ -70,7 +71,17 @@
                                   <td> <a href='#' >Reservar</a> </td>
                              </tr>";
                  }
-                 ?>
+                 */?-->
+                <?php
+
+                foreach ($data["usuario"] as $vuelo){
+                    echo   "<tr>
+                                <td>" . $vuelo['nameU'] . "</td>
+                                <td>" . $vuelo['passwordU'] . "</td>
+                                <td> Reproducir </td>
+                            </tr>";
+                }
+                ?>
 
             </table>
 
@@ -131,3 +142,4 @@
     </div>
 
 </div>
+{{> footer}}

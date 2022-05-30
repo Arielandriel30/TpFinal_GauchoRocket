@@ -2,6 +2,7 @@
 include_once("MySqlDatabase.php");
 include_once("Printer.php");
 include_once("Router.php");
+require_once("MustachePrinter.php");
 include_once("controller/LoginController.php");
 include_once("controller/LogueadoController.php");
 include_once("model/LoginModel.php");
@@ -10,6 +11,7 @@ include_once("controller/RegisterController.php");
 include_once("model/RegisterModel.php");
 include_once("controller/BusquedaController.php");
 include_once("model/BusquedaModel.php");
+require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 
 class Configuration
@@ -84,9 +86,7 @@ public function getRegisterModel()
              #echo 'estas conectado';
      }
 
-     private function getPrinter() {
-         return new Printer();
-     }
+
 
      private  function getConfiguration(){
          return parse_ini_file("configuration/conexiondatabase.ini");
@@ -97,7 +97,10 @@ public function getRouter()
 {
     return new Router($this, "getPrincipalController", "execute");
 }
-
+///////////mustache//////
+private function getPrinter() {
+    return new MustachePrinter("view");
+}
 
 }
 ?>
