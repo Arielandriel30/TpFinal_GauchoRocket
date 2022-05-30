@@ -12,15 +12,16 @@ class BusquedaController
      
     }
 
-    public function validate()
+    public function searchFlight()
     {
         $busqueda = $_POST["viaje"];
-        $result  = $this->busquedaModel->getSpaceFligh($busqueda);
+        var_dump($busqueda);
+        $result  = $this->busquedaModel->getSpaceFlight($busqueda);
         if (!$result){
             header("location:../index.php");
             exit();
         } else {
-            $data=array("usuario"=>$result);
+            $data=array("flight"=>$result);
             $this->printer->generateView('Busqueda.html',$data);
             //return $result;
         }

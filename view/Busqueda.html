@@ -36,53 +36,20 @@
                     <th>plate</th>
                     <th>Reservar</th>
                 </tr>
-
-                <!-- Templated para reemplazar el php
-                    {{canciones}}
+                  {{#flight}}
                     <tr>
-                        <td>"{{'code'}}"</td>
-                        <td>"{{'so.name'}}"</td>
-                        <td>"{{'sd.name'}}"</td>
-                        <td>"{{'departure_date'}}"</td>
-                        <td>"{{'departure_time'}}"</td>
-                        <td>"{{'duration'}}"</td>
-                        <td>"{{'side'}}"</td>
-                        <td>"{{'short_name'}}"</td>
-                        <td>"{{'plate'}}"</td>
-                        <td>"{{'Reservar'}}" </td>
-                    </tr>
-                    {{/canciones}}
-
-                    code, so.name, sd.name , departure_date, departure_time, duration, side, sft.short_name, plate
-                    -->
-                <?php
-
-                 foreach ($data["usuario"] as $vuelo){
-                     echo   "<tr>
-                                 <td>" . $vuelo['code'] . "</td>
-                                 <td>" . $vuelo['name'] . "</td>
-                                 <td>" . $vuelo['name'] . "</td>
-                                 <td>" . $vuelo['departure_date'] . "</td>
-                                 <td>" . $vuelo['departure_time'] . "</td>
-                                 <td>" . $vuelo['duration'] . "</td>
-                                 <td>" . $vuelo['side'] . "</td>
-                                 <td>" . $vuelo['short_name'] . "</td>
-                                 <td>" . $vuelo['plate'] . "</td>
+                                 <td>{{code}}</td>
+                                 <td>{{departure}}</td>
+                                 <td>{{destination}}</td>
+                                 <td>{{departure_date}}</td>
+                                 <td>{{departure_time}}</td>
+                                 <td>{{duration}}</td>
+                                 <td>{{side}}</td>
+                                 <td>{{short_name}}</td>
+                                 <td>{{plate}}</td>
                                   <td> <a href='#' >Reservar</a> </td>
-                             </tr>";
-                 }
-                 */?-->
-                <?php
-
-                foreach ($data["usuario"] as $vuelo){
-                    echo   "<tr>
-                                <td>" . $vuelo['nameU'] . "</td>
-                                <td>" . $vuelo['passwordU'] . "</td>
-                                <td> Reproducir </td>
-                            </tr>";
-                }
-                ?>
-
+                             </tr>
+                {{/flight}}
             </table>
 
             <table class="w3-table w3-striped w3-bordered">
