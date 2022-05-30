@@ -10,7 +10,7 @@ class LogueadoController {
     }
 
     public function execute() {
-        $this->printer->generateView('Logueado.php');
+        $this->printer->generateView('Logueado.html');
     }
 }
 

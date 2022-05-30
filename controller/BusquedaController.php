@@ -70,7 +70,7 @@ class BusquedaController
                  exit();
              } else {
                  $data=array("Tours"=>$result);
-                 $this->printer->generateView('BusquedaTours.php',$data);
+                 $this->printer->generateView('BusquedaTours.html',$data);
              //                 return $result;
          }
 

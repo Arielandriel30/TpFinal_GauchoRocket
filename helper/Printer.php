@@ -12,9 +12,9 @@ class Printer {
         $this->printer->generateView('songView.php', $data);
     }*/
     public function generateView($content, $data=[]) {
-        include_once('view/header.php');
+        include_once('view/header.mustache');
         include_once("view/" .$content);
-        include_once('view/footer.php');
+        include_once('view/footer.mustache');
     }
 }
 

@@ -1,3 +1,4 @@
+{{> header}}
 <body>
 <link rel="stylesheet" href="assets/style.css">
 <header class="w3-container w3-padding" style="background-image: url('assets/img/img1.png')" id="myHeader">
@@ -31,12 +32,12 @@
                     <th>Partida</th>
                 </tr>
                 <?php
-                 foreach ($data["Orbital"] as $vuelo){
+                 foreach ($data["SubOrbital"] as $vuelo){
                      echo   "<tr>
-                                 <td>" . $vuelo['day'] . "</td>
-                                 <td>" . $vuelo['duration'] . "</td>
-                                 <td>" . $vuelo['team'] . "</td>
-                                 <td>" . $vuelo['departure'] . "</td>
+                                 <td>" . $vuelo['Dia'] . "</td>
+                                 <td>" . $vuelo['Duracion'] . "</td>
+                                 <td>" . $vuelo['Equipos'] . "</td>
+                                 <td>" . $vuelo['Partida'] . "</td>
                                  <td> <a href='#' >Reservar</a> </td>
                              </tr>";
                  }
@@ -50,3 +51,4 @@
     </div>
 
 </div>
+{{> footer}}
