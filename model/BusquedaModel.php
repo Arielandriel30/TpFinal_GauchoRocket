@@ -8,31 +8,39 @@ class BusquedaModel{
     }
 
     public function  getOrbitales(){
-        return $this->database->query("SELECT * FROM usuario ");
+        return $this->database->query("SELECT sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure
+                                        FROM space_flight sf
+                                        JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
+                                        JOIN rocket r ON r.id = sf.rocket_id
+                                        JOIN rocket_type rt ON rt.id = r.rocket_type_id
+                                        JOIN station s ON s.id=sf.departure
+                                        WHERE sft.short_name='Suborbital'
+                                        GROUP BY sf.day,sf.duration, rt.name, s.name
+                                        ORDER BY sf.sort_day asc");
     }
 
     public function  getSubOrbitales(){
-
-        return $this->database->query("SELECT 'L' as Dia , '8hs' as Duracion,'calandria' as Equipos ,'BUE' as Partida, 'O1' as Id
-                                        union
-                                        select 'L' as Dia , '8hs' ,'calandria' as Equipos ,'BUE', 'O2'
-                                         union
-                                        select 'L' , '8hs','calandria'  ,'BUE', 'O3'
-                                          union
-                                        select 'L' , '8hs','Colibri'  ,'ANK', 'O4'");
+        return $this->database->query("SELECT sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure
+                                        FROM space_flight sf
+                                        JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
+                                        JOIN rocket r ON r.id = sf.rocket_id
+                                        JOIN rocket_type rt ON rt.id = r.rocket_type_id
+                                        JOIN station s ON s.id=sf.departure
+                                        WHERE sft.short_name='Suborbital'
+                                        GROUP BY sf.day,sf.duration, rt.name, s.name
+                                        ORDER BY sf.sort_day asc");
     }
 
     public function  getTours(){
-        /*SELECT 'L' as Dia , 5 as Duracion,'calandria' as Equipos Partida
-union
-select  'M' ,5,'
-        D	35días	Guanaco	BUE
-
- */
-
-        return $this->database->query("SELECT 'L' as Dia , '5dias' as Duracion,'calandria' as Equipos ,'BUE' as Partida
-                                        union
-                                        select 'D','35días','Guanaco','BUE'");
+        return $this->database->query("SELECT sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure
+                                        FROM space_flight sf
+                                        JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
+                                        JOIN rocket r ON r.id = sf.rocket_id
+                                        JOIN rocket_type rt ON rt.id = r.rocket_type_id
+                                        JOIN station s ON s.id=sf.departure
+                                        WHERE sft.short_name='Tour'
+                                        GROUP BY sf.day,sf.duration, rt.name, s.name
+                                        ORDER BY sf.sort_day asc");
     }
 
     public function  getCircuitos(){
@@ -45,7 +53,7 @@ select  'M' ,5,'
 
     public function  getSpaceFligh($station){
         return $this->database->query(sprintf("Select code, so.name, sd.name , departure_date, departure_time, duration, side, sft.short_name, plate
-        FROM space_flight sf
+        FROM flight_booking sf
         JOIN station so ON sf.from_id = so.id
         JOIN station sd ON sf.to_id = sd.id
         JOIN rocket r ON sf.rocket_id=r.id
