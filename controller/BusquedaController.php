@@ -21,7 +21,7 @@ class BusquedaController
             exit();
         } else {
             $data=array("usuario"=>$result);
-            $this->printer->generateView('Busqueda.php',$data);
+            $this->printer->generateView('Busqueda.html',$data);
             //return $result;
         }
 
@@ -29,7 +29,7 @@ class BusquedaController
 
     public function execute() {
 
-            $this->printer->generateView('Busqueda.php');
+            $this->printer->generateView('Busqueda.html');
     }
 
     public function getOrbitales()
@@ -44,7 +44,7 @@ class BusquedaController
              } else {
 
               $data=array("Orbital"=>$result);
-                 $this->printer->generateView('BusquedaOrbitales.php',$data);
+                 $this->printer->generateView('BusquedaOrbitales.html',$data);
              }
 
     }
@@ -57,7 +57,7 @@ class BusquedaController
                  exit();
              } else {
                  $data=array("SubOrbital"=>$result);
-                 $this->printer->generateView('BusquedaSubOrbitales.php',$data);
+                 $this->printer->generateView('BusquedaSubOrbitales.html',$data);
          }
     }
 
@@ -70,7 +70,7 @@ class BusquedaController
                  exit();
              } else {
                  $data=array("Tours"=>$result);
-                 $this->printer->generateView('BusquedaTours.php',$data);
+                 $this->printer->generateView('BusquedaTours.html',$data);
              //                 return $result;
          }
 

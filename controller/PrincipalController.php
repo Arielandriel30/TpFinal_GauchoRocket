@@ -10,7 +10,7 @@ class PrincipalController {
     }
 
     public function execute() {
-        $this->printer->generateView('Principal.php');
+        $this->printer->generateView('Principal.html');
     }
 }
 

@@ -16,7 +16,7 @@ class RegisterController
     }  
 
     public function execute() {
-      $this->printer->generateView('Registro.php');
+      $this->printer->generateView('Registro.html');
     }
 
     public function validate()

@@ -34,7 +34,7 @@ class LoginController
   }
 
   public function execute() {
-    $this->printer->generateView('Login.php');
+    $this->printer->generateView('Login.html');
 }
 }
 
