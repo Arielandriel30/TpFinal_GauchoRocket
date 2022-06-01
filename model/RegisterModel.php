@@ -21,20 +21,22 @@ class RegisterModel {
         $encryptedPass =  $this->encryptedPass($pass);
         $mailer = new Mailer($this->getMessageSubject($usuario), $this->getRegisterMessage(), $email);
         $mailer->sendMessage();
-        return $this->database->queryRegister("INSERT INTO `usuario`(nameU,passwordU,email,isAdminU,is_blocked,hash) VALUES 
+        return $this->database->queryExecute("INSERT INTO `usuario`(nameU,passwordU,email,isAdminU,is_blocked,hash) VALUES 
         ('$usuario', '$encryptedPass' ,'$email','$type', '1' , '$this->hash')");
     }
 
     public function  getRegisteredUser($usuario, $pass, $hash){
-        return $this->database->query("SELECT * FROM usuario 
-        WHERE nameU = '$usuario' AND passwordU = '$pass' AND hash = '$hash'");
+        $pass = $this->encryptedPass($pass);
+        $query = "SELECT * FROM usuario 
+        WHERE nameU = '$usuario' AND passwordU = '$pass' AND hash = '$hash'";
+        return $this->database->query($query);
     }
 
     public function  activatedUser($usuario, $pass, $hash){
-        $result = $this->database->queryRegister("UPDATE `usuario` SET is_blocked = 0
-         WHERE nameU = '$usuario' AND passwordU = '$pass' AND hash = '$hash'");
-        var_dump($result);
-        return $result;
+        $pass = $this->encryptedPass($pass);
+        $query = "UPDATE `usuario` SET is_blocked = 0
+         WHERE nameU = '$usuario' AND passwordU = '$pass' AND hash = '$hash'";
+        $this->database->queryExecute($query);
     }
 
     private function generateRandomHash(){

@@ -8,12 +8,12 @@ class RegisterController
     private $logueadoController;
     private $hash;
 
-    public function __construct($printer, $RegisterModel, $LogueadoController)
+    public function __construct($printer, $registerModel, $logueadoController)
     {
 
       $this->printer = $printer;
-      $this->registerModel = $RegisterModel;
-      $this->logueadoController =  $LogueadoController;
+      $this->registerModel = $registerModel;
+      $this->logueadoController =  $logueadoController;
     }
 
     public function execute() {
@@ -39,7 +39,6 @@ class RegisterController
     public function verify(){
         $hash = $_GET["hash"] ?? "";
         $data=array("hash"=>$hash);
-        /*var_dump($data);*/
         $this->printer->generateView('Activar.html', $data);
     }
 
@@ -47,9 +46,8 @@ class RegisterController
         $usuario = $_POST["usuario"];
         $pass = $_POST["pass"];
         $hash = $_POST["hash"];
-        var_dump($hash);
         $result  = $this->registerModel->getRegisteredUser($usuario,$pass,$hash);
-        if (!$result){
+        if ($result){
             $this->registerModel->activatedUser($usuario,$pass,$hash);
             $this->logueadoController->execute();
             exit();

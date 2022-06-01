@@ -27,7 +27,7 @@ class MySqlDatabase {
         return mysqli_fetch_all($result , MYSQLI_ASSOC);
     }
 
-    public function queryRegister($sql) {
+    public function queryExecute($sql) {
         $result = mysqli_query($this->conn, $sql);
         
     }
