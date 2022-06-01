@@ -37,8 +37,10 @@ class RegisterController
     }
 
     public function verify(){
-        $hash = isset($_GET["hash"])??$_GET["hash"];
-        $this->printer->generateView('Activar.html', $hash);
+        $hash = $_GET["hash"] ?? "";
+        $data=array("hash"=>$hash);
+        /*var_dump($data);*/
+        $this->printer->generateView('Activar.html', $data);
     }
 
     public function activate(){
