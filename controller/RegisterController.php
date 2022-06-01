@@ -4,31 +4,31 @@ class RegisterController
 {
 
     private $printer;
-    private $RegisterModel;
-    private $LogueadoController;
+    private $registerModel;
+    private $logueadoController;
+    private $hash;
 
     public function __construct($printer, $RegisterModel, $LogueadoController)
     {
 
       $this->printer = $printer;
-      $this->RegisterModel = $RegisterModel;
-      $this->LogueadoController =  $LogueadoController;
-    }  
+      $this->registerModel = $RegisterModel;
+      $this->logueadoController =  $LogueadoController;
+    }
 
     public function execute() {
       $this->printer->generateView('Registro.html');
     }
 
-    public function validate()
+    public function register()
     {
     $usuario = $_POST["usuario"];
     $pass = $_POST["pass"];
     $type = $_POST["type"];
     $email = $_POST["email"];
-    $result  = $this->RegisterModel->getUsuario($usuario);
+    $result  = $this->registerModel->getUsuario($usuario);
     if (!$result){
-        $this->RegisterModel->getRegister($usuario, $pass, $type, $email);
-        $this->LogueadoController->execute();
+        $this->registerModel->getRegister($usuario, $pass, $type, $email);
         exit();
     } else {
       $this->execute();
@@ -36,14 +36,20 @@ class RegisterController
     }
     }
 
-    public function activate($hash){
-        $hash = $hash;
+    public function verify(){
+        $hash = isset($_GET["hash"])??$_GET["hash"];
+        $this->printer->generateView('Activar.html', $hash);
+    }
+
+    public function activate(){
         $usuario = $_POST["usuario"];
         $pass = $_POST["pass"];
-        $result  = $this->RegisterModel->getRegisteredUser($usuario,$pass,$hash);
+        $hash = $_POST["hash"];
+        var_dump($hash);
+        $result  = $this->registerModel->getRegisteredUser($usuario,$pass,$hash);
         if (!$result){
-            $this->RegisterModel->activatedUser($usuario,$pass,$hash);
-            $this->LogueadoController->execute();
+            $this->registerModel->activatedUser($usuario,$pass,$hash);
+            $this->logueadoController->execute();
             exit();
         } else {
             $this->execute();

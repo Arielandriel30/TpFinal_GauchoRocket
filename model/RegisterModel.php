@@ -17,10 +17,10 @@ class RegisterModel {
     }
 
     public function  getRegister($usuario, $pass, $type, $email){
-        $mailer = new Mailer($this->getMessageSubject($usuario), $this->getRegisterMessage(), $email);
-        $mailer->sendMessage();
         $this->generateRandomHash();
         $encryptedPass =  $this->encryptedPass($pass);
+        $mailer = new Mailer($this->getMessageSubject($usuario), $this->getRegisterMessage(), $email);
+        $mailer->sendMessage();
         return $this->database->queryRegister("INSERT INTO `usuario`(nameU,passwordU,email,isAdminU,is_blocked,hash) VALUES 
         ('$usuario', '$encryptedPass' ,'$email','$type', '1' , '$this->hash')");
     }
@@ -31,8 +31,10 @@ class RegisterModel {
     }
 
     public function  activatedUser($usuario, $pass, $hash){
-        return $this->database->queryRegister("UPDATE `usuario` SET is_blocked = 0
+        $result = $this->database->queryRegister("UPDATE `usuario` SET is_blocked = 0
          WHERE nameU = '$usuario' AND passwordU = '$pass' AND hash = '$hash'");
+        var_dump($result);
+        return $result;
     }
 
     private function generateRandomHash(){
@@ -47,7 +49,7 @@ class RegisterModel {
         return "Bienvenido $usuario a Gaucho Rocket";
     }
     private function getRegisterMessage(){
-        return "Para terminar con la activación dirigirse al siguiente link http://localhost/Registro.php?".$this->hash;
+        return "Para terminar con la activación dirigirse al siguiente link http://localhost/register/verify?hash=".$this->hash;
     }
 
 
