@@ -8,13 +8,13 @@ class LoginController
     private $logueadoController;
    
 
-  public function __construct($loginModel, $printer, $logueadoController)
+  public function __construct($loginModel, $printer, $logueadoController, $session)
   {
 
     $this->loginModel = $loginModel;
     $this->printer = $printer;
     $this->logueadoController = $logueadoController;
-    
+    $this->session = $session;
 
   }  
 
@@ -29,6 +29,7 @@ class LoginController
       $this->execute();
       exit();
   } else {
+    $this->session->execute("usuario", $usuario);
     $this->logueadoController->execute();
   }
   }

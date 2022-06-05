@@ -2,6 +2,7 @@
 include_once("MySqlDatabase.php");
 include_once("Printer.php");
 include_once("Router.php");
+include_once("Session.php");
 require_once("MustachePrinter.php");
 include_once("controller/LoginController.php");
 include_once("controller/LogueadoController.php");
@@ -21,7 +22,8 @@ class Configuration
         return new LoginController (
            $this->getLoginModel(),
            $this->getPrinter(),
-           $this->getLogueadoController()
+           $this->getLogueadoController(),
+           $this->getSession()
         );
     }
 
@@ -31,14 +33,16 @@ class Configuration
     }
 
     public function getLogueadoController() {
-        return new LogueadoController($this->getPrinter());
+        return new LogueadoController($this->getPrinter(),
+                                      $this->getSession());
 
     }
 
 //////////////////////
 
     public function getPrincipalController() {
-        return new PrincipalController($this->getPrinter());
+        return new PrincipalController($this->getPrinter(),
+                                       $this->getSession());
 
     }
     ////////////////busqueda/////////
@@ -63,7 +67,8 @@ public function getRegisterController()
 
        $this->getPrinter(),
        $this->getRegisterModel(),
-       $this->getLogueadoController()
+       $this->getLogueadoController(),
+       $this->getSession()
     );
 }
 
@@ -100,6 +105,10 @@ public function getRouter()
 ///////////mustache//////
 private function getPrinter() {
     return new MustachePrinter("view");
+}
+///////////Session//////
+public function getSession() {
+    return new Session();
 }
 
 }
