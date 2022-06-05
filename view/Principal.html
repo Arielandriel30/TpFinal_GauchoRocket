@@ -15,8 +15,13 @@
 <!--<form action="index.php?controller=busqueda&method=validate" class="desplazar2 w3-margin"  method="POST">-->
 <form action="/busqueda/searchFlight" class="desplazar2 w3-margin"  method="POST">
 
-  <div class="w3-third w3-margin">
-    <input class="w3-input w3-border" name="viaje" type="text"  placeholder="Busca tu próximo viaje">
+  <h3>Busca tu próximo viaje</h3>
+
+  <div class="w3-margin">
+
+    <input class=" w3-border" name="viajeOrigen" type="text"  placeholder="Origen de Viajes" required>
+    <input class=" w3-border" name="viajeDestino" type="text"  placeholder="Destino de Viaje" required>
+    <input class=" w3-border" name="dateViaje" type="date" required>
   </div>
   <div class="w3-third w3-margin">
     <input class="w3-btn w3-large w3-food-spearmint w3-round-large  w3-hover-pink" style="width:100px; font-weight:900;" type="submit" placeholder="Buscar">
@@ -25,9 +30,9 @@
 </div>
 
 <div class="w3-row-padding w3-center w3-margin-top">
-<div  onclick="location.href='/busqueda/getOrbitales';" style="cursor:pointer;"class="w3-third">
+<div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
-  <h3>VIAJES ORBITALES</h3><br>
+  <h3  onclick="location.href='/busqueda/getCircuitos';" style="cursor:pointer;" >VIAJES ORBITALES</h3><br>
   <i class="fa fa-space-shuttle desplazar w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
   <p>Chequeo médico</p>
   <p>Hoteleria espacial</p>
@@ -36,9 +41,9 @@
   </div>
 </div>
 
-<div  onclick="location.href='/busqueda/getSubOrbitales';" style="cursor:pointer;"class="w3-third">
+<div  class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
-  <h3>VIAJES SUB-ORBITALES</h3><br>
+  <h3 onclick="location.href='/busqueda/getSubOrbitales';" style="cursor:pointer;">VIAJES SUB-ORBITALES</h3><br>
   <i class="fa fa-globe w3-margin-bottom rotacion w3-text-theme" style="font-size:120px"></i>
   <p>Chequeo médico</p>
   <p>Hoteleria espacial</p>
@@ -47,9 +52,9 @@
   </div>
 </div>
 
-<div  onclick="location.href='/busqueda/getTours';" style="cursor:pointer;" class="w3-third">
+<div  class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
-  <h3>TOUR</h3><br>
+  <h3  onclick="location.href='/busqueda/getTours';" style="cursor:pointer;">TOUR</h3><br>
   <i class="fa fa-space-shuttle desplazar w3-margin-bottom w3-text-theme" style="font-size:120px"></i>
   <p>Chequeo médico</p>
   <p>Hoteleria espacial</p>

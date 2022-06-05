@@ -14,11 +14,18 @@ class BusquedaController
 
     public function searchFlight()
     {
-        $busqueda = $_POST["viaje"];
-        var_dump($busqueda);
-        $result  = $this->busquedaModel->getSpaceFlight($busqueda);
+        $busquedaOrigen = $_POST["viajeOrigen"];
+        $busquedaDestino = $_POST["viajeDestino"];
+
+        $input_date=$_POST['dateViaje'];
+//        var_dump($input_date);
+        $date=date("Y-m-d",strtotime($input_date));
+//        var_dump($date);
+        $result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,$date);
+        /*var_dump($result);*/
         if (!$result){
-            header("location:../index.php");
+                header("location:../index.php");
+        /*    $this->printer->generateView('Busqueda.html');*/
             exit();
         } else {
             $data=array("flight"=>$result);
@@ -62,6 +69,19 @@ class BusquedaController
          }
     }
 
+    public function getCircuitos()
+    {
+        $result  = $this->busquedaModel-> getCircuitos();
+
+        if (!$result){
+            header("location:../index.php");
+            exit();
+        } else {
+            $data=array("Orbital"=>$result);
+            $this->printer->generateView('BusquedaOrbitales.html',$data);
+        }
+    }
+
     public function getTours()
     {
 
@@ -72,7 +92,7 @@ class BusquedaController
              } else {
                  $data=array("Tours"=>$result);
                  $this->printer->generateView('BusquedaTours.html',$data);
-             //                 return $result;
+
          }
 
     }
