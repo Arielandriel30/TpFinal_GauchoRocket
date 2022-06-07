@@ -13,8 +13,11 @@ class PrincipalController {
 
     public function execute() {
         $this->printer->generateView('Principal.html');
-        $this->session->sessionDestroy();
         
+    }
+    public function logOut() {
+        $this->session->sessionDestroy();
+        $this->printer->generateView('Principal.html');
     }
 }
 
