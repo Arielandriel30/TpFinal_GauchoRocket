@@ -12,10 +12,15 @@ class LogueadoController {
     }
 
     public function execute() {
-        $user = $this->session->sessionShow("usuario");
-        $data = array("user"=>$user);
-        $this->printer->generateView('Logueado.html', $data);
-    }
+        if ($this->session->sessionShow('usuario') == null) {
+           
+            header("location:../login");
+        }else {
+            $user = $this->session->sessionShow('usuario');
+            $data = array("user"=>$user);
+            $this->printer->generateView('Logueado.html', $data); 
+        }
 }
 
+}
 ?>
