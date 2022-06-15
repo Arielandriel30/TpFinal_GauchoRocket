@@ -14,7 +14,7 @@ class LogueadoController {
     public function execute() {
         if ($this->session->sessionShow('usuario') == null) {
            
-            header("location:../login");
+            header("location:/login");
         }else {
             $user = $this->session->sessionShow('usuario');
             $data = array("user"=>$user);

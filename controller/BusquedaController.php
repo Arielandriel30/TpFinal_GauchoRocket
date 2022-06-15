@@ -24,7 +24,7 @@ class BusquedaController
         $result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,$date);
         /*var_dump($result);*/
         if (!$result){
-                header("location:../index.php");
+                header("location:/");
         /*    $this->printer->generateView('Busqueda.html');*/
             exit();
         } else {
@@ -47,7 +47,7 @@ class BusquedaController
              $result  = $this->busquedaModel->getOrbitales();
 
              if (!$result){
-                 header("location:../index.php");
+                 header("location:/");
                  exit();
              } else {
 
@@ -61,7 +61,7 @@ class BusquedaController
              $result  = $this->busquedaModel-> getSubOrbitales();
 
              if (!$result){
-                 header("location:../index.php");
+                 header("location:/");
                  exit();
              } else {
                  $data=array("SubOrbital"=>$result);
@@ -74,7 +74,7 @@ class BusquedaController
         $result  = $this->busquedaModel-> getCircuitos();
 
         if (!$result){
-            header("location:../index.php");
+            header("location:/");
             exit();
         } else {
             $data=array("Orbital"=>$result);
@@ -87,7 +87,7 @@ class BusquedaController
 
              $result  = $this->busquedaModel->getTours();
              if (!$result){
-                 header("location:../index.php");
+                 header("location:/");
                  exit();
              } else {
                  $data=array("Tours"=>$result);
