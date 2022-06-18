@@ -4,14 +4,23 @@
 class LogueadoController {
 
     private $printer;
+    private $session;
 
-    public function __construct($printer) {
+    public function __construct($printer, $session) {
         $this->printer = $printer;
+        $this->session = $session;
     }
 
     public function execute() {
-        $this->printer->generateView('Logueado.html');
-    }
+        if ($this->session->sessionShow('usuario') == null) {
+           
+            header("location:/login");
+        }else {
+            $user = $this->session->sessionShow('usuario');
+            $data = array("user"=>$user);
+            $this->printer->generateView('Logueado.html', $data); 
+        }
 }
 
+}
 ?>

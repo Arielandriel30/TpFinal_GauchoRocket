@@ -7,13 +7,15 @@ class RegisterController
     private $registerModel;
     private $logueadoController;
     private $hash;
+    private $session;
 
-    public function __construct($printer, $registerModel, $logueadoController)
+    public function __construct($printer, $registerModel, $logueadoController, $session)
     {
 
       $this->printer = $printer;
       $this->registerModel = $registerModel;
       $this->logueadoController =  $logueadoController;
+      $this->session = $session;
     }
 
     public function execute() {
@@ -49,6 +51,7 @@ class RegisterController
         $result  = $this->registerModel->getRegisteredUser($usuario,$pass,$hash);
         if ($result){
             $this->registerModel->activatedUser($usuario,$pass,$hash);
+            $this->session->execute("usuario", $usuario);
             $this->logueadoController->execute();
             exit();
         } else {
@@ -57,6 +60,8 @@ class RegisterController
         }
     }
 }
+
+
 
 
 
