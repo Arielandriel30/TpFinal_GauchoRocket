@@ -12,6 +12,8 @@ include_once("controller/RegisterController.php");
 include_once("model/RegisterModel.php");
 include_once("controller/BusquedaController.php");
 include_once("model/BusquedaModel.php");
+include_once ("controller/ReservarController.php");
+include_once ("model/ReservarModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 
@@ -38,8 +40,8 @@ class Configuration
 
     }
 
-//////////////////////
 
+    ////////////////Principal/index/////////
     public function getPrincipalController() {
         return new PrincipalController($this->getPrinter(),
                                        $this->getSession());
@@ -78,6 +80,16 @@ public function getRegisterModel()
 }
 
 
+////////////////Principal/index/////////
+    public function getReservarController() {
+        return new ReservarController($this->getPrinter(),
+                                        $this->getReservarModel());
+    }
+
+    private function getReservarModel()
+    {
+        return new ReservarModel($this->getDatabase());
+    }
 
 ///////////////////////conexion//////////
     private function getDatabase() {
@@ -90,8 +102,6 @@ public function getRegisterModel()
             $configDatabase_ini["dbname"]);
              #echo 'estas conectado';
      }
-
-
 
      private  function getConfiguration(){
          return parse_ini_file("configuration/conexiondatabase.ini");
