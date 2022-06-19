@@ -9,7 +9,9 @@ include_once("controller/LogueadoController.php");
 include_once("model/LoginModel.php");
 include_once("controller/PrincipalController.php");
 include_once("controller/RegisterController.php");
+include_once("controller/CompraController.php");
 include_once("model/RegisterModel.php");
+include_once("model/CompraModel.php");
 include_once("controller/BusquedaController.php");
 include_once("model/BusquedaModel.php");
 include_once ("controller/ReservarController.php");
@@ -90,7 +92,16 @@ public function getRegisterModel()
     {
         return new ReservarModel($this->getDatabase());
     }
+////////////////Compra/////////
+    public function getCompraController() {
+        return new CompraController($this->getPrinter(),
+            $this->getCompraModel());
+    }
 
+    private function getCompraModel()
+    {
+        return new CompraModel($this->getDatabase());
+    }
 ///////////////////////conexion//////////
     private function getDatabase() {
         $configDatabase_ini = $this->getConfiguration();
