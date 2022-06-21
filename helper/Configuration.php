@@ -3,6 +3,7 @@ include_once("MySqlDatabase.php");
 include_once("Printer.php");
 include_once("Router.php");
 include_once("Session.php");
+include_once ("Qr.php");
 require_once("MustachePrinter.php");
 include_once("controller/LoginController.php");
 include_once("controller/LogueadoController.php");
@@ -19,6 +20,7 @@ include_once ("model/ReservarModel.php");
 include_once ("controller/TurnoController.php");
 include_once ("model/TurnoModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
+include_once ("qr/phpqrcode/qrlib.php");
 
 
 class Configuration
@@ -98,7 +100,7 @@ public function getRegisterModel()
 ////////////////Compra/////////
     public function getCompraController() {
         return new CompraController($this->getPrinter(),
-            $this->getCompraModel());
+            $this->getCompraModel(),$this->getQr());
     }
 
     private function getCompraModel()
@@ -131,7 +133,11 @@ public function getRegisterModel()
      private  function getConfiguration(){
          return parse_ini_file("configuration/conexiondatabase.ini");
      }
-
+////////qr//////
+    public function getQr()
+    {
+        return new Qr();
+    }
 ////////Router//////
 public function getRouter()
 {
