@@ -14,4 +14,8 @@ class ReservarModel
     {
         $this->database = $getDatabase;
     }
+
+    public  function  getNivelMedico(){
+        return 1;
+    }
 }
