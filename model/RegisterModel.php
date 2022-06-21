@@ -19,8 +19,7 @@ class RegisterModel {
     public function  getRegister($usuario, $pass, $type, $email){
         $this->generateRandomHash();
         $encryptedPass =  $this->encryptedPass($pass);
-        $mailer = new Mailer($this->getMessageSubject($usuario), $this->getRegisterMessage(), $email);
-        $mailer->sendMessage();
+        $this->sendMailer($usuario, $this->getRegisterMessage(), $email);
         return $this->database->queryExecute("INSERT INTO `usuario`(nameU,passwordU,email,isAdminU,is_blocked,hash) VALUES 
         ('$usuario', '$encryptedPass' ,'$email','$type', '1' , '$this->hash')");
     }
@@ -39,6 +38,30 @@ class RegisterModel {
         $this->database->queryExecute($query);
     }
 
+    public function  updatePassword($usuario, $pass, $hash){
+        $pass = $this->encryptedPass($pass);
+        $query = "UPDATE `usuario` SET is_blocked = 0, passwordU = '$pass'
+         WHERE nameU = '$usuario' AND hash = '$hash'";
+        $this->database->queryExecute($query);
+    }
+
+    public function resetPassword($usuario){
+        $user = $this->getUsuario($usuario);
+        if($user){
+            $userID = $user[0]["idUsuarios"];
+            $this->generateRandomHash();
+            $mailer = new Mailer($this->getMessageSubject($usuario), $this->getResetPasswordMessage(), $user[0]["email"]);
+            $mailer->sendMessage();
+            $query = "UPDATE `usuario` SET is_blocked = 1, hash = '$this->hash' WHERE idUsuarios = '$userID'";
+            $this->database->queryExecute($query);
+        }
+    }
+
+    public function sendMailer($usuario, $message,$email){
+        $mailer = new Mailer($this->getMessageSubject($usuario), $message, $email);
+        $mailer->sendMessage();
+    }
+
     private function generateRandomHash(){
         $this->hash = bin2hex(random_bytes(18));
     }
@@ -52,6 +75,10 @@ class RegisterModel {
     }
     private function getRegisterMessage(){
         return "Para terminar con la activación dirigirse al siguiente link http://localhost/register/verify?hash=".$this->hash;
+    }
+
+    private function getResetPasswordMessage(){
+        return "Para terminar obtener una nueva contraseña dirigirse al siguiente link http://localhost/register/newPassword?hash=".$this->hash;
     }
 
 

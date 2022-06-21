@@ -59,6 +59,40 @@ class RegisterController
             exit();
         }
     }
+
+    public function resetPassword(){
+        $usuario = $_POST["usuario"]?? null;
+        if($usuario!=null){
+            $this->registerModel->resetPassword($usuario);
+            $this->printer->generateView('Principal.html');
+            exit();
+        }
+        $this->printer->generateView('ResetPassword.html');
+        exit();
+    }
+
+    public function newPassword(){
+        $hash = $_GET["hash"] ?? "";
+        $data=array("hash"=>$hash);
+        $this->printer->generateView('NewPassword.html', $data);
+    }
+
+    public function updatePassword(){
+        $usuario = $_POST["usuario"]?? null;
+        $pass = $_POST["pass"]?? null;
+        $pass1 = $_POST["pass1"]?? null;
+        $hash = $_POST["hash"]?? null;
+        if ($usuario!=null && $pass!=null && $hash!=null){
+            $this->registerModel->updatePassword($usuario,$pass,$hash);
+            $this->session->execute("usuario", $usuario);
+            $this->logueadoController->execute();
+            exit();
+        } else {
+            $this->execute();
+            exit();
+        }
+    }
+
 }
 
 

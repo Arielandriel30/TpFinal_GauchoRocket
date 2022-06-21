@@ -22,10 +22,10 @@ class Mailer
         $this->mail = new PHPMailer(true);
         $this->mail->isSMTP();
         $this->mail->SMTPAuth = true;
-        // $this->mail->SMTPDebug  = true;
+        //$this->mail->SMTPDebug  = true;
         $this->mail->Host = $mailerConfiguration["hostName"];
         $this->mail->Username = $mailerConfiguration["userName"];
-        $this->mail->Password = $mailerConfiguration["password"];
+        $this->mail->Password = $mailerConfiguration["passwordApp"];
         $this->mail->Port = $mailerConfiguration["port"];
         $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $this->mail->setFrom($mailerConfiguration["fromMail"], $mailerConfiguration["fromName"]);
