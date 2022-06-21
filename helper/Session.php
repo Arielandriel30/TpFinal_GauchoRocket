@@ -30,11 +30,16 @@ class Session
     return null;
   }
 
+
   public function sessionDestroy()
   {
       session_destroy();
   }
 
+ /* public function __destruct()
+  {
+        session_destroy();
+    }*/
 }
 
 

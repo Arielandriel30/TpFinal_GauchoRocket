@@ -31,6 +31,7 @@ class LoginController
   } else {
     
     $this->session->execute('usuario', $usuario);
+    $this->session->execute('resultLogueado', $result);
     //header("location:../logueado");
     $this->logueadoController->execute();
     
