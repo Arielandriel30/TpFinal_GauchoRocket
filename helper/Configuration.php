@@ -16,6 +16,8 @@ include_once("controller/BusquedaController.php");
 include_once("model/BusquedaModel.php");
 include_once ("controller/ReservarController.php");
 include_once ("model/ReservarModel.php");
+include_once ("controller/TurnoController.php");
+include_once ("model/TurnoModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 
 
@@ -101,6 +103,17 @@ public function getRegisterModel()
     private function getCompraModel()
     {
         return new CompraModel($this->getDatabase());
+    }
+
+    ////////////////Turno/////////
+    public function getTurnoController() {
+        return new TurnoController($this->getPrinter(),
+            $this->getTurnoModel());
+    }
+
+    private function getTurnoModel()
+    {
+        return new TurnoModel($this->getDatabase());
     }
 ///////////////////////conexion//////////
     private function getDatabase() {
