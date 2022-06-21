@@ -15,7 +15,9 @@ class ReservarModel
         $this->database = $getDatabase;
     }
 
-    public  function  getNivelMedico(){
-        return 1;
+    public  function  getNivelMedico(int $id){
+        return $this->database->query("SELECT id_flight_level 
+                                            FROM usuario
+                                        where idUsuarios='$id'");
     }
 }

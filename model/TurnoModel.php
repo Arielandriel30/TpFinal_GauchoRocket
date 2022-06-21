@@ -16,4 +16,7 @@ class TurnoModel
         return $this->database->query("select * FROM medical_center ");
     }
 
+    private function generateRandomLevel(){
+        return rand(1,3);
+    }
 }
