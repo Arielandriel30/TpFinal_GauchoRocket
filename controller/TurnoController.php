@@ -5,9 +5,10 @@ class TurnoController
     private $printer;
     private $TurnoModel;
 
-    public function __construct($printer, $TurnoModel){
+    public function __construct($printer, $TurnoModel,$session){
         $this->printer = $printer;
         $this->TurnoModel = $TurnoModel;
+        $this->session = $session;
     }
     
     public function execute() {
@@ -22,14 +23,45 @@ class TurnoController
     }
 
     public function validate(){
-        var_dump($_POST);
         $centroMedicoElejido=$_POST["centroMedico"];
         $diaTurno = $_POST["dateTurno"];
         $horaTurno = $_POST["timeTurno"];
-        var_dump($centroMedicoElejido);
-        var_dump($diaTurno);
-        var_dump($horaTurno);
-        $data=array("medical"=>$centroMedicoElejido);
+        $turnosEstablecidos=$this->TurnoModel->getTurnosEstablecidos($centroMedicoElejido, $diaTurno);
+        $capacidadmaximaAlDia=$this->TurnoModel->getCapacidadCentroMedico($centroMedicoElejido);
+    /*  var_dump($turnosEstablecidos[0]["count(distinct id_usuario)"]);
+        var_dump($capacidadmaximaAlDia[0]["size"]);
+        var_dump($turnosEstablecidos[0]["count(distinct id_usuario)"]<$capacidadmaximaAlDia[0]["size"]);*/
+        if($turnosEstablecidos[0]["count(distinct id_usuario)"]<$capacidadmaximaAlDia[0]["size"]){
+            $user = $this->session->sessionShow('resultLogueado');
+            $idUser= $user[0]["idUsuarios"];
+            $this->generarTurno($centroMedicoElejido,  $diaTurno, $horaTurno ,$idUser);
+            $this->RealizarChequeo($idUser);
+            //header("location:/");
+            exit();
+        }
+        else{
+            $result  = $this->TurnoModel->getCentrosMedicos();
+            $data=array("medical"=>$result,"Turno Error"=>"No existe la capacidad para este centro medico: -".$centroMedicoElejido."-, en las fechas indicadas");
+            $this->printer->generateView('Turno.html',$data);
+        }
+
+        //header("location:/");
+
+    }
+
+    private function generarTurno($centroMedicoElejido, $diaTurno, $horaTurno, $idUser)
+    {
+        $this->TurnoModel->setTurno($centroMedicoElejido, $diaTurno, $horaTurno, $idUser);
+    }
+
+    private function RealizarChequeo($idUser)
+    {   $resultadoChequeo=$this->generateRandomLevel();
+        $this->TurnoModel->GuardarResultadoDelChequeo($idUser,$resultadoChequeo);
+        $result  = $this->TurnoModel->getCentrosMedicos();
+        $data=array("medical"=>$result,"Nivel medico"=>"Usted Obtibo el siguiente nivel medico: ".$resultadoChequeo."-");
         $this->printer->generateView('Turno.html',$data);
+    }
+    private function generateRandomLevel(){
+        return rand(1,3);
     }
 }

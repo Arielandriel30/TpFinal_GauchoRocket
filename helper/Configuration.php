@@ -111,7 +111,8 @@ public function getRegisterModel()
     ////////////////Turno/////////
     public function getTurnoController() {
         return new TurnoController($this->getPrinter(),
-            $this->getTurnoModel());
+                                    $this->getTurnoModel(),
+                                    $this->getSession());
     }
 
     private function getTurnoModel()

@@ -27,8 +27,7 @@ class ReservarController
             $nivelMedico= $this->ReservaModel->getNivelMedico($user[0]["idUsuarios"]);
             if(!$nivelMedico){
                  $this->generalTurno();
-                 $this->RealizarChequeo();
-         /*  exit(0);*/
+            /*exit(0);*/
             }
             else{
              $this->validarNivelMedico($nivelMedico);
