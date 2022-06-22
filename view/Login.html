@@ -1,16 +1,18 @@
 {{> header}}
 <body class="w3-container w3-padding" style="background-image: url('../public/img/img1.png')">
-<header class="w3-container desplazar w3-padding" style="background-image: url('../public/img/img1.png')">Ingresar</header>
+
 <link rel="stylesheet" href="public/styleprincipal.css" type="text/css">
 <div>
-<form id="form" action="/login/validate"  method="POST" class="topBefore desplazar">
+	<h2 class="w3-container w3-center desplazar w3-padding texto1" style="background-image: url('../public/img/img1.png')">INGRESAR</h2>
+<form id="form" action="/login/validate"  method="POST" class="topBefore desplazar w3-center">
 
 		 <input id="emaillogin" type="text" placeholder="Usuario" required name="usuario">
 		 <input id="messagelogin" name="pass" type="password" required placeholder="CONTRASEÑA"></input>
          
-         <input id="submit"  type="submit" value="INGRESAR"><br>
+         <input id="submit"  type="submit" value="INGRESAR">
 
-	    <h4  onclick="location.href='/register/resetPassword';" style="cursor:pointer;" >HE OLVIDADO MI CONTRASEÑA</h4><br>
+	    <h5 class="parpadeo" onclick="location.href='/register/resetPassword';" style="cursor:pointer;" >HE OLVIDADO MI CONTRASEÑA</h5>
 </form>
 </div>
+</body>
 {{> footer}}

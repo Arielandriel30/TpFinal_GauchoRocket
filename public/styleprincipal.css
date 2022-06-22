@@ -9,6 +9,12 @@ body{
     font-family: 'Tomorrow', sans-serif;
 }
 
+.texto1{
+  
+  font-family: 'Tomorrow', sans-serif;
+
+}
+
 footer{
     margin-top: 20px;
 }
@@ -22,6 +28,22 @@ footer p {
 }
 
 /* animaciones*/
+
+.parpadeo {
+  animation: parpadeo-animation 1s steps(5, start) infinite;
+  -webkit-animation: parpadeo-animation 1s steps(5, start) infinite;
+}
+@keyframes parpadeo-animation {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes parpadeo-animation {
+  to {
+    visibility: hidden;
+  }
+}
+
 .desplazar{
     -webkit-animation-name:  moverIzquierda; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 4s; /* Chrome, Safari, Opera */
@@ -170,7 +192,7 @@ header {
   
 }
 
-input, select {
+input, select{
     font-family: 'Tomorrow', sans-serif;
   font-size: 0.875em;
   width: 400px;
