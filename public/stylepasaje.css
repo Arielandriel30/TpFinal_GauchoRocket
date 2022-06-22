@@ -1,0 +1,20 @@
+body {
+    background-color: #000000;
+}
+
+.bg-blue {
+    background: blue;
+}
+
+.dotted-line {
+    border: 1px dashed #fff;
+}
+
+.img-fluid {
+    width: 114px;
+    height: auto;
+}
+
+.bg-top {
+    background: #8E24AA;
+}
