@@ -19,9 +19,11 @@ class CompraController
         $this->printer->generateView('Compra.html');
     }
     public function confirmarCompra() {
-        $valorDevuelto= $this->qr->crearQr('primer qr');
-        $data=array("qr"=>$valorDevuelto);
-        $this->printer->generateView('Confirmacion.html',$data);
+
+        $this->printer->generateView('Confirmacion.html');
+    }
+    public function generarQr() {
+        $this->qr->crearQr('Recibo de pago $ 8500 vuelo gaucho rcoket SA.');
     }
 
 }

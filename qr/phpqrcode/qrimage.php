@@ -39,9 +39,9 @@
                     ImagePng($image, $filename);
                     header("Content-type: image/png");
                     ImagePng($image);
-                }//else{
-                    //ImagePng($image, $filename);
-               // }
+                }else{
+                    ImagePng($image, $filename);
+                }
             }
             
             ImageDestroy($image);
