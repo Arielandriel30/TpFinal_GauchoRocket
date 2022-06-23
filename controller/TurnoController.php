@@ -4,8 +4,9 @@ class TurnoController
 {
     private $printer;
     private $TurnoModel;
+    private $session;
 
-    public function __construct($printer, $TurnoModel,$session){
+    public function __construct($printer, $TurnoModel, $session){
         $this->printer = $printer;
         $this->TurnoModel = $TurnoModel;
         $this->session = $session;
