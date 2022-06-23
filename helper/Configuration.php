@@ -100,7 +100,8 @@ public function getRegisterModel()
 ////////////////Compra/////////
     public function getCompraController() {
         return new CompraController($this->getPrinter(),
-            $this->getCompraModel(),$this->getQr());
+            $this->getCompraModel(),$this->getQr(),
+            $this->getSession());
     }
 
     private function getCompraModel()

@@ -5,18 +5,26 @@ class CompraController
     private $printer;
     private $CompraModel;
     private $qr;
+    private $session;
 
 
-    public function __construct($printer, $CompraModel,$qr)
+    public function __construct($printer, $CompraModel,$qr, $session)
     {
         $this->printer = $printer;
         $this->CompraModel = $CompraModel;
         $this->qr=$qr;
+        $this->session=$session;
     }
 
     public function execute() {
-
-        $this->printer->generateView('Compra.html');
+        if ($this->session->sessionShow('usuario') == null) {
+           
+            header("location:/");
+        }else {
+            $user = $this->session->sessionShow('usuario');
+            $data = array("user"=>$user);
+        $this->printer->generateView('Compra.html', $user);
+     }
     }
     public function confirmarCompra() {
 
