@@ -23,6 +23,7 @@
     <!-- Page content -->
     <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
+        <form method="post" action="/compra/mostrarVuelosReservados">
         <!-- The Band Section -->
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
             <h2 class="w3-wide">Viajes encontrados</h2>
@@ -40,6 +41,8 @@
                     <th>Reservar</th>
                 </tr>
                   {{#flight}}
+
+
                     <tr>
                                  <td>{{code}}</td>
                                  <td>{{departure}}</td>
@@ -50,10 +53,12 @@
                                  <td>{{side}}</td>
                                  <td>{{short_name}}</td>
                                  <td>{{plate}}</td>
-                                  <td> <a href='#' >Reservar</a> </td>
+                                  <td> <input type="checkbox" name="vuelos[]" value="{{code}}"></td>
                              </tr>
                 {{/flight}}
             </table>
+            <input type="submit" name="submit" class="btn btn-primary mt-2" value="Reservar">
+        </form>
             <!--
                         <table class="w3-table w3-striped w3-bordered">
                             <caption>Ejemplo de tabla</caption>
