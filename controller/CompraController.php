@@ -24,7 +24,7 @@ class CompraController
             $user = $this->session->sessionShow('usuario');
             $data = array("user"=>$user);
         $this->printer->generateView('Compra.html', $user);
-     //}
+     }
     }
     public function confirmarCompra() {
         if(isset($_POST['submit'])){
