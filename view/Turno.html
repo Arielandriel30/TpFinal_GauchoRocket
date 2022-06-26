@@ -1,26 +1,27 @@
 {{> header}}
 <body>
-<link rel="stylesheet" href="../public/style.css">
-<header class="w3-container w3-padding" style="background-image: url('../public/img/img1.png')" id="myHeader">
+<link rel="stylesheet" href="../public/styleprincipal.css">
+<div class="w3-container w3-padding" style="background-image: url('../public/img/img1.png')" id="myHeader">
 
     <div class="w3-center">
         <h4 class="texto1">GAUCHO ROCKET</h4>
         <h1 class=" w3-animate-bottom  texto1" >LOS MEJORES VIAJES ESPACIALES</h1>
 
         <div class="w3-padding-32">
-            <a href='/' target="_parent"><button class="w3-btn w3-xlarge w3-blue  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver Al Home</button></a>
+            <a href='/' target="_parent"><button class="w3-btn w3-xlarge w3-food-spearmint parpadeo  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver Al Home</button></a>
 
         </div>
     </div>
-</header>
+</div>
 
-<div>
+<div class="w3-container w3-padding" style="background-image: url('../public/img/img1.png')">
     <!-- Page content -->
-    <div class="w3-content" style="max-width:2000px;margin-top:46px">
+    <div class="w3-content w3-center" style="max-width:2000px;margin-top:46px">
 
         <!-- Form Section -->
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
-            <h2 class="w3-wide">Reserve su turno para pobtener un codigo de vuelo</h2>
+            <h2 class="w3-wide w3-animate-zoom" style="color:rgb(185, 255, 233);
+            font-family: 'Tomorrow', sans-serif;">Reserve su turno para pobtener un codigo de vuelo</h2>
         </div>
 
 
@@ -28,11 +29,12 @@
             <input class="form-control mr-sm-2" type="text" placeholder="Buscar" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Busqueda</button>
         </form>-->
-        <p>Seleccione un Centro Medico del siguiente menú:</p>
-        <form action="/turno/validate" class="form-inline" method="post">
-                <div class="form-group mx-sm-3 mb-2">
-                <label for="medical_center" class="sr-only">Centros:</label>
-                <select name="centroMedico" class="form-control" >
+        <p style="color:rgb(185, 255, 233);
+        font-family: 'Tomorrow', sans-serif;">Seleccione un Centro Medico del siguiente menú:</p>
+        <form action="/turno/validate" class="w3-center" method="post">
+                <div class="form-group w3-center">
+                <label for="medical_center" class="sr-only">Centros:</label><br>
+                <select name="centroMedico" class="" style="max-width:400px">
                     {{#medical}}
                     <option value="{{id}}" >{{name_medical_center}}</option>
                     {{/medical}}
@@ -46,8 +48,8 @@
                     <br>
                     <input class=" w3-border" name="timeTurno" type="time" min="08:00:00" step="5" required>
                     <br>
-                </div>
-            <button class="btn btn-primary mb-2">General Turno</button>
+                </div><br>
+            <button class="w3-btn w3-large w3-pink w3-round-large w3-hover-light-grey " style="font-weight:900;">Generar Turno</button>
         </form>
 
         {{#Turno Error}}

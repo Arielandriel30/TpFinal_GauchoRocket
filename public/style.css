@@ -30,6 +30,11 @@ footer p {
     color:azure;
     font-family: 'Tomorrow', sans-serif;
 }
+
+.texto2{
+  color:rgb(205, 244, 90);
+  font-family: 'Tomorrow', sans-serif;
+}
 /* animaciones*/
 .desplazar{
     -webkit-animation-name:  moverIzquierda; /* Chrome, Safari, Opera */
@@ -95,3 +100,6 @@ footer p {
       visibility: hidden;
     }
   }
+
+
+/*form*/
