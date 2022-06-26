@@ -25,7 +25,10 @@ class ReservarController
         }
             $user = $this->session->sessionShow('resultLogueado');
             $nivelMedico= $this->ReservaModel->getNivelMedico($user[0]["idUsuarios"]);
-            if(!$nivelMedico){
+//            var_dump($nivelMedico);
+//            var_dump($user);
+//            var_dump($nivelMedico[0]["id_flight_level"]);
+            if(empty($nivelMedico[0]["id_flight_level"])){
                  $this->generalTurno();
             /*exit(0);*/
             }
