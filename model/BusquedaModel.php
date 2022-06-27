@@ -72,7 +72,7 @@ class BusquedaModel{
     }
 
     public function  getSpaceFlight($stationO,$stationD,$date){
-        return $this->database->query(sprintf("Select code, so.name AS departure, sd.name AS destination, departure_date, departure_time, duration, side, sft.short_name, plate
+        return $this->database->query(sprintf("Select sf.id, code, so.name AS departure, sd.name AS destination, departure_date, departure_time, duration, side, sft.short_name, plate
         FROM flight_booking sf
         JOIN station so ON sf.from_id = so.id
         JOIN station sd ON sf.to_id = sd.id
