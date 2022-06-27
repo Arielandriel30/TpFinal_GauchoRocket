@@ -22,29 +22,36 @@
     <!-- Page content -->
     <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
-        <!-- Section -->
-        <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
-            <h2 class="w3-wide">Tours Encontrados/Disponibles</h2>
-<!--            <caption>Tours Encontrados</caption>-->
-            <table class="w3-table w3-striped w3-bordered">
-                <tr  class="w3-theme">
-                    <th>Dia</th>
-                    <th>Duracion</th>
-                    <th>Equipo</th>
-                    <th>Partida</th>
-                </tr>
-                <!-- Templated para reemplazar el php-->
-                               {{#Tours}}
-                               <tr>
-                                   <td>{{day}}</td>
-                                   <td>{{duration}}</td>
-                                   <td>{{team}}</td>
-                                   <td>{{departure}}</td>
-                                   <td> <a href='/reservar/validate' >Reservar</a> </td>
-                               </tr>
-                               {{/Tours}}
-                           </table>
-                       </div>
+        <form method="post" action="/reservar/validate">
+            <!-- The Suborbitales Section -->
+            <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="tour">
+                <h2 class="w3-wide">Tours Encontrados/Disponibles</h2>
+                <!--            <caption>Tours Encontrados</caption>-->
+                <table class="w3-table w3-striped w3-bordered">
+                    <tr  class="w3-theme">
+                        <th>Dia</th>
+                        <th>Duracion</th>
+                        <th>Equipo</th>
+                        <th>Partida</th>
+                    </tr>
+                    {{#Tours}}
+                    <tr>
+                        <td>{{day}}</td>
+                        <td>{{duration}}</td>
+                        <td>{{team}}</td>
+                        <td>{{departure}}</td>
+                        <!--                    <td>{{code}}</td>-->
+                        <!--                    <td>{{fl}}</td>-->
+                        <!--                    <td> <a href='/reservar/validate' >Reservar</a> </td>-->
+                        <td> <input type="checkbox" name="vuelos[]" value="{{code}}"></td>
+                        <td> <input type="hidden" name="idLevel" value="{{fl}}"></td>
+                    </tr>
+                    {{/Tours}}
+                </table>
+                <input type="submit" name="submit" class="btn btn-primary mt-2" value="Reservar">
+            </div>
+
+        </form>
         <!-- End Page Content -->
     </div>
 
