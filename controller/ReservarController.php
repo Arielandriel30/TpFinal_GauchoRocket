@@ -50,9 +50,35 @@ class ReservarController
         header("location:/turno");
     }
 
-    private function validarNivelMedico()
+    private function validarNivelMedico($nivelMedico)
     {
-        echo "validando nivel medico";
+        if (isset($_POST['submit'])) {
+            if (!empty($_POST['vuelos'])) {
+                $vuelos = $_POST['vuelos'];
+
+            }
+            if (!empty($_POST['idLevel'])) {
+                $level = $_POST['idLevel'];
+
+            }
+        }
+//      var_dump($vuelos);
+//      var_dump($level);
+//      var_dump($nivelMedico);
+
+        if (nivelMedico[0]['id_flight_level'] == 3)
+        {   $valorTotal=sizeof($vuelos)*1000;
+            $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
+            $this->printer->generateView('Compra.html',$data);
+         exit();
+        }
+        if(nivelMedico[0]['id_flight_level'] == $level[0])
+        {      $valorTotal=sizeof($vuelos)*1000;
+            $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
+            $this->printer->generateView('Compra.html',$data);
+            exit();
+        }
+        header("location:/");
         exit();
     }
 
