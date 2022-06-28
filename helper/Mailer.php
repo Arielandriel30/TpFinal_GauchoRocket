@@ -38,7 +38,6 @@ class Mailer
     public function sendMessage(){
         try{
         $this->mail->send();
-            echo 'Message has been sent';
         }catch (Exception $e){
             echo "Message could not be sent. Mailer Error: {$this->mail->ErrorInfo}";
         }

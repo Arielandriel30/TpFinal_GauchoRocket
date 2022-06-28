@@ -3,8 +3,13 @@
 <header class="w3-container desplazar w3-padding" style="background-image: url('../public/img/img1.png')">Completar Datos para el Registro</header>
 <link rel="stylesheet" href="../public/styleprincipal.css" type="text/css">
 <div>
+	{{#messageVerifyEmail}}
+	<div class="w3-center">
+		<h4 class="w3-medium w3-blue w3-round-large w3-hover-light-grey">{{messageVerifyEmail}}</h4>
+	</div>
+	{{/messageVerifyEmail}}
 <form id="form" action="/register/register" target="_parent" method="POST" class="topBefore desplazar">
-		
+
 		  
          <input id="email" type="text" placeholder="Email" name="email"><br>
          <input id="user" type="text" placeholder="Usuario" name="usuario">

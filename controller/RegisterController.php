@@ -31,6 +31,9 @@ class RegisterController
     $result  = $this->registerModel->getUsuario($usuario);
     if (!$result){
         $this->registerModel->getRegister($usuario, $pass, $type, $email);
+        $messageVerifyEmail = "Verifique la casilla '$email' para continuar con la activación";
+        $data = array("messageVerifyEmail"=>$messageVerifyEmail);
+        $this->printer->generateView('Registro.html', $data);
         exit();
     } else {
       $this->execute();
