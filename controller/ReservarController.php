@@ -74,15 +74,19 @@ class ReservarController
             $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
             $this->printer->generateView('Compra.html',$data);
          exit();
-        }
-        if($vuelos!=null && $level!=null && $nivelMedico[0]['id_flight_level'] == $level[0])
+        }else if($vuelos!=null && $level!=null && $nivelMedico[0]['id_flight_level'] == $level[0])
         {      $valorTotal=sizeof($vuelos)*1000;
             $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
             $this->printer->generateView('Compra.html',$data);
             exit();
+        }else{
+            $nMedico = $nivelMedico[0]['id_flight_level'];
+            $errorMessage = "Su nivel medico es '$nMedico' y no condice con la reserva que desea realizar. La reserva es nivel '$level[0]'";
+            $this->session->execute("errorReservation", $errorMessage);
+            header("location:/logueado/execute");
+            exit();
         }
-        header("location:/");
-        exit();
+
     }
 
     private function RealizarChequeo()

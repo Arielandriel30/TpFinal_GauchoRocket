@@ -18,7 +18,11 @@
   </div>
 
 </header>
-
+{{#errorReservation}}
+<div class="w3-center">
+  <h4 class="w3-medium w3-pink parpadeo w3-round-large w3-hover-light-grey">Alerta {{errorReservation}}</h4>
+</div>
+{{/errorReservation}}
 <div class="w3-row-padding texto1">
   <!--<form action="index.php?controller=busqueda&method=validate" class="desplazar2 w3-margin"  method="POST">-->
     <form action="/busqueda/searchFlight" class="desplazar2 w3-margin w3-quarter "  method="POST">

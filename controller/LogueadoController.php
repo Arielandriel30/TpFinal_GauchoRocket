@@ -17,9 +17,11 @@ class LogueadoController {
             header("location:/");
         }else {
             $user = $this->session->sessionShow('usuario');
-            $data = array("user"=>$user);
-            $this->printer->generateView('Logueado.html', $data); 
+            $errorReservation = $this->session->sessionShow('errorReservation');
+            $data = array("errorReservation"=>$errorReservation, "user"=>$user);
+            $this->printer->generateView('Logueado.html', $data);
         }
+
 }
 
 }
