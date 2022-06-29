@@ -23,7 +23,7 @@ class Validador
             array_push($errores,"Debe ingresar un email valido");
         }
 
-        if(!empty($this->getEmail($email))){
+        if(!empty($this->getEmail($email))&& (!empty($email))){
             array_push($errores,"El email ya está registrado");
         }
         if (empty($user)) {
