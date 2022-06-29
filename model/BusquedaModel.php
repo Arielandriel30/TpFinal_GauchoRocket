@@ -63,7 +63,7 @@ class BusquedaModel{
                                     JOIN lane l on l.route_id=r.id
                                     join station s on s.id = l.station_id
                                     JOIN space_flight_type sft on sft.id = l.flight_type_id
-                                    order by Circuitoname, short_name");
+                                    order by Circuitoname, short_name, sort_ ASC");
     }
 
     public function  getCircuitoYAceleracion($id_circuito,$aceleracion){
