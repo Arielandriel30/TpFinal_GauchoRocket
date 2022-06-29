@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2022 a las 01:01:03
+-- Tiempo de generación: 29-06-2022 a las 08:14:08
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -106,7 +106,7 @@ CREATE TABLE `lane` (
                         `id` int(11) NOT NULL,
                         `route_id` int(11) NOT NULL,
                         `station_id` int(11) NOT NULL,
-                        `duration` varchar(255) DEFAULT NULL,
+                        `duration` int(11) NOT NULL,
                         `flight_type_id` int(11) NOT NULL,
                         `sort_` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -116,30 +116,30 @@ CREATE TABLE `lane` (
 --
 
 INSERT INTO `lane` (`id`, `route_id`, `station_id`, `duration`, `flight_type_id`, `sort_`) VALUES
-                                                                                               (1, 1, 1, '4hs', 2, 1),
-                                                                                               (2, 1, 1, '3hs', 3, 1),
-                                                                                               (3, 1, 2, '1hs', 2, 2),
-                                                                                               (4, 1, 2, '1hs', 3, 2),
-                                                                                               (5, 1, 3, '16hs', 2, 3),
-                                                                                               (6, 1, 3, '9hs', 3, 3),
-                                                                                               (7, 1, 4, '26hs', 2, 4),
-                                                                                               (8, 1, 4, '22hs', 3, 4),
-                                                                                               (9, 2, 1, '4hs', 2, 1),
-                                                                                               (10, 2, 1, '3hs', 3, 1),
-                                                                                               (11, 2, 3, '14hs', 2, 2),
-                                                                                               (12, 2, 3, '10hs', 3, 2),
-                                                                                               (13, 2, 4, '26hs', 2, 3),
-                                                                                               (14, 2, 4, '22hs', 3, 3),
-                                                                                               (15, 2, 5, '48hs', 2, 4),
-                                                                                               (16, 2, 5, '32hs', 3, 4),
-                                                                                               (17, 2, 6, '50hs', 2, 5),
-                                                                                               (18, 2, 6, '33hs', 3, 5),
-                                                                                               (19, 2, 7, '51hs', 2, 6),
-                                                                                               (20, 2, 7, '35hs', 3, 6),
-                                                                                               (21, 2, 8, '70hs', 2, 7),
-                                                                                               (22, 2, 8, '50hs', 3, 7),
-                                                                                               (23, 2, 9, '77hs', 2, 8),
-                                                                                               (24, 2, 9, '52hs', 3, 8);
+                                                                                               (1, 1, 1, 4, 2, 1),
+                                                                                               (2, 1, 1, 3, 3, 1),
+                                                                                               (3, 1, 2, 1, 2, 2),
+                                                                                               (4, 1, 2, 1, 3, 2),
+                                                                                               (5, 1, 3, 16, 2, 3),
+                                                                                               (6, 1, 3, 9, 3, 3),
+                                                                                               (7, 1, 4, 26, 2, 4),
+                                                                                               (8, 1, 4, 22, 3, 4),
+                                                                                               (9, 2, 1, 4, 2, 1),
+                                                                                               (10, 2, 1, 3, 3, 1),
+                                                                                               (11, 2, 3, 14, 2, 2),
+                                                                                               (12, 2, 3, 10, 3, 2),
+                                                                                               (13, 2, 4, 26, 2, 3),
+                                                                                               (14, 2, 4, 22, 3, 3),
+                                                                                               (15, 2, 5, 48, 2, 4),
+                                                                                               (16, 2, 5, 32, 3, 4),
+                                                                                               (17, 2, 6, 50, 2, 5),
+                                                                                               (18, 2, 6, 33, 3, 5),
+                                                                                               (19, 2, 7, 51, 2, 6),
+                                                                                               (20, 2, 7, 35, 3, 6),
+                                                                                               (21, 2, 8, 70, 2, 7),
+                                                                                               (22, 2, 8, 50, 3, 7),
+                                                                                               (23, 2, 9, 77, 2, 8),
+                                                                                               (24, 2, 9, 52, 3, 8);
 
 -- --------------------------------------------------------
 
@@ -152,6 +152,15 @@ CREATE TABLE `medical_center` (
                                   `name_medical_center` varchar(45) NOT NULL,
                                   `size` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `medical_center`
+--
+
+INSERT INTO `medical_center` (`id`, `name_medical_center`, `size`) VALUES
+                                                                       (1, 'Buenos Aires', 300),
+                                                                       (2, 'Shanghái', 210),
+                                                                       (3, 'Ankara', 200);
 
 -- --------------------------------------------------------
 
@@ -291,8 +300,8 @@ CREATE TABLE `space_flight` (
                                 `departure` varchar(255) DEFAULT NULL,
                                 `space_flight_type_id` int(11) NOT NULL,
                                 `route_id` int(11) DEFAULT NULL,
-                                `departure_date` int(11) DEFAULT NULL,
-                                `departure_time` varchar(255) DEFAULT NULL
+                                `departure_date` datetime DEFAULT NULL,
+                                `departure_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -300,50 +309,51 @@ CREATE TABLE `space_flight` (
 --
 
 INSERT INTO `space_flight` (`id`, `day`, `sort_day`, `rocket_id`, `duration`, `departure`, `space_flight_type_id`, `route_id`, `departure_date`, `departure_time`) VALUES
-                                                                                                                                                                       (1, 'L', 2, 11, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (2, 'L', 2, 12, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (3, 'L', 2, 13, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (4, 'L', 2, 24, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (5, 'L', 2, 25, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (6, 'M', 3, 11, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (7, 'M', 3, 12, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (8, 'M', 3, 13, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (9, 'M', 3, 24, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (10, 'M', 3, 25, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (11, 'X', 4, 11, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (12, 'X', 4, 12, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (13, 'X', 4, 13, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (14, 'X', 4, 24, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (15, 'X', 4, 25, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (16, 'J', 5, 11, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (17, 'J', 5, 12, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (18, 'J', 5, 13, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (19, 'J', 5, 24, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (20, 'J', 5, 25, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (21, 'V', 6, 11, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (22, 'V', 6, 12, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (23, 'V', 6, 13, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (24, 'V', 6, 24, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (25, 'V', 6, 25, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (26, 'S', 7, 11, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (27, 'S', 7, 12, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (28, 'S', 7, 13, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (29, 'S', 7, 14, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (30, 'S', 7, 24, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (31, 'S', 7, 25, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (32, 'S', 7, 26, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (33, 'S', 7, 27, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (34, 'D', 1, 11, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (35, 'D', 1, 12, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (36, 'D', 1, 13, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (37, 'D', 1, 14, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (38, 'D', 1, 47, '8hs', '10', 4, 0, NULL, NULL),
-                                                                                                                                                                       (39, 'D', 1, 24, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (40, 'D', 1, 25, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (41, 'D', 1, 26, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (42, 'D', 1, 27, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (43, 'D', 1, 28, '8hs', '11', 4, 0, NULL, NULL),
-                                                                                                                                                                       (44, 'D', 1, 34, '35 dias', '10', 5, 0, NULL, NULL);
+                                                                                                                                                                       (1, 'L', 2, 11, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (2, 'L', 2, 12, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (3, 'L', 2, 13, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (4, 'L', 2, 24, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (5, 'L', 2, 25, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (6, 'M', 3, 11, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (7, 'M', 3, 12, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (8, 'M', 3, 13, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (9, 'M', 3, 24, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (10, 'M', 3, 25, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (11, 'X', 4, 11, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (12, 'X', 4, 12, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (13, 'X', 4, 13, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (14, 'X', 4, 24, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (15, 'X', 4, 25, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (16, 'J', 5, 11, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (17, 'J', 5, 12, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (18, 'J', 5, 13, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (19, 'J', 5, 24, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (20, 'J', 5, 25, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (21, 'V', 6, 11, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (22, 'V', 6, 12, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (23, 'V', 6, 13, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (24, 'V', 6, 24, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (25, 'V', 6, 25, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (26, 'S', 7, 11, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (27, 'S', 7, 12, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (28, 'S', 7, 13, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (29, 'S', 7, 14, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (30, 'S', 7, 24, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (31, 'S', 7, 25, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (32, 'S', 7, 26, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (33, 'S', 7, 27, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (34, 'D', 1, 11, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (35, 'D', 1, 12, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (36, 'D', 1, 13, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (37, 'D', 1, 14, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (38, 'D', 1, 47, '8hs', '10', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (39, 'D', 1, 24, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (40, 'D', 1, 25, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (41, 'D', 1, 26, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (42, 'D', 1, 27, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (43, 'D', 1, 28, '8hs', '11', 4, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (44, 'D', 1, 34, '35 dias', '10', 5, 0, NULL, '00:00:00'),
+                                                                                                                                                                       (45, 'L', 2, 44, '47hs', '10', 6, 1, '2022-06-27 08:00:00', '08:00:00');
 
 -- --------------------------------------------------------
 
@@ -367,8 +377,8 @@ INSERT INTO `space_flight_type` (`id`, `short_name`, `name`) VALUES
                                                                  (3, 'AA', 'Alta Aceleracion'),
                                                                  (4, 'Suborbital', 'Suborbital'),
                                                                  (5, 'Tour', 'Tour'),
-                                                                 (6, 'Circuito1', 'Circuito1'),
-                                                                 (7, 'Circuito2', 'Circuito2');
+                                                                 (6, 'C1', 'Circuito 1'),
+                                                                 (7, 'C2', 'Circuito 2');
 
 -- --------------------------------------------------------
 
@@ -412,6 +422,19 @@ CREATE TABLE `turno` (
                          `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `turno`
+--
+
+INSERT INTO `turno` (`idturno`, `dia_turno`, `hora_turno`, `id_centro_medico`, `id_usuario`) VALUES
+                                                                                                 (1, '2022-06-26', NULL, 1, 12),
+                                                                                                 (2, '2022-06-27', NULL, 1, 12),
+                                                                                                 (3, '2022-06-27', NULL, 1, 12),
+                                                                                                 (4, '2022-06-27', NULL, 1, 12),
+                                                                                                 (5, '2022-06-27', NULL, 2, 13),
+                                                                                                 (6, '2022-06-27', NULL, 1, 12),
+                                                                                                 (7, '2022-06-27', NULL, 2, 12);
+
 -- --------------------------------------------------------
 
 --
@@ -435,7 +458,13 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`idUsuarios`, `nameU`, `passwordU`, `email`, `isAdminU`, `is_blocked`, `hash`, `id_flight_level`) VALUES
                                                                                                                              (11, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 1, 0, '33baf4f862827c0545697e2dc0be56688b21', NULL),
-                                                                                                                             (12, 'atomasini', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 1, 0, '1ef9e07f50d05af4573101f578cb456fac17', NULL);
+                                                                                                                             (12, 'atomasini', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 1, 0, '1ef9e07f50d05af4573101f578cb456fac17', 2),
+                                                                                                                             (13, 'atomasini2', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 0, 0, '61f18bac9bf20354b905f05771274ef610e2', 3),
+                                                                                                                             (14, 'atomasini1', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 0, 0, '163ee9631e441a19174e6844208a05d95f7d', NULL),
+                                                                                                                             (15, 'atomasini3', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 0, 1, '3548bb6e3ec5a8c3fbc74123490f79e76dfa', NULL),
+                                                                                                                             (16, 'atomasini4', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 0, 1, 'c9feb90a0a34a26c3293293c8b714cc4530a', NULL),
+                                                                                                                             (17, 'atomasini5', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 0, 1, 'f331558d9a2279cb7f06ed246c81e8c4424a', NULL),
+                                                                                                                             (18, 'atomasini6', '81dc9bdb52d04dc20036dbd8313ed055', 'tomasiniarnaldo@gmail.com', 0, 1, 'debae94ce99e417260aa183068ea704bea7f', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -453,7 +482,8 @@ ALTER TABLE `cabin_type`
 --
 ALTER TABLE `flight_booking`
     ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `uq_flight_code` (`code`);
+  ADD UNIQUE KEY `uq_flight_code` (`code`),
+  ADD KEY `FK_flight_booking__from_station` (`from_id`);
 
 --
 -- Indices de la tabla `flight_level`
@@ -466,7 +496,10 @@ ALTER TABLE `flight_level`
 -- Indices de la tabla `lane`
 --
 ALTER TABLE `lane`
-    ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_lane__station` (`station_id`),
+  ADD KEY `FK_lane__flight_type` (`flight_type_id`),
+  ADD KEY `FK_lane__route` (`route_id`);
 
 --
 -- Indices de la tabla `medical_center`
@@ -486,7 +519,10 @@ ALTER TABLE `rocket`
 --
 ALTER TABLE `rocket_type`
     ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `uq_rocket_type_name` (`name`);
+  ADD UNIQUE KEY `uq_rocket_type_name` (`name`),
+  ADD KEY `FK_rocket_type__flight_type` (`flight_type_id`),
+  ADD KEY `FK_rocket_type__cabin_type_3` (`cabin_type_3`),
+  ADD KEY `FK_rocket_type__flight_level_3` (`flight_level_3`);
 
 --
 -- Indices de la tabla `route`
@@ -498,7 +534,9 @@ ALTER TABLE `route`
 -- Indices de la tabla `space_flight`
 --
 ALTER TABLE `space_flight`
-    ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_flight__flight_type` (`space_flight_type_id`),
+  ADD KEY `FK_flight__rocket` (`rocket_id`);
 
 --
 -- Indices de la tabla `space_flight_type`
@@ -581,13 +619,13 @@ ALTER TABLE `route`
 -- AUTO_INCREMENT de la tabla `space_flight`
 --
 ALTER TABLE `space_flight`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT de la tabla `space_flight_type`
 --
 ALTER TABLE `space_flight_type`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `station`
@@ -599,17 +637,46 @@ ALTER TABLE `station`
 -- AUTO_INCREMENT de la tabla `turno`
 --
 ALTER TABLE `turno`
-    MODIFY `idturno` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `idturno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-    MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+    MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `flight_booking`
+--
+ALTER TABLE `flight_booking`
+    ADD CONSTRAINT `FK_flight_booking__from_station` FOREIGN KEY (`from_id`) REFERENCES `station` (`id`);
+
+--
+-- Filtros para la tabla `lane`
+--
+ALTER TABLE `lane`
+    ADD CONSTRAINT `FK_lane__flight_type` FOREIGN KEY (`flight_type_id`) REFERENCES `space_flight_type` (`id`),
+  ADD CONSTRAINT `FK_lane__route` FOREIGN KEY (`route_id`) REFERENCES `route` (`id`),
+  ADD CONSTRAINT `FK_lane__station` FOREIGN KEY (`station_id`) REFERENCES `station` (`id`);
+
+--
+-- Filtros para la tabla `rocket_type`
+--
+ALTER TABLE `rocket_type`
+    ADD CONSTRAINT `FK_rocket_type__cabin_type_3` FOREIGN KEY (`cabin_type_3`) REFERENCES `cabin_type` (`id`),
+  ADD CONSTRAINT `FK_rocket_type__flight_level_3` FOREIGN KEY (`flight_level_3`) REFERENCES `flight_level` (`id`),
+  ADD CONSTRAINT `FK_rocket_type__flight_type` FOREIGN KEY (`flight_type_id`) REFERENCES `space_flight_type` (`id`);
+
+--
+-- Filtros para la tabla `space_flight`
+--
+ALTER TABLE `space_flight`
+    ADD CONSTRAINT `FK_flight__flight_type` FOREIGN KEY (`space_flight_type_id`) REFERENCES `space_flight_type` (`id`),
+  ADD CONSTRAINT `FK_flight__rocket` FOREIGN KEY (`rocket_id`) REFERENCES `rocket` (`id`);
 
 --
 -- Filtros para la tabla `turno`
@@ -628,3 +695,26 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+/*Calcula el circuito 1 de Baja aceleracion solo hay que pasarle la estacion en este ejemplo esta la Luna
+ SELECT rs.name,
+DATE_ADD(sf.departure_date, INTERVAL SUM(l.duration) HOUR) 'Fecha de Llegada'
+FROM space_flight sf
+JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
+JOIN route rou ON rou.id=sf.route_id
+JOIN lane l ON l.route_id = rou.id
+JOIN station rs ON rs.id = l.station_id
+JOIN space_flight_type rsft  ON rsft.id= l.flight_type_id
+WHERE sft.short_name='C1'
+AND rsft.short_name ='BA'
+AND l.sort_ <= (SELECT l1.sort_ FROM space_flight sf1
+                        JOIN space_flight_type sft1  ON sft1.id= sf1.space_flight_type_id
+                        JOIN route rou1 ON rou1.id=sf1.route_id
+                        JOIN lane l1 ON l1.route_id = rou1.id
+                        JOIN station s1 ON s1.id = l1.station_id
+                        JOIN space_flight_type rsft1  ON rsft1.id= l1.flight_type_id
+                		WHERE s1.name='Luna'
+                        AND sft1.short_name='C1'
+                        AND rsft1.short_name ='BA')
+ORDER BY l.sort_ ASC
+ */;
