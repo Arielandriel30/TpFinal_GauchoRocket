@@ -3,16 +3,22 @@
 
 <link rel="stylesheet" href="../public/styleprincipal.css" type="text/css">
 <div>
-	<h2 class="w3-container w3-center desplazar w3-padding texto1" style="background-image: url('../public/img/img1.png')">INGRESAR</h2>
+	<h2 class="w3-container w3-center desplazar w3-padding texto1 mt-5" style="background-image: url('../public/img/img1.png')">INGRESAR</h2>
 <form id="form" action="/login/validate"  method="POST" class="topBefore desplazar w3-center">
 
-		 <input id="emaillogin" type="text" placeholder="Usuario" required name="usuario">
-		 <input id="messagelogin" name="pass" type="password" required placeholder="CONTRASEÑA"></input>
+		 <input id="emaillogin" type="text" placeholder="Usuario"  name="usuario">
+		 <input id="messagelogin" name="pass" type="password"  placeholder="CONTRASEÑA"></input>
          
-         <input id="submit"  type="submit" value="INGRESAR">
+         <input id="submit"  type="submit" name="submitLogin" value="INGRESAR">
 
-	    <h5 class="parpadeo" onclick="location.href='/register/resetPassword';" style="cursor:pointer;" >HE OLVIDADO MI CONTRASEÑA</h5>
+	    <h5 class="parpadeo mt-2" onclick="location.href='/register/resetPassword';" style="cursor:pointer;" >HE OLVIDADO MI CONTRASEÑA</h5>
 </form>
 </div>
+<div class="text-danger text-center">
+	{{#login}}
+	<h6>{{errores}}</h6>
+	{{/login}}
+</div>
+<p class="small pt-1 mb-0 text-center">¿No tienes una cuenta? <a href="/register" >Registrarse</a></p>
 </body>
 {{> footer}}

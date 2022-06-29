@@ -22,6 +22,7 @@ include_once ("model/TurnoModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once ("qr/phpqrcode/qrlib.php");
 include_once("ConversorMoneda.php");
+include_once("Validador.php");
 
 
 class Configuration
@@ -32,7 +33,8 @@ class Configuration
            $this->getLoginModel(),
            $this->getPrinter(),
            $this->getLogueadoController(),
-           $this->getSession()
+           $this->getSession(),
+            $this->getValidador()
         );
     }
 
@@ -77,7 +79,8 @@ public function getRegisterController()
        $this->getPrinter(),
        $this->getRegisterModel(),
        $this->getLogueadoController(),
-       $this->getSession()
+       $this->getSession(),
+       $this->getValidador()
     );
 }
 
@@ -154,6 +157,10 @@ private function getPrinter() {
 public function getSession() {
     return new Session();
 }
+///////////Validador//////
+    public function getValidador() {
+        return new Validador($this->getDatabase());
+    }
 ///////////Conversor de moneda//////
     public function getConversorMoneda() {
         return new ConversorMoneda();
