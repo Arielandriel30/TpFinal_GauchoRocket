@@ -87,6 +87,7 @@ class ReservarController
 
         }else if($vuelos!=null && $level!=null && $nivelMedico[0]['id_flight_level'] == $level[0])
         {   $this->RealizarReserva($dia,$vuelos[0]);
+            exit();
             $valorTotal=sizeof($vuelos)*1000;
             $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
             $this->printer->generateView('Compra.html',$data);
@@ -108,10 +109,29 @@ class ReservarController
 
     private function RealizarReserva($dia,$vuelos)
     {
-
+//        echo "<br>-------<br>";
+//        var_dump($dia);
+//        echo "<br>-------<br>";
+//        var_dump($vuelos);
         $datos=$this->BusquedaModel->getSubOrbitalParaReservar($dia,$vuelos);
-        var_dump($datos);
-        $data = array("vuelo"=>$vuelos,"Datos"=>$datos);
+        $cabinas=$this->BusquedaModel->getCabinas();
+//        echo "<br>-------<br>";
+        var_dump($datos[0]["RocketTypeID"]);
+        $cabinaDelAvion=$this->BusquedaModel->getCabinaDelAvion($datos[0]["RocketTypeID"]);
+//        var_dump( $cabinaDelAvion);
+//        echo "<br>-------<br>";
+//        var_dump($datos);
+        $cab=array();
+        if($cabinaDelAvion[0]["capacity_type_1"]!=null){
+            $cab+=array(count($cab)=>["id"=>$cabinas[0]["id"],"description"=>$cabinas[0]["description"]]);
+        }if($cabinaDelAvion[0]["capacity_type_2"]!=null){
+            $cab+=array(count($cab)=>["id"=>$cabinas[1]["id"],"description"=>$cabinas[1]["description"]]);
+        }if($cabinaDelAvion[0]["capacity_type_2"]!=null){
+            $cab+=array(count($cab)=>["id"=>$cabinas[2]["id"],"description"=>$cabinas[2]["description"]]);
+        }
+
+        $data = array("vuelo"=>$vuelos,"Datos"=>$datos,"cabines"=>$cab);
+        var_dump($data );
         $this->printer->generateView('Reserva.html',$data);
     }
 

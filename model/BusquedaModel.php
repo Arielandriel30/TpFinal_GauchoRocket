@@ -32,7 +32,7 @@ class BusquedaModel{
     }
 
     public function  getSubOrbitalParaReservar($Day,$code){
-        return $this->database->query("SELECT  sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl
+        return $this->database->query("SELECT  sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl,rt.id AS RocketTypeID
                                         FROM space_flight sf
                                         JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
                                         JOIN rocket r ON r.id = sf.rocket_id
@@ -43,10 +43,8 @@ class BusquedaModel{
                                         ORDER BY sf.sort_day asc");
     }
 
-
-
     public function  getTours(){
-        return $this->database->query("SELECT sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl
+        return $this->database->query("SELECT sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl,rt.id AS RocketTypeID
                                         FROM space_flight sf
                                         JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
                                         JOIN rocket r ON r.id = sf.rocket_id
@@ -94,6 +92,13 @@ class BusquedaModel{
         JOIN rocket_type rt ON rt.id = r.rocket_type_id
         JOIN space_flight_type sft ON rt.flight_type_id=sft.id
         WHERE UPPER(so.name) like UPPER(CONCAT('%%$stationO%%')) and UPPER(sd.name) like UPPER(CONCAT('%%$stationD%%')) and DATE(departure_date)='$date'"));
+    }
+     public function  getCabinaDelAvion($idRocketType){
+        return $this->database->query(sprintf("SELECT * FROM rocket_type
+            where id='$idRocketType'"));
+    }
+    public function  getCabinas(){
+        return $this->database->query("SELECT * FROM cabin_type");
     }
 }
 ?>
