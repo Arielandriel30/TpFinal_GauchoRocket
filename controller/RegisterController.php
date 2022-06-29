@@ -8,14 +8,16 @@ class RegisterController
     private $logueadoController;
     private $hash;
     private $session;
+    private $validador;
 
-    public function __construct($printer, $registerModel, $logueadoController, $session)
+    public function __construct($printer, $registerModel, $logueadoController, $session,$validador)
     {
 
       $this->printer = $printer;
       $this->registerModel = $registerModel;
       $this->logueadoController =  $logueadoController;
       $this->session = $session;
+      $this->validador=$validador;
     }
 
     public function execute() {
@@ -24,21 +26,26 @@ class RegisterController
 
     public function register()
     {
-    $usuario = $_POST["usuario"];
-    $pass = $_POST["pass"];
-    $type = $_POST["type"];
-    $email = $_POST["email"];
-    $result  = $this->registerModel->getUsuario($usuario);
-    if (!$result){
-        $this->registerModel->getRegister($usuario, $pass, $type, $email);
-        $messageVerifyEmail = "Verifique la casilla '$email' para continuar con la activación";
-        $data = array("messageVerifyEmail"=>$messageVerifyEmail);
-        $this->printer->generateView('Registro.html', $data);
-        exit();
-    } else {
-      $this->execute();
-        exit();
-    }
+        $type = $_POST["type"];
+        $usuario = isset($_POST["usuario"]) ? $_POST["usuario"] : "";
+        $pass = isset($_POST["pass"]) ? $_POST["pass"] : "";
+        $email = isset($_POST["email"]) ? $_POST["email"] : "";
+
+        if(isset($_POST['submitRegistrar'])){
+            if(!empty($this->validador->validarRegistro($email,$usuario,$pass))){
+                $error= $this->validador->validarRegistro($email,$usuario,$pass);
+                $errorJunto = implode(", ", $error);
+                $devolverErrores=["errores"=>$errorJunto];
+                $data = ["registro" => $devolverErrores];
+                $this->printer->generateView('Registro.html',$data);
+            }else{
+                $this->registerModel->getRegister($usuario, $pass, $type, $email);
+                $messageVerifyEmail = "Verifique la casilla '$email' para continuar con la activación";
+                $data = array("messageVerifyEmail"=>$messageVerifyEmail);
+                $this->printer->generateView('Registro.html', $data);
+                exit();
+            }
+        }
     }
 
     public function verify(){

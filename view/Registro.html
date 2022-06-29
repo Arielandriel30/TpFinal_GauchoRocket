@@ -19,8 +19,13 @@
 		 </select><br>
 		 <input id="messager" name="pass" type="password" placeholder="Contraseña"></input>
 
-         <input id="submit" type="submit" value="REGISTRAR">
+         <input id="submit" type="submit" name="submitRegistrar" value="REGISTRAR">
   
 </form>
+	<div  class="text-danger mb-4 text-center">
+		{{#registro}}
+		<h6>{{errores}}</h6>
+		{{/registro}}
+	</div>
 </div>
 {{> footer}}
