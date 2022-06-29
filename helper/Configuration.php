@@ -33,7 +33,8 @@ class Configuration
            $this->getLoginModel(),
            $this->getPrinter(),
            $this->getLogueadoController(),
-           $this->getSession()
+           $this->getSession(),
+            $this->getValidador()
         );
     }
 

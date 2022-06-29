@@ -50,8 +50,8 @@ class Validador
     }
     function validarUsuario($usuario, $password){
         $passwordCodificada=md5($password);
-        $sql="SELECT email from usuario where email=$usuario";
-        $sql1="SELECT contraseña from usuario where passwordU=$passwordCodificada";
+        $sql="SELECT nameU from usuario where nameU='$usuario'";
+        $sql1="SELECT passwordU from usuario where passwordU='$passwordCodificada'";
         $usuarioDevuelto=$this->database->query($sql);
         $passwordDevuelto=$this->database->query($sql1);
 
@@ -62,4 +62,23 @@ class Validador
         }
 
     }
+
+    public function validarLogin($user,$password)
+    {
+        $errores = array();
+
+        if (empty($user)) {
+            array_push($errores, "El usuario es requerido");
+        }
+        if($this->validarUsuario($user,$password)==false && ((!empty($password)&&(!empty($user))))){
+            array_push($errores,"Usuario y/o contraseña invalidos");
+        }
+        if (empty($password)) {
+            array_push($errores, "La password es requerida");
+        }
+
+        return $errores;
+    }
+
+
 }
