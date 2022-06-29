@@ -6,15 +6,17 @@ class ReservarController
     private $printer;
     private $ReservaModel;
     private $session;
+    private $BusquedaModel;
 
     /**
      * @param $printer
      * @param $ReservaModel
      */
-    public function __construct($printer, $ReservaModel,$session)
+    public function __construct($printer, $ReservaModel,$BusquedaModel,$session)
     {
         $this->printer = $printer;
         $this->ReservaModel = $ReservaModel;
+        $this->BusquedaModel =$BusquedaModel;
         $this->session = $session;
     }
 
@@ -37,7 +39,6 @@ class ReservarController
              $this->RealizarReserva();
          }
 
-
     }
 
     public function execute() {
@@ -54,28 +55,39 @@ class ReservarController
     {
         $vuelos = null;
         $level = null;
-        if (isset($_POST['submit'])) {
+        $dia=null;
+        if (isset($_POST['ReservarVuelo'])) {
             if (!empty($_POST['vuelos'])) {
                 $vuelos = $_POST['vuelos'];
-
             }
             if (!empty($_POST['idLevel'])) {
                 $level = $_POST['idLevel'];
 
             }
+            if (!empty($_POST['diaVuelo'])) {
+                $dia = $_POST['diaVuelo'];
+            }
         }
-//      var_dump($vuelos);
-//      var_dump($level);
-//      var_dump($nivelMedico);
 
+//        echo "datos de vuelos ingresados";
+//        echo "<br>id/codigo";
+//        var_dump( $vuelos);
+//        echo "<br>Level";
+//        var_dump( $level);
+//        echo "<br>Dia De Vuelo";
+//        var_dump( $dia );
+//        echo "<br>--------------";
 
         if ($vuelos!=null && $nivelMedico[0]['id_flight_level'] == 3)
-        {   $valorTotal=sizeof($vuelos)*1000;
+        {   $this->RealizarReserva($dia,$vuelos[0]);
+            exit();
+            $valorTotal=sizeof($vuelos)*1000;
             $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
             $this->printer->generateView('Compra.html',$data);
-         exit();
+
         }else if($vuelos!=null && $level!=null && $nivelMedico[0]['id_flight_level'] == $level[0])
-        {      $valorTotal=sizeof($vuelos)*1000;
+        {   $this->RealizarReserva($dia,$vuelos[0]);
+            $valorTotal=sizeof($vuelos)*1000;
             $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
             $this->printer->generateView('Compra.html',$data);
             exit();
@@ -94,8 +106,13 @@ class ReservarController
         exit();
     }
 
-    private function RealizarReserva()
+    private function RealizarReserva($dia,$vuelos)
     {
+
+        $datos=$this->BusquedaModel->getSubOrbitalParaReservar($dia,$vuelos);
+        var_dump($datos);
+        $data = array("vuelo"=>$vuelos,"Datos"=>$datos);
+        $this->printer->generateView('Reserva.html',$data);
     }
 
 }

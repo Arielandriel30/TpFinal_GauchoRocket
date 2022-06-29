@@ -91,6 +91,7 @@ public function getRegisterModel()
     public function getReservarController() {
         return new ReservarController($this->getPrinter(),
                                         $this->getReservarModel(),
+                                        $this->getBusquedaModel(),
                                         $this->getSession());
     }
 

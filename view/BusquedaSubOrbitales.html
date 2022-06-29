@@ -21,7 +21,7 @@
 <div>
     <!-- Page content -->
     <div class="w3-content" style="max-width:2000px;margin-top:46px">
-        <form method="post" action="/reservar/validate">
+
         <!-- The Suborbitales Section -->
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
             <h2 class="w3-wide">Vuelos SubOrbitales Encontrados/Disponibles</h2>
@@ -34,6 +34,7 @@
                     <th>Partida</th>
                 </tr>
                 {{#SubOrbital}}
+                <form method="post" action="/reservar/validate">
                 <tr>
                     <td>{{day}}</td>
                     <td>{{duration}}</td>
@@ -41,16 +42,20 @@
                     <td>{{departure}}</td>
 <!--                    <td>{{code}}</td>-->
 <!--                    <td>{{fl}}</td>-->
-<!--                    <td> <a href='/reservar/validate' >Reservar</a> </td>-->
-                    <td> <input type="checkbox" name="vuelos[]" value="{{code}}"></td>
-                    <td> <input type="hidden" name="idLevel" value="{{fl}}"></td>
+                    <td> <input type="hidden" name="vuelos[]" value="{{code}}"></td>
+                    <td> <input type="hidden" name="diaVuelo" value="{{day}}" checked></td>
+                    <td> <input type="hidden" name="idLevel" value="{{fl}}"  checked></td>
+                    <td><input type="submit" name="ReservarVuelo" class="btn btn-primary mt-2" value="Reservar"></td>
                 </tr>
-                {{/SubOrbital}}
+
+                </form>
+                    {{/SubOrbital}}
+
             </table>
-            <input type="submit" name="submit" class="btn btn-primary mt-2" value="Reservar">
+
         </div>
 
-        </form>
+
 
     </div>
 

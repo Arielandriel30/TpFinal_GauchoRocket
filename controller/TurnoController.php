@@ -29,7 +29,7 @@ class TurnoController
         $horaTurno = $_POST["timeTurno"];
         $turnosEstablecidos=$this->TurnoModel->getTurnosEstablecidos($centroMedicoElejido, $diaTurno);
         $capacidadmaximaAlDia=$this->TurnoModel->getCapacidadCentroMedico($centroMedicoElejido);
-    /*  var_dump($turnosEstablecidos[0]["count(distinct id_usuario)"]);
+        /*var_dump($turnosEstablecidos[0]["count(distinct id_usuario)"]);
         var_dump($capacidadmaximaAlDia[0]["size"]);
         var_dump($turnosEstablecidos[0]["count(distinct id_usuario)"]<$capacidadmaximaAlDia[0]["size"]);*/
         if($turnosEstablecidos[0]["count(distinct id_usuario)"]<$capacidadmaximaAlDia[0]["size"]){

@@ -15,6 +15,7 @@
 </header>
 <div>
     <h1> Realize la Reserva de su Vuelo</h1>
+    <h4> Las reservas para el vuelo elegido se gestionan a través del sistema y el cliente puede elegir vuelo, cabina y tipo de servicio de a bordo (standard, gourmet, spa que tienen un costo diferenciado). Se pueden reservar y pagar más de un pasaje cada vez (grupos).</h4>
 </div>
 <div>
     <!-- Page content -->
@@ -36,7 +37,7 @@
                     <th>Placa</th>
                     <th>Reservar</th>
                 </tr>
-                {{#flight}}
+                {{#Datos}}
                 <tr>
                     <td>{{code}}</td>
                     <td>{{departure}}</td>
@@ -49,62 +50,10 @@
                     <td>{{plate}}</td>
                     <td> <a href='#' >Reservar</a> </td>
                 </tr>
-                {{/flight}}
+                {{/Datos}}
             </table>
-            <!--
-                        <table class="w3-table w3-striped w3-bordered">
-                            <caption>Ejemplo de tabla</caption>
-                            <tbody>
-                            <tr class="w3-theme">
-                                <td></td>
-                                <th>SUborbitales</th>
-                                <th>Tours</th>
-                                <th>Circuitos</th>
-                            </tr>
-                            <tr>
-                                <th>Lunes</th>
-                                <td>A1</td>
-                            </tr>
-                            <tr>
-                                <th>Martes</th>
-                                <td>A2</td>
-                                <td>B2</td>
-                            </tr>
 
-                            <tr>
-                                <th>Miercoles</th>
-                                <td>A2</td>
-                                <td>B2</td>
-                            </tr>
 
-                            <tr>
-                                <th>Jueves</th>
-                                <td>A2</td>
-                                <td>B2</td>
-                            </tr>
-
-                            <tr>
-                                <th>Viernes</th>
-                                <td>A2</td>
-                                <td>B2</td>
-                            </tr>
-
-                            <tr>
-                                <th>Sabado</th>
-                                <td>A2</td>
-
-                            </tr>
-
-                            <tr>
-                                <th>Domingo</th>
-                                <td>A2</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-
-            -->
             <!-- End Page Content -->
         </div>
     </div>

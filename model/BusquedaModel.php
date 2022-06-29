@@ -31,6 +31,20 @@ class BusquedaModel{
                                         ORDER BY sf.sort_day asc");
     }
 
+    public function  getSubOrbitalParaReservar($Day,$code){
+        return $this->database->query("SELECT  sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl
+                                        FROM space_flight sf
+                                        JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
+                                        JOIN rocket r ON r.id = sf.rocket_id
+                                        JOIN rocket_type rt ON rt.id = r.rocket_type_id
+                                        JOIN station s ON s.id=sf.departure
+                                        WHERE sft.short_name='Suborbital' and  r.id='$code' and sf.day='$Day'
+                                        GROUP BY sf.day,sf.duration, rt.name, s.name
+                                        ORDER BY sf.sort_day asc");
+    }
+
+
+
     public function  getTours(){
         return $this->database->query("SELECT sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl
                                         FROM space_flight sf
