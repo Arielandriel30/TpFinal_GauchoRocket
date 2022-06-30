@@ -20,4 +20,13 @@ class LoginModel {
         
         
     }
+
+    public function isAdmin($usuario){
+        $sql= $this->database->query("SELECT  isAdminU FROM usuario WHERE nameU='$usuario'");
+        if($sql[0]["isAdminU"]=="1"){
+            return true;
+        }else{
+            return "";
+        }
+    }
 }

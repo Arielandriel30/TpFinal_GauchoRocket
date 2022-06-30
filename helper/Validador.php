@@ -26,6 +26,10 @@ class Validador
         if(!empty($this->getEmail($email))&& (!empty($email))){
             array_push($errores,"El email ya está registrado");
         }
+        if($this->getUserName($user) == true && !empty($user)){
+            array_push($errores,"Este nombre de usuario ya existe");
+        }
+
         if (empty($user)) {
             array_push($errores, "El usuario es requerido");
         }
@@ -78,6 +82,14 @@ class Validador
         }
 
         return $errores;
+    }
+    public function getUserName($user){
+       $result= $this->database->query("SELECT nameU FROM usuario WHERE nameU='$user'");
+       if(!empty($result)){
+           return true;
+       }else{
+           return false;
+       }
     }
 
 

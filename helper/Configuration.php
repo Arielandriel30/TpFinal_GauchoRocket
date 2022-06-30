@@ -19,6 +19,8 @@ include_once ("controller/ReservarController.php");
 include_once ("model/ReservarModel.php");
 include_once ("controller/TurnoController.php");
 include_once ("model/TurnoModel.php");
+include_once("controller/ReportesController.php");
+include_once("model/ReportesModel.php");
 require_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once ("qr/phpqrcode/qrlib.php");
 include_once("ConversorMoneda.php");
@@ -124,6 +126,17 @@ public function getRegisterModel()
     private function getTurnoModel()
     {
         return new TurnoModel($this->getDatabase());
+    }
+    ////////////////Reportes/////////
+    public function getReportesController() {
+        return new ReportesController($this->getPrinter(),
+            $this->getReportesModel(),
+            $this->getSession());
+    }
+
+    private function getReportesModel()
+    {
+        return new ReportesModel($this->getDatabase());
     }
 ///////////////////////conexion//////////
     private function getDatabase() {

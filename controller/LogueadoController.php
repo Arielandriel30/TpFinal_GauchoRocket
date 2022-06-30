@@ -15,15 +15,24 @@ class LogueadoController {
         if ($this->session->sessionShow('usuario') == null) {
            
             header("location:/");
-        }else {
+        }
+        if($this->session->sessionShow('usuario') != null){
+
             $user = $this->session->sessionShow('usuario');
             $errorReservation = $this->session->sessionShow('errorReservation');
             $nivel = $this->session->sessionShow('nivel');
-            $data = array("errorReservation"=>$errorReservation, "user"=>$user,"nivel"=>$nivel);
-            $this->printer->generateView('Logueado.html', $data);
+            $admin=$this->session->sessionShow('admin');
+            if($admin==true){
+                $data = array("errorReservation"=>$errorReservation, "user"=>$user,"nivel"=>$nivel,"admin"=>$admin);
+                $this->printer->generateView('Logueado.html', $data);
+                exit();
+            }else{
+            $data = array("errorReservation"=>$errorReservation, "user"=>$user,"nivel"=>$nivel,"admin"=>$admin);
+            $this->printer->generateView('Logueado.html', $data);}
         }
 
 }
 
 }
+//(sizeof($admin)==1)
 ?>
