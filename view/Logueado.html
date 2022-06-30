@@ -1,21 +1,36 @@
 {{> header}}
-<body>
+
+<body >
 <link rel="stylesheet" href="../public/style.css" type="text/css">
 <header class="w3-container w3-padding" style="background-image: url('../public/img/img1.png')" id="myHeader">
+  <div class=" w3-display-topright w3-padding-16 w3-margin-right">
 
-  <div class="w3-center">
+{{#nivel}}
+{{#id_flight_level}}
+<button class="w3-btn w3-medium w3-pink parpadeo w3-round-large w3-hover-light-grey"  style="font-weight:600;">Tu nivel de vuelo es {{.}}</button>
+<!--<a href='/' target="_parent"><button class="w3-btn w3-xlarge  w3-food-spearmint  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver</button></a>-->
+{{/id_flight_level}}
+{{/nivel}}
+
+{{#nivel}}
+{{^id_flight_level}}
+
+<a href='/turno/execute' target="_parent"><button class="w3-btn w3-medium w3-pink parpadeo w3-round-large w3-hover-light-grey"  style="font-weight:600;">Realizá el chequeo Médico</button></a>
+<!--<a href='/' target="_parent"><button class="w3-btn w3-xlarge  w3-food-spearmint  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver</button></a>-->
+
+{{/id_flight_level}}
+{{/nivel}}
+
+<div class="w3-padding-16">
+  <a href='/principal/logout' target="_parent" title="SALIR"><i class="fa fa-sign-out w3-hover-light-grey" style="font-size:30px"></i></a>
+   </div>
+</div><!--<a href='/' target="_parent"><button class="w3-btn w3-xlarge  w3-food-spearmint  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver</button></a>-->
+</div>
+  <div class="w3-center" style="height: 300px ;">
     <h4 class="texto1">Bienvenido {{user}} a</h4>
   <h4 class="texto1">GAUCHO ROCKET</h4>
   <h1 class=" w3-animate-bottom  texto1" >LOS MEJORES VIAJES ESPACIALES</h1>
-    <div class=" w3-display-topright w3-padding-16 w3-margin-right">
-    <a href='/principal/logout' target="_parent" title="SALIR"><i class="fa fa-sign-out " style="font-size:30px"></i></a>
-    <!--<a href='/' target="_parent"><button class="w3-btn w3-xlarge  w3-food-spearmint  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver</button></a>-->
-    </div>
-    <div class=" w3-padding-32">
-      <a href='/turno/execute' target="_parent"><button class="w3-btn w3-medium w3-pink parpadeo w3-round-large w3-hover-light-grey"  style="font-weight:600;">REALIZÁ TU CHEQUEO MÉDICO</button></a>
-      <!--<a href='/' target="_parent"><button class="w3-btn w3-xlarge  w3-food-spearmint  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver</button></a>-->
-      </div>
-  </div>
+
 
 </header>
 {{#errorReservation}}

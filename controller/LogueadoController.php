@@ -18,7 +18,8 @@ class LogueadoController {
         }else {
             $user = $this->session->sessionShow('usuario');
             $errorReservation = $this->session->sessionShow('errorReservation');
-            $data = array("errorReservation"=>$errorReservation, "user"=>$user);
+            $nivel = $this->session->sessionShow('nivel');
+            $data = array("errorReservation"=>$errorReservation, "user"=>$user,"nivel"=>$nivel);
             $this->printer->generateView('Logueado.html', $data);
         }
 
