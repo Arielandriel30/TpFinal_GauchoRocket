@@ -37,4 +37,9 @@ class TurnoModel
                                                     WHERE (`idUsuarios` = '$idUser')");
     }
 
+    
+    public function resultadoChequeo($idUser){
+        return $this->database->query("SELECT id_flight_level FROM usuario
+         WHERE idUsuarios = '$idUser'");
+     }
 }

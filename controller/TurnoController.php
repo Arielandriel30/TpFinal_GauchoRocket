@@ -58,8 +58,11 @@ class TurnoController
     private function RealizarChequeo($idUser)
     {   $resultadoChequeo=$this->generateRandomLevel();
         $this->TurnoModel->GuardarResultadoDelChequeo($idUser,$resultadoChequeo);
+        $nivel = $this->TurnoModel->resultadoChequeo($idUser);
+        $this->session->execute('nivel', $nivel);
         $result  = $this->TurnoModel->getCentrosMedicos();
-        $data=array("medical"=>$result,"Nivel medico"=>"Usted obtuvo el siguiente nivel medico como resultado del chequeo medico: ".$resultadoChequeo."-");
+        $data=array("medical"=>$result,"Nivel medico"=>"Usted obtuvo el siguiente nivel medico como resultado del chequeo medico: ".$resultadoChequeo."-",
+        "nivel", $nivel);
         $this->printer->generateView('Turno.html',$data);
     }
     private function generateRandomLevel(){
