@@ -29,14 +29,15 @@
   <div class="w3-center" style="height: 300px ;">
     <h4 class="texto1">Bienvenido {{user}} a</h4>
   <h4 class="texto1">GAUCHO ROCKET</h4>
-  <h1 class=" w3-animate-bottom  texto1" >LOS MEJORES VIAJES ESPACIALES</h1>
+  <h1 class=" w3-animate-bottom  texto1" style="display: inline">LOS MEJORES VIAJES ESPACIALES</h1>
+    <div class="btnReserva">
     {{#admin}}
     <a href='/reportes/execute' target="_parent"><button class="w3-btn w3-medium w3-pink  w3-round-large w3-hover-light-grey"  style="font-weight:600;">Reportes</button></a>
     {{/admin}}
     {{^admin}}
 
     {{/admin}}
-
+    </div>
 </div>
 
 </header>

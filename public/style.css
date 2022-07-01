@@ -101,5 +101,9 @@ footer p {
     }
   }
 
-
+.btnReserva{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: space-around;}
 /*form*/
