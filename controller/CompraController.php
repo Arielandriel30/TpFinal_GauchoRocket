@@ -50,6 +50,7 @@ class CompraController
     }
 
     public function mostrarVuelosReservados(){
+        $vuelos=$_POST['vuelos'];
         if(isset($_POST['submit'])){
             if(!empty($_POST['vuelos'])){
                 $vuelos=$_POST['vuelos'];
