@@ -25,6 +25,8 @@ require_once('third-party/mustache/src/Mustache/Autoloader.php');
 include_once ("qr/phpqrcode/qrlib.php");
 include_once("ConversorMoneda.php");
 include_once("Validador.php");
+include_once("Pdf.php");
+include_once("fpdf/fpdf/fpdf.php");
 
 
 class Configuration
@@ -107,8 +109,11 @@ public function getRegisterModel()
 ////////////////Compra/////////
     public function getCompraController() {
         return new CompraController($this->getPrinter(),
-            $this->getCompraModel(),$this->getQr(),
-            $this->getSession(),$this->getConversorMoneda());
+            $this->getCompraModel(),
+            $this->getQr(),
+            $this->getSession(),
+            $this->getConversorMoneda(),
+            $this->getPdf());
     }
 
     private function getCompraModel()
@@ -157,6 +162,11 @@ public function getRegisterModel()
     public function getQr()
     {
         return new Qr();
+    }
+////////PDF//////
+    public function getPdf()
+    {
+       return new Pdf($this->getQr());
     }
 ////////Router//////
 public function getRouter()

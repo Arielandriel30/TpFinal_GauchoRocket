@@ -7,15 +7,17 @@ class CompraController
     private $qr;
     private $session;
     private $conversor;
+    private $pdf;
 
 
-    public function __construct($printer, $CompraModel,$qr, $session,$conversor)
+    public function __construct($printer, $CompraModel,$qr, $session,$conversor,$pdf)
     {
         $this->printer = $printer;
         $this->CompraModel = $CompraModel;
         $this->qr=$qr;
         $this->session=$session;
         $this->conversor=$conversor;
+        $this->pdf=$pdf;
     }
 
     public function execute() {
@@ -42,8 +44,8 @@ class CompraController
         $data = array("valor"=>$total,"dinero"=>$dineroLocal,"fecha"=>$fechaActual);
         $this->printer->generateView('Confirmacion.html',$data);
     }
-    public function generarQr() {
-        $this->qr->crearQr('Recibo de pago de vuelo gaucho rcoket SA.');
+    public function generarPdf() {
+        $this->pdf->armarPdf("Juan Perez","Buenos Aires","Luna","Turista","$5000","10/10/2022","Trajeta de embarque");
     }
 
     public function mostrarVuelosReservados(){
