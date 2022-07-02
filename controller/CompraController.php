@@ -27,7 +27,7 @@ class CompraController
         }else {
             $user = $this->session->sessionShow('usuario');
             $data = array("user"=>$user);
-        $this->printer->generateView('Compra.html', $user);
+        $this->printer->generateView('Compra.html', $data);
      }
     }
     public function confirmarCompra() {
@@ -51,13 +51,8 @@ class CompraController
 
     public function mostrarVuelosReservados(){
         $vuelos=$_POST['vuelos'];
-        if(isset($_POST['submit'])){
-            if(!empty($_POST['vuelos'])){
-                $vuelos=$_POST['vuelos'];
-                $valorTotal=sizeof($vuelos)*1000;
-                $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
-                $this->printer->generateView('Compra.html',$data);
-            }
-        }
+        $valorTotal=sizeof($vuelos)*1000;
+        $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
+        $this->printer->generateView('Compra.html',$data);
     }
 }
