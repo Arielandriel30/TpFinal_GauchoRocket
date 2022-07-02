@@ -697,6 +697,7 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 /*Calcula el circuito 1 de Baja aceleracion solo hay que pasarle la estacion en este ejemplo esta la Luna
+--Desde la tierra a marte
  SELECT rs.name,
 DATE_ADD(sf.departure_date, INTERVAL SUM(l.duration) HOUR) 'Fecha de Llegada'
 FROM space_flight sf
@@ -716,5 +717,31 @@ AND l.sort_ <= (SELECT l1.sort_ FROM space_flight sf1
                 		WHERE s1.name='Luna'
                         AND sft1.short_name='C1'
                         AND rsft1.short_name ='BA')
+ORDER BY l.sort_ ASC
+
+--Desde Marte a la tierra
+SELECT rs.name,
+DATE_ADD(sf.departure_date, INTERVAL SUM(l.duration) HOUR) 'Fecha de Llegada'
+FROM space_flight sf
+JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
+JOIN route rou ON rou.id=sf.route_id
+JOIN lane l ON l.route_id = rou.id
+JOIN station rs ON rs.id = l.station_id
+JOIN station orig ON  orig.id = sf.departure
+JOIN space_flight_type rsft  ON rsft.id= l.flight_type_id
+WHERE sft.short_name='C1'
+AND rsft.short_name ='BA'
+AND orig.name = 'Marte'
+AND l.sort_ > (SELECT l1.sort_ FROM space_flight sf1
+                        JOIN space_flight_type sft1  ON sft1.id= sf1.space_flight_type_id
+                        JOIN route rou1 ON rou1.id=sf1.route_id
+                        JOIN lane l1 ON l1.route_id = rou1.id
+                        JOIN station des1 ON des1.id = l1.station_id
+                		JOIN station orig1 ON  orig1.id = sf1.departure
+                        JOIN space_flight_type rsft1  ON rsft1.id= l1.flight_type_id
+                		WHERE des1.name='Luna'
+                        AND sft1.short_name='C1'
+                        AND rsft1.short_name ='BA'
+               			AND orig1.name = 'Marte')
 ORDER BY l.sort_ ASC
  */;
