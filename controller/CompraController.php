@@ -45,8 +45,9 @@ class CompraController
         $this->printer->generateView('Confirmacion.html',$data);
     }
     public function generarPdf() {
-        $this->pdf->armarPdf("Juan Perez","Buenos Aires","Luna","Turista","$5000","10/10/2022","Trajeta de embarque");
+        $this->pdf->armarPdf("Juan Perez","Buenos Aires","Luna","Turista","$5000","10/10/2022","Check in del vuelo GR");
     }
+
 
     public function mostrarVuelosReservados(){
         if(isset($_POST['submit'])){

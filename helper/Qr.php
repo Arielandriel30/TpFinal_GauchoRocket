@@ -8,6 +8,17 @@ class Qr
     }
 
     public function crearQr($contenido){
-        QRcode::png($contenido,false,QR_ECLEVEL_L,8);
+
+        $dir='public/temp/';
+        if(!file_exists($dir)){
+            mkdir($dir);
+        }
+        $fileName=$dir.'qr.png';
+        $tamanio=10;
+        $level='M';
+        $frameSize=3;
+
+        QRcode::png($contenido,$fileName,$level,$tamanio,$frameSize);
+
     }
 }

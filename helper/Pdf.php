@@ -13,6 +13,7 @@ class Pdf
     }
     public function armarPdf($pasajero,$partida,$llegada,$clase,$precio,$fecha,$contenidoQr){
 
+        $this->qr->crearQr($contenidoQr);
         $this->pdf->AddPage();
         $this->pdf->SetTitle('Comprobante de compra');
         $this->pdf->SetFont('Arial', 'B', 16);
@@ -29,12 +30,10 @@ class Pdf
         $this->pdf->Cell(10, 10, 'Precio: '.$precio,0,1);
         $this->pdf->Cell(10, 10, 'Fecha: '.$fecha,0,1);
         $this->pdf->line("1000","140","0","140");
-        //$this->pdf->Cell(80, 50, $this->qr->crearQr($contenidoQr),0,1);
+        $this->pdf->Image("public/temp/qr.png","60","150");
 
 
         $this->pdf->Output("","comprobanteVuelo");
     }
-
-
 }
 
