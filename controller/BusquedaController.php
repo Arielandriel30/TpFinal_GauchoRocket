@@ -69,10 +69,7 @@ class BusquedaController
                  $hoy = date("Y-m-d H:i:s", time());
                  $diaSemanal=date("N");
                  for ($i=0;$i<count($result);$i++)
-                 {  echo "<br>--------------------<br>";
-//                     var_dump($result[$i]);
-                     echo "<br>--------------------<br>";
-
+                 {
                      if($diaSemanal==$semana[$result[$i]["day"]]){
 
                          $result[$i]+=array("fechaSalida"=>date("d-m-Y",strtotime($hoy."+ 7 days")));
