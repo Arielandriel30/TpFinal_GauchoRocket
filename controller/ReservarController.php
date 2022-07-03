@@ -27,9 +27,7 @@ class ReservarController
         }
             $user = $this->session->sessionShow('resultLogueado');
             $nivelMedico= $this->ReservaModel->getNivelMedico($user[0]["idUsuarios"]);
-//            var_dump($nivelMedico);
-//            var_dump($user);
-//            var_dump($nivelMedico[0]["id_flight_level"]);
+
             if(empty($nivelMedico[0]["id_flight_level"])){
                  $this->generalTurno();
             /*exit(0);*/
@@ -69,15 +67,6 @@ class ReservarController
             }
         }
 
-//        echo "datos de vuelos ingresados";
-//        echo "<br>id/codigo";
-//        var_dump( $vuelos);
-//        echo "<br>Level";
-//        var_dump( $level);
-//        echo "<br>Dia De Vuelo";
-//        var_dump( $dia );
-//        echo "<br>--------------";
-
         if ($vuelos!=null && $nivelMedico[0]['id_flight_level'] == 3)
         {   $this->RealizarReserva($dia,$vuelos[0]);
             exit();
@@ -109,18 +98,13 @@ class ReservarController
 
     private function RealizarReserva($dia,$vuelos)
     {
-//        echo "<br>-------<br>";
-//        var_dump($dia);
-//        echo "<br>-------<br>";
-//        var_dump($vuelos);
+
         $datos=$this->BusquedaModel->getSubOrbitalParaReservar($dia,$vuelos);
         $cabinas=$this->BusquedaModel->getCabinas();
-//        echo "<br>-------<br>";
-        var_dump($datos[0]["RocketTypeID"]);
+
+//        var_dump($datos[0]["RocketTypeID"]);
         $cabinaDelAvion=$this->BusquedaModel->getCabinaDelAvion($datos[0]["RocketTypeID"]);
-//        var_dump( $cabinaDelAvion);
-//        echo "<br>-------<br>";
-//        var_dump($datos);
+
         $cab=array();
         if($cabinaDelAvion[0]["capacity_type_1"]!=null){
             $cab+=array(count($cab)=>["id"=>$cabinas[0]["id"],"description"=>$cabinas[0]["description"]]);

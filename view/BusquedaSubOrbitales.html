@@ -36,15 +36,14 @@
                 {{#SubOrbital}}
                 <form method="post" action="/reservar/validate">
                 <tr>
-                    <td>{{day}}</td>
+
+                    <td>{{fechaSalida}}</td>
                     <td>{{duration}}</td>
                     <td>{{team}}</td>
                     <td>{{departure}}</td>
-<!--                    <td>{{code}}</td>-->
-<!--                    <td>{{fl}}</td>-->
-                    <td>{{RocketTypeID}}</td>
                     <td> <input type="hidden" name="vuelos[]" value="{{code}}"></td>
                     <td> <input type="hidden" name="diaVuelo" value="{{day}}" checked></td>
+                    <td> <input type="hidden" name="diaSalida" value="{{fechaSalida}}" checked></td>
                     <td> <input type="hidden" name="idLevel" value="{{fl}}"  checked></td>
                     <td><input type="submit" name="ReservarVuelo" class="btn btn-primary mt-2" value="Reservar"></td>
                 </tr>
