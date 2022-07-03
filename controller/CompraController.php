@@ -72,6 +72,15 @@ class CompraController
         $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
         $cohete = isset($_POST["cohete"]) ? $_POST["cohete"] : "";
         $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
+        if($cabina=='1'){
+            $cabina='Turista';
+        }
+        if($cabina=='2'){
+            $cabina='Ejecutiva';
+        }
+        if($cabina=='3'){
+            $cabina='Primera clase';
+        }
 
         $valorTotal=sizeof($vuelos)*1000;
         $data = array("vuelo"=>$vuelos,'cohete'=>$cohete,'cabina'=>$cabina,'origen'=>$origen,'salida'=>$salida,'horario'=>$horario,'duracion'=>$duracion,'destino'=>$destino,"valor"=>1000,"total"=>$valorTotal);
