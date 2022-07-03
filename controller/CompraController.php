@@ -9,7 +9,6 @@ class CompraController
     private $conversor;
     private $pdf;
 
-
     public function __construct($printer, $CompraModel,$qr, $session,$conversor,$pdf)
     {
         $this->printer = $printer;
@@ -40,19 +39,42 @@ class CompraController
             date_default_timezone_set('America/Argentina/Buenos_Aires');
             $fechaActual=date('d/m/Y H:i:s',time());
 
-            $data = array("valor"=>$total,"dinero"=>$dineroLocal,"fecha"=>$fechaActual);
+            $fecha = isset($_POST["fecha"]) ? $_POST["fecha"] : "";
+            $destino = isset($_POST["destino"]) ? $_POST["destino"] : "";
+            $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
+            $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
+
+            $data = array("valor"=>$total,"dinero"=>$dineroLocal,"fecha"=>$fechaActual,'date'=>$fecha,'destino'=>$destino,'origen'=>$origen,'cabina'=>$cabina);
             $this->printer->generateView('Confirmacion.html',$data);
         }
     }
 
     public function generarPdf() {
-        $this->pdf->armarPdf("Juan Perez","Buenos Aires","Luna","Turista","$5000","10/10/2022","Check in del vuelo GR");
+
+        $fechaCompra = isset($_POST["fechaCompra"]) ? $_POST["fechaCompra"] : "";
+        $destino = isset($_POST["destino"]) ? $_POST["destino"] : "";
+        $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
+        $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
+        $valor = isset($_POST["dinero"]) ? $_POST["dinero"] : "";
+        $fecha= isset($_POST["fecha"]) ? $_POST["fecha"] : "";
+
+        $usuario=$this->session->sessionShow('usuario');
+
+        $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$valor,$fechaCompra,"Vuelo desde $origen hasta $destino el día $fecha con codigo 41545");
     }
 
     public function mostrarVuelosReservados(){
         $vuelos=$_POST['vuelos'];
+        $salida = isset($_POST["departure_date"]) ? $_POST["departure_date"] : "";
+        $horario = isset($_POST["departure_time"]) ? $_POST["departure_time"] : "";
+        $duracion = isset($_POST["duration"]) ? $_POST["duration"] : "";
+        $destino = isset($_POST["destination"]) ? $_POST["destination"] : "";
+        $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
+        $cohete = isset($_POST["cohete"]) ? $_POST["cohete"] : "";
+        $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
+
         $valorTotal=sizeof($vuelos)*1000;
-        $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
+        $data = array("vuelo"=>$vuelos,'cohete'=>$cohete,'cabina'=>$cabina,'origen'=>$origen,'salida'=>$salida,'horario'=>$horario,'duracion'=>$duracion,'destino'=>$destino,"valor"=>1000,"total"=>$valorTotal);
         $this->printer->generateView('Compra.html',$data);
     }
 }

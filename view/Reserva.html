@@ -14,8 +14,8 @@
     </div>
 </header>
 <div>
-    <h1> Realize la Reserva de su Vuelo</h1>
-    <h4> Las reservas para el vuelo elegido se gestionan a través del sistema y el cliente puede elegir vuelo, cabina y tipo de servicio de a bordo (standard, gourmet, spa que tienen un costo diferenciado). Se pueden reservar y pagar más de un pasaje cada vez (grupos).</h4>
+    <h1> Realice la Reserva de su Vuelo</h1>
+    <h4> Las reservas para el vuelo elegido se gestionan a través del sistema y el cliente puede elegir: vuelo, cabina y tipo de servicio a bordo (standard, gourmet, spa que tienen un costo diferenciado). Se pueden reservar y pagar más de un pasaje cada vez (grupos).</h4>
 </div>
 <div>
     <!-- Page content -->
@@ -50,7 +50,14 @@
                     <td>{{short_name}}</td>
                     <td>{{plate}}</td>
                     <td>{{RocketTypeID}}</td>
-                    <td> <input type="hidden" name="vuelos[]" value="{{code}}"></td>
+                     <input type="hidden" name="vuelos[]" value="{{code}}">
+                    <input type="hidden" name="departure_date" value="{{departure_date}}">
+                    <input type="hidden" name="departure_time" value="{{departure_time}}">
+                    <input type="hidden" name="duration" value="{{duration}}">
+                    <input type="hidden" name="destination" value="{{destination}}">
+                    <input type="hidden" name="origen" value="{{departure}}">
+                    <input type="hidden" name="cohete" value="{{plate}}">
+                    {{#cabines}}  <input type="hidden" name="cabina" value="{{description}}">{{/cabines}}
        <!--             <td> <input type="hidden" name="diaVuelo" value="{{day}}" checked></td>
                     <td> <input type="hidden" name="idLevel" value="{{fl}}"  checked></td>-->
                     <td><input type="submit" name="ReservarVuelo" class="btn btn-primary mt-2" value="Reservar"></td>

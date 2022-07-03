@@ -27,8 +27,8 @@ class Pdf
         $this->pdf->Cell(10, 10, 'Partida: '.$partida,0,1);
         $this->pdf->Cell(10, 10, 'Llegada: '.$llegada,0,1);
         $this->pdf->Cell(10, 10, 'Clase: '.$clase,0,1);
-        $this->pdf->Cell(10, 10, 'Precio: '.$precio,0,1);
-        $this->pdf->Cell(10, 10, 'Fecha: '.$fecha,0,1);
+        $this->pdf->Cell(10, 10, 'Precio: $'.$precio,0,1);
+        $this->pdf->Cell(10, 10, 'Fecha de compra: '.$fecha,0,1);
         $this->pdf->line("1000","140","0","140");
         $this->pdf->Image("public/temp/qr.png","60","150");
 
