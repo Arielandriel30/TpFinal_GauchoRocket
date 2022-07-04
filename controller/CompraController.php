@@ -50,7 +50,25 @@ class CompraController
     }
 
     public function mostrarVuelosReservados(){
+        echo "----------------------<br>";
+        var_dump($_POST["ReservarVuelo"]);
+        echo "----------------------<br>";
+        /*var_dump($_POST["servicio"]);
+        echo "----------------------<br>";
+        var_dump($_POST["cabina"]);*/
+        echo "----------------------<br>";
+        var_dump($_POST["diaVuelo"]);
+        echo "----------------------<br>";
+        var_dump($_POST["diaSalida"]);
+        echo "----------------------<br>";
+        var_dump($_POST["HoraSalida"]);
+
         $vuelos=$_POST['vuelos'];
+        $idServicio=$_POST['servicio'];
+        $idCabina=$_POST['cabina'];
+        $inicialDia=$_POST["diaVuelo"];
+        $fechaDESalida=$_POST["diaSalida"];
+        $horaDESalida=$_POST["HoraSalida"];
         $valorTotal=sizeof($vuelos)*1000;
         $data = array("vuelo"=>$vuelos,"valor"=>1000,"total"=>$valorTotal);
         $this->printer->generateView('Compra.html',$data);

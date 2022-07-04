@@ -49,41 +49,40 @@
                     <td>{{side}}</td>
                     <td>{{short_name}}</td>
                     <td>{{plate}}</td>
-                    <td>{{RocketTypeID}}</td>
-                    <td> <input type="hidden" name="vuelos[]" value="{{code}}"></td>
-       <!--             <td> <input type="hidden" name="diaVuelo" value="{{day}}" checked></td>
-                    <td> <input type="hidden" name="idLevel" value="{{fl}}"  checked></td>-->
-                    <td><input type="submit" name="ReservarVuelo" class="btn btn-primary mt-2" value="Reservar"></td>
+                    <input type="hidden" name="vuelos[]" value="{{code}}">
+                    <input type="hidden" name="diaVuelo" value="{{day}}" >
+                    <input type="hidden" name="diaSalida" value="{{departure_date}}" >
+                    <input type="hidden" name="HoraSalida" value="{{departure_time}}" >
+                    <input type="hidden" name="idLevel" value="{{fl}}"  >
+                    <td><input type="submit" name="ReservarVuelo" class="btn btn-primary mt-2" value="Reservar" ></td>
                 </tr>
+                    <div class="form-group w3-center">
+                        <label for="cabina" class="sr-only">Cabina:</label><br>
+                        <select name="cabina" id="cabina" class="" style="max-width:600px">
+                            {{#cabines}}
+                            <option value="{{id}}" >{{description}}</option>
+                            {{/cabines}}
+                        </select>
+                        <br>
+                    </div>
+                    <div class="form-group w3-center">
+                        <label for="servicio" class="sr-only">Servicio:</label><br>
+                        <select name="servicio" id="servicio" class="" style="max-width:600px">
+                            <option value="0" >standard</option>
+                            <option value="1" >gourmet</option>
+                            <option value="0" >spa</option>
+                        </select>
+                    </div>
                 {{/Datos}}
-
                 </form>
             </table>
-
-
-
-
-
-        </div>
-        <div class="form-group w3-center">
-            <label for="cabina" class="sr-only">Cabina:</label><br>
-            <select name="cabina" id="cabina" class="" style="max-width:400px">
-                {{#cabines}}
-                <option value="{{id}}" >{{description}}</option>
-                {{/cabines}}
-            </select>
-            <br>
         </div>
 
-        <div class="form-group w3-center">
-            <label for="servicio" class="sr-only">Servicio:</label><br>
-            <select name="servicio" id="servicio" class="" style="max-width:400px">
-                <option value="0" >standard</option>
-                <option value="1" >gourmet</option>
-                <option value="0" >spa</option>
-            </select>
 
-        </div>
+
+
+
+
         <!-- End Page Content -->
     </div>
 {{> footer}}

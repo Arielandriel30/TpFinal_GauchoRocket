@@ -84,36 +84,7 @@ class BusquedaController
                        }
 
                  }
-              /*  foreach ($result as $unico){
-                    echo "<br>--------------------<br>";
-                    var_dump($unico["day"]);
-                    var_dump($unico);
-                    var_dump($hoy);
-                    var_dump( $diaSemanal);
-                     var_dump($semana[$unico["day"]]);;
-                     echo "<br>--------------------<br>";
-                    if($diaSemanal==$semana[$unico["day"]]){
-                       $fechaDeSalida+=array(count($fechaDeSalida)=>[$unico["code"]=>date("d-m-Y",strtotime($hoy."+ 7 days"))]);
-                         echo date("d-m-Y",strtotime($hoy."+ 7 days"));
-                        $unico["day"]=date("d-m-Y",strtotime($hoy."+ 7 days"));
-                     }
-                    elseif ($diaSemanal>$semana[$unico["day"]]){
-                        $diferencia=7-($diaSemanal-$semana[$unico["day"]]);
-                        echo date("d-m-Y",strtotime($hoy."+  ".$diferencia." days"));
-                        $unico["day"]=date("d-m-Y",strtotime($hoy."+  ".$diferencia." days"));
-                         $fechaDeSalida+=array(count($fechaDeSalida)=>[$unico["code"]=>date("d-m-Y",strtotime($hoy."+  ".$diferencia." days"))]);
-                    }
-                    else{
-                        $diferencia=$diaSemanal-$semana[$unico["day"]];
-                        echo date("d-m-Y",strtotime($hoy."+  ".$diferencia." days"));
-                        $unico["day"]=date("d-m-Y",strtotime($hoy."+  ".$diferencia." days"));
-                        $fechaDeSalida+=array(count($fechaDeSalida)=>[$unico["code"]=>date("d-m-Y",strtotime($hoy."+  ".$diferencia." days"))]);
-                    }
-                 }*/
-//                 echo "<br>--------------------<br>";
-//                 var_dump($result[0]);
-//                 echo "<br>--------------------<br>";
-//                 var_dump($result[1]);
+
                  $data=array("SubOrbital"=>$result);
                  $this->printer->generateView('BusquedaSubOrbitales.html',$data);
          }

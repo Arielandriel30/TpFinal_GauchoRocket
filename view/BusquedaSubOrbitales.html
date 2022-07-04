@@ -35,9 +35,8 @@
                 </tr>
                 {{#SubOrbital}}
                 <form method="post" action="/reservar/validate">
-                <tr>
-
-                    <td>{{fechaSalida}}</td>
+                    <tr>
+                    <td>{{day}} - {{fechaSalida}}</td>
                     <td>{{duration}}</td>
                     <td>{{team}}</td>
                     <td>{{departure}}</td>
@@ -47,7 +46,6 @@
                     <td> <input type="hidden" name="idLevel" value="{{fl}}"  checked></td>
                     <td><input type="submit" name="ReservarVuelo" class="btn btn-primary mt-2" value="Reservar"></td>
                 </tr>
-
                 </form>
                     {{/SubOrbital}}
 
