@@ -84,7 +84,7 @@ class BusquedaModel{
     }
 
     public function  getSpaceFlight($stationO,$stationD,$date){
-        return $this->database->query("
+        /*return $this->database->query("
 SELECT f.rocket_id, 'EMLV' as code, 'Marte'departure, 'Luna' destination, f.Fecha_de_Salida departure_date,f.Hora_de_Salida departure_time, f.duration, 'VUELTA', 'BA' as short_name, 'AAAA1233' plate
 FROM
 (SELECT
@@ -108,22 +108,22 @@ AND l.sort_ > (SELECT l1.sort_ FROM space_flight sf1
                         JOIN lane l1 ON l1.route_id = rou1.id
                         JOIN station des1 ON des1.id = l1.station_id
                 		JOIN station orig1 ON  orig1.id = sf1.departure
-                        JOIN space_flight_type rsft1  ON rsft1.id= l1.flight_type_id 
+                        JOIN space_flight_type rsft1  ON rsft1.id= l1.flight_type_id
                 		WHERE des1.name='Luna'
                         AND sft1.short_name='C1'
                         AND rsft1.short_name ='BA'
                			AND orig1.name = 'Marte')
 GROUP BY sf.rocket_id, sf.departure_date
 HAVING DATE (DATE_ADD(sf.departure_date, INTERVAL SUM(l.duration) HOUR))= STR_TO_DATE('03,06,2022','%d,%m,%Y')
-ORDER BY l.sort_ ASC)f");
-/*        return $this->database->query(sprintf("Select sf.id, code, so.name AS departure, sd.name AS destination, departure_date, departure_time, duration, side, sft.short_name, plate
+ORDER BY l.sort_ ASC)f");*/
+      return $this->database->query(sprintf("Select sf.id, code, so.name AS departure, sd.name AS destination, departure_date, departure_time, duration, side, sft.short_name, plate
         FROM flight_booking sf
         JOIN station so ON sf.from_id = so.id
         JOIN station sd ON sf.to_id = sd.id
         JOIN rocket r ON sf.rocket_id=r.id
         JOIN rocket_type rt ON rt.id = r.rocket_type_id
         JOIN space_flight_type sft ON rt.flight_type_id=sft.id
-        WHERE UPPER(so.name) like UPPER(CONCAT('%%$stationO%%')) and UPPER(sd.name) like UPPER(CONCAT('%%$stationD%%')) and DATE(departure_date)='$date'"));*/
+        WHERE UPPER(so.name) like UPPER(CONCAT('%%$stationO%%')) and UPPER(sd.name) like UPPER(CONCAT('%%$stationD%%')) and DATE(departure_date)='$date'"));
     }
      public function  getCabinaDelAvion($idRocketType){
         return $this->database->query(sprintf("SELECT * FROM rocket_type

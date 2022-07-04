@@ -16,12 +16,13 @@ class BusquedaController
     {
         $busquedaOrigen = $_POST["viajeOrigen"];
         $busquedaDestino = $_POST["viajeDestino"];
-
         $input_date=$_POST['dateViaje'];
-//        var_dump($input_date);
-        $date=date("Y-m-d",strtotime($input_date));
-//        var_dump($date);
-        $result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,$date);
+
+       var_dump($input_date);
+       // $date=date("Y-m-d",strtotime($input_date));
+       //////// var_dump($date);
+       /////$result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,$date);
+        $result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,input_date);
         /*var_dump($result);*/
         if (!$result){
                 header("location:/");
@@ -64,27 +65,25 @@ class BusquedaController
                  header("location:/");
                  exit();
              } else {
-                 date_default_timezone_set("America/Argentina/San_Luis");
-                 $semana=["L" =>1 ,"M" => 2,"X" => 3,"J" => 4,"V" => 5,"S" =>6,"D" =>7];
+                $result=$this->adjuntarFechaDeSalida($result);
+            /*     date_default_timezone_set("America/Argentina/San_Luis");
+                 $semana = ["L" => 1, "M" => 2, "X" => 3, "J" => 4, "V" => 5, "S" => 6, "D" => 7];
                  $hoy = date("Y-m-d H:i:s", time());
-                 $diaSemanal=date("N");
-                 for ($i=0;$i<count($result);$i++)
-                 {
-                     if($diaSemanal==$semana[$result[$i]["day"]]){
+                 $diaSemanal = date("N");
+                 for ($i = 0; $i < count($result); $i++) {
+                     if ($diaSemanal == $semana[$result[$i]["day"]]) {
+                         var_dump( "7 days");
+                         $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+ 7 days")));
+                     } elseif ($diaSemanal > $semana[$result[$i]["day"]]) {
 
-                         $result[$i]+=array("fechaSalida"=>date("d-m-Y",strtotime($hoy."+ 7 days")));
+                         $diferencia = 7 - ($diaSemanal - $semana[$result[$i]["day"]]);
+
+                            $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " .$diferencia. " days")));
+                     } else {
+                         $diferencia = $semana[$result[$i]["day"]]-$diaSemanal ;
+                         $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " .$diferencia. " days")));
                      }
-                     elseif ($diaSemanal>$semana[$result[$i]["day"]]){
-                         $diferencia=7-($diaSemanal-$semana[$result[$i]["day"]]);
-                         $result[$i]+=array("fechaSalida"=>date("d-m-Y",strtotime($hoy."+  ".$diferencia." days")));
-                     }
-                     else{
-                         $diferencia=$diaSemanal-$semana[$result[$i]["day"]];
-                         $result[$i]+=array("fechaSalida"=>date("d-m-Y",strtotime($hoy."+  ".$diferencia." days")));
-                       }
-
-                 }
-
+                 }*/
                  $data=array("SubOrbital"=>$result);
                  $this->printer->generateView('BusquedaSubOrbitales.html',$data);
          }
@@ -111,10 +110,35 @@ class BusquedaController
                  header("location:/");
                  exit();
              } else {
+                 $result=$this->adjuntarFechaDeSalida($result);
                  $data=array("Tours"=>$result);
                  $this->printer->generateView('BusquedaTours.html',$data);
-
          }
 
+    }
+
+    /**
+     * @param $result
+     * @return void
+     */
+    public function adjuntarFechaDeSalida($result)
+    {
+        date_default_timezone_set("America/Argentina/San_Luis");
+        $semana = ["L" => 1, "M" => 2, "X" => 3, "J" => 4, "V" => 5, "S" => 6, "D" => 7];
+        $hoy = date("Y-m-d H:i:s", time());
+        $diaSemanal = date("N");
+        for ($i = 0; $i < count($result); $i++) {
+            if ($diaSemanal == $semana[$result[$i]["day"]]) {
+
+                $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+ 7 days")));
+            } elseif ($diaSemanal > $semana[$result[$i]["day"]]) {
+                $diferencia = 7 - ($diaSemanal - $semana[$result[$i]["day"]]);
+                $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " . $diferencia . " days")));
+            } else {
+                $diferencia =  $semana[$result[$i]["day"]]-$diaSemanal ;
+                $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " . $diferencia . " days")));
+            }
+        }
+        return $result;
     }
 }
