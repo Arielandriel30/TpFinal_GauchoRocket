@@ -25,10 +25,13 @@ class ReservarController
             header("location:/login");
             exit(0);
         }
+
         $vuelos = null;
         $level = null;
         $dia=null;
         $fechaSalida=null;
+        $horaDeSalida=null;
+        $idTipoDeVuelo=null;
 
             if (!empty($_POST['vuelos'])) {
                 $vuelos = $_POST['vuelos'];
@@ -44,19 +47,25 @@ class ReservarController
                 $fechaSalida=$_POST['diaSalida'];
             }
 
+            if (!empty($_POST['departure_time'])) {
+                $horaDeSalida=$_POST['departure_time'];
+            }
+            if (!empty($_POST['RocketTypeID'])) {
+                $idTipoDeVuelo=$_POST['RocketTypeID'];
+            }
 
             $user = $this->session->sessionShow('resultLogueado');
             $nivelMedico= $this->ReservaModel->getNivelMedico($user[0]["idUsuarios"]);
             if(empty($nivelMedico[0]["id_flight_level"])){
                  $this->generalTurno();
-//                 exit(0);
+            //exit(0);
             }
             else{
              $respuesta=$this->validarNivelMedico($vuelos,$level,$nivelMedico);
              if($respuesta){
-                 echo "se puede reservar";
+                //echo "se puede reservar";
                  if(isset($_POST['ReservarSubOrbital'])) {
-                     $this->RealizarReservasSubOrbital($dia, $vuelos[0], $fechaSalida);
+                     $this->RealizarReservasSubOrbital($dia, $vuelos[0], $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
                  }
                  if(isset($_POST['ReservarTour'])) {
                      $this->RealizarReservasTours($dia, $vuelos[0], $fechaSalida);
@@ -70,9 +79,12 @@ class ReservarController
                  header("location:/logueado/execute");
                  exit();
              }
-
          }
+    }
 
+    private function generalTurno()
+    {
+        header("location:/turno");
     }
 
     private function validarNivelMedico($vuelos,$level,$nivelMedico)
@@ -91,75 +103,34 @@ class ReservarController
 
     }
 
-    public function execute() {
-
-        $this->printer->generateView('Reserva.html');
-    }
-
-    private function generalTurno()
+    private function RealizarReservasSubOrbital($dia,$vuelos,$fechaSalida,$idTipoDeVuelo,$horaDeSalida)
     {
-        header("location:/turno");
-    }
 
-
-    private function RealizarReservasSubOrbital($dia,$vuelos,$fechaSalida)
-    {
+        //$cab = $this->getCabinasDelAvionDisponibles($datos[0], $vuelos, $fechaSalida);
+        $cab = $this->getCabinasDelAvionDisponibles($vuelos, $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
 
         $datos=$this->BusquedaModel->getSubOrbitalParaReservar($dia,$vuelos);
 
-        $cab = $this->getCabinasDelAvionDisponibles($datos[0], $vuelos, $fechaSalida);
-
         $data = array("vuelo"=>$vuelos,"Datos"=>$datos,"cabines"=>$cab,"departure_date"=>$fechaSalida,);
-      /*  echo "<br>------------------------------------<br>";
-        var_dump($vuelos );
-        echo "<br>------------------------------------<br>";
-        var_dump($datos );
-        echo "<br>------------------------------------<br>";
-        var_dump($cab);
-        echo "<br>---- -<br>";
-        var_dump($fechaSalida);
-        echo "<br>------------------------------------<br>";
-        var_dump($data);*/
+
         $this->printer->generateView('Reserva.html',$data);
     }
 
-    private function verficarEspacioLibre($capacidadDeLaCabina,$idVuelo, $fechaDeSalida, $horaSalida, $idCabina)
-    {
-        $espaciosusados=$this->ReservaModel->getCabinasDeVuelosReservadas($idVuelo,$fechaDeSalida,$horaSalida,$idCabina);
-        if($espaciosusados=null)
-        return true;
-        if($espaciosusados<$capacidadDeLaCabina){
-        return true;
-        }
-        else{
-        return false;
-         }
-    }
-
-    private function RealizarReservasTours($dia, $int, $fechaSalida)
-    {
-        echo "Vengop de tour y deveria realizar lo de tours";
-    }
-
     /**
-     * @param $datos
      * @param $vuelos
      * @param $fechaSalida
      * @return array|array[]
      */
 
-    public function getCabinasDelAvionDisponibles($datos, $vuelos, $fechaSalida): array
+    public function getCabinasDelAvionDisponibles($idVuelo, $fechaSalida,$idTipoDeVuelo, $horaSalida): array
     {
         $cabinas = $this->BusquedaModel->getCabinas();
-        //var_dump($datos[0]["RocketTypeID"]);
-        $cabinaDelAvion = $this->BusquedaModel->getCabinaDelAvion($datos["RocketTypeID"]);
-        /*var_dump($cabinaDelAvion);
-        var_dump($vuelos);
-        var_dump($datos);*/
-        $idVuelo = $vuelos;
+
+        //$cabinaDelAvion = $this->BusquedaModel->getCabinaDelAvion($datos["RocketTypeID"]);
+        $cabinaDelAvion = $this->BusquedaModel->getCabinaDelAvion($idTipoDeVuelo);
+
         $cab = array();
-        //$datos[0]["departure_time"]
-        $horaSalida = $datos["departure_time"];
+
         if ($cabinaDelAvion[0]["capacity_type_1"] != null) {
             $esta_disponible = $this->verficarEspacioLibre($cabinaDelAvion[0]["capacity_type_1"], $idVuelo, $fechaSalida, $horaSalida, 1);
             if ($esta_disponible) {
@@ -183,6 +154,31 @@ class ReservarController
             }
         }
         return $cab;
+    }
+
+
+
+    private function verficarEspacioLibre($capacidadDeLaCabina,$idVuelo, $fechaDeSalida, $horaSalida, $idCabina)
+    {
+        $espaciosusados=$this->ReservaModel->getCabinasDeVuelosReservadas($idVuelo,$fechaDeSalida,$horaSalida,$idCabina);
+        if($espaciosusados=null)
+            return true;
+        if($espaciosusados<$capacidadDeLaCabina){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function execute() {
+
+        $this->printer->generateView('Reserva.html');
+    }
+
+    private function RealizarReservasTours($dia, $int, $fechaSalida)
+    {
+        echo "Vengop de tour y deveria realizar lo de tours";
     }
 
 }

@@ -57,6 +57,7 @@ class BusquedaController
              }
 
     }
+
     public function getSubOrbitales()
     {
              $result  = $this->busquedaModel-> getSubOrbitales();
@@ -66,6 +67,7 @@ class BusquedaController
                  exit();
              } else {
                 $result=$this->adjuntarFechaDeSalida($result);
+
             /*     date_default_timezone_set("America/Argentina/San_Luis");
                  $semana = ["L" => 1, "M" => 2, "X" => 3, "J" => 4, "V" => 5, "S" => 6, "D" => 7];
                  $hoy = date("Y-m-d H:i:s", time());
@@ -84,6 +86,7 @@ class BusquedaController
                          $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " .$diferencia. " days")));
                      }
                  }*/
+
                  $data=array("SubOrbital"=>$result);
                  $this->printer->generateView('BusquedaSubOrbitales.html',$data);
          }
