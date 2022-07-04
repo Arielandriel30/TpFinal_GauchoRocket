@@ -32,8 +32,6 @@
                                                 <div class="ms-3" style="margin-right: 10px">
                                                     <h5>Vuelo</h5>
                                                     <p class="small mb-0">Ruta : {{.}}</p>
-                                                    <h6>Cohete:</h6>
-                                                    <h5 class="small mb-0">{{cohete}}aaaaa</h5>
                                                 </div>
                                                 <div style="width: 90px;margin-left: 10px">
                                                     <h6>Origen:</h6>
@@ -44,14 +42,14 @@
                                                 <div style="width: 100px;margin-left: 5px">
                                                     <h6>Fecha:</h6>
                                                     <h5 class="fw-normal mb-0" style="font-size: medium">{{salida}}</h5>
-                                                    <h6>Horario:</h6>
-                                                    <h5 class="fw-normal mb-0" style="font-size: medium">{{horario}}</h5>
-                                                </div>
-                                                <div style="width: 90px;margin-left: 10px">
                                                     <h6>Duración:</h6>
                                                     <h5 class="fw-normal mb-0" style="font-size: medium">{{duracion}}</h5>
+                                                </div>
+                                                <div style="width: 90px;margin-left: 10px">
                                                     <h6>Cabina:</h6>
                                                     <h5 class="fw-normal mb-0" style="font-size: medium">{{cabina}}</h5>
+                                                    <h6>Servicio:</h6>
+                                                    <h5 class="fw-normal mb-0" style="font-size: medium">{{servicio}}</h5>
                                                 </div>
                                                 <div style="width: 70px;">
                                                     {{#valor}}   <h5 class="mb-0">{{.}} C</h5>{{/valor}}
@@ -122,6 +120,7 @@
                                             <input type="hidden" name="cabina" value="{{cabina}}">
                                             {{#valor}}<input type="hidden" name="valor" value="{{.}}">{{/valor}}
                                             <input type="hidden" name="fecha" value="{{salida}}">
+                                            <input type="hidden" name="servicio" value="{{servicio}}">
                                             {{/vuelo}}
                                         <input class="btn btn-block btn-lg parpadeo" name="submit" style="background-color: #1ef876;font-weight: 900" type="submit" value="Pagar"></input>
                                         </form>
