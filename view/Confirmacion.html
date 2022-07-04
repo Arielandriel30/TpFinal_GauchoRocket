@@ -86,7 +86,15 @@
                                     <table border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td>
-                                                <a href="/compra/generarPdf" target="_blank"><button class="btn btn-block btn-lg text-black m-2" style="background-color: #1ef876;font-weight: 800">Descargar PDF</button></a>
+                                                <form action="/compra/generarPdf" method="post" target="_blank">
+                                                    <input type="hidden" name="dinero" value="{{dinero}}">
+                                                    <input type="hidden" name="origen" value="{{origen}}">
+                                                    <input type="hidden" name="destino" value="{{destino}}">
+                                                    <input type="hidden" name="fechaCompra" value="{{fecha}}">
+                                                    <input type="hidden" name="cabina" value="{{cabina}}">
+                                                    <input type="hidden" name="fecha" value="{{date}}">
+                                                    <button class="btn btn-block btn-lg text-black m-2" type="submit" style="background-color: #1ef876;font-weight: 800">Descargar PDF</button>
+                                                </form>
                                             </td>
                                             <td>
                                                 <a href="/logueado/execute"><button class="btn btn-block btn-lg text-white" style="background-color: #e91e63;font-weight: 800">Volver al inicio</button></a>
