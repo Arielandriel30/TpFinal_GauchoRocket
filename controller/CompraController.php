@@ -123,13 +123,13 @@ class CompraController
             var_dump($idcabina);
             var_dump($user[0]["idUsuarios"]);
             if($salida=="Buenos Aires"){
-                $idsalida='1';
+                $idsalida='10';
             }
-            if($salida=="Shanghái"){
+            /*if($salida=="Shanghái"){
                 $idsalida='Gourmet';
-            }
+            }*/
             if($salida=="Ankara"){
-                $idsalida='3';
+                $idsalida='11';
             }
 
             $this->reservaModl->SetReservaSubOrbital($vuelos[0],$origen, $idsalida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
