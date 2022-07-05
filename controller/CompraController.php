@@ -112,9 +112,19 @@ class CompraController
             $reservation_quantity=1;
             $user=$this->session->sessionShow('resultLogueado');
             var_dump($vuelos[0]);
-            $idsalida=null;
+            $idorigen=null;
+            if($origen=="Buenos Aires"){
+                $idorigen=10;
+            }
+            /*if($salida=="Shanghái"){
+                $idsalida='Gourmet';
+            }*/
+            if($origen=="Ankara"){
+                $idorigen=11;
+            }
             var_dump($origen);
-            var_dump(  $salida);
+            var_dump($idorigen);
+            var_dump($salida);
             var_dump( $horario);
             var_dump( $duracion);
             var_dump(  $rocket_id);
@@ -122,17 +132,9 @@ class CompraController
             var_dump( $reservation_quantity);
             var_dump($idcabina);
             var_dump($user[0]["idUsuarios"]);
-            if($salida=="Buenos Aires"){
-                $idsalida='10';
-            }
-            /*if($salida=="Shanghái"){
-                $idsalida='Gourmet';
-            }*/
-            if($salida=="Ankara"){
-                $idsalida='11';
-            }
 
-            $this->reservaModl->SetReservaSubOrbital($vuelos[0],$origen, $idsalida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
+
+            $this->reservaModl->SetReservaSubOrbital($vuelos[0],$idorigen, $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
         }
 
         $valorTotal=sizeof($vuelos)*1000;
