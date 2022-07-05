@@ -109,6 +109,7 @@ public function getRegisterModel()
 ////////////////Compra/////////
     public function getCompraController() {
         return new CompraController($this->getPrinter(),
+            $this->getReservarModel(),
             $this->getCompraModel(),
             $this->getQr(),
             $this->getSession(),

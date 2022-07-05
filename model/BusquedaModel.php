@@ -32,7 +32,7 @@ class BusquedaModel{
     }
 
     public function  getSubOrbitalParaReservar($Day,$code){
-        return $this->database->query("SELECT  sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl,rt.id AS RocketTypeID,sf.departure_time
+        return $this->database->query("SELECT sf.id, sf.day,COUNT(1), sf.duration, rt.name AS team, s.name AS departure , r.id as code, rt.flight_type_id as fl,rt.id AS RocketTypeID,sf.departure_time
                                         FROM space_flight sf
                                         JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
                                         JOIN rocket r ON r.id = sf.rocket_id

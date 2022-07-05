@@ -33,10 +33,16 @@ class ReservarModel
     public  function  SetReserva($id, $code, $from_id,  $departure_date, $departure_time, $duration, $rocket_id, $space_flight_id, $reservation_quantity, $cabin_type_id, $user_id)
     {
         $this->database->queryExecute("
-                                            INSERT INTO flight_booking (`id`, `code`, `from_id`,  `departure_date`, `departure_time`, `duration`, `rocket_id`, `space_flight_id`, `reservation_quantity`, `cabin_type_id`, `user_id`) 
+                                            INSERT INTO flight_booking ('id', 'code', 'from_id',  'departure_date', 'departure_time','duration', 'rocket_id', 'space_flight_id', 'reservation_quantity',  'cabin_type_id ', 'user_id' ) 
                                             VALUES 
                                                 ('$id','$code', '$from_id','$departure_date','$departure_time','$duration','$rocket_id','$space_flight_id','$reservation_quantity', '$cabin_type_id', '$user_id')                                 
                                         ");
+    }
+    public  function  SetReservaSubOrbital( $code, $from_id,  $departure_date, $departure_time, $duration, $rocket_id, $space_flight_id, $reservation_quantity, $cabin_type_id, $user_id)
+    {
+        $this->database->queryExecute("INSERT INTO flight_booking ( 'code', 'from_id',  'departure_date', 'departure_time', 'duration', 'rocket_id', 'space_flight_id', 'reservation_quantity', 'cabin_type_id', 'user_id') 
+                                        VALUES 
+                                        ('$code', '$from_id','$departure_date','$departure_time','$duration','$rocket_id','$space_flight_id','$reservation_quantity', '$cabin_type_id', '$user_id')");
     }
     /**INSERT INTO `gauchorocket`.`flight_booking` (`id`, `code`, `from_id`,  `departure_date`, `departure_time`, `duration`, `rocket_id`, `space_flight_id`, `reservation_quantity`, `cabin_type_id`, `user_id`) VALUES ('6', 'ed', '0', '0', 'awfa', 'aaf', 'aa', 'a', 'a', 'a', 'a', 'a');*/
 }

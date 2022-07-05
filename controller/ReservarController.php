@@ -20,6 +20,76 @@ class ReservarController
         $this->session = $session;
     }
 
+    public function completar(){
+        if ($this->session->sessionShow('usuario') == null) {
+            header("location:/login");
+            exit(0);
+        }
+
+        $user = $this->session->sessionShow('resultLogueado');
+        $nivelMedico= $this->ReservaModel->getNivelMedico($user[0]["idUsuarios"]);
+
+        if(empty($nivelMedico[0]["id_flight_level"])){
+            $this->generalTurno();
+            exit(0);
+        }
+
+        $vuelos = null;
+        $level = null;
+
+        if (!empty($_POST['vuelos'])) {
+            $vuelos = $_POST['vuelos'];
+        }
+        if (!empty($_POST['idLevel'])) {
+            $level = $_POST['idLevel'];
+        }
+
+        $respuesta=$this->validarNivelMedico($vuelos,$level,$nivelMedico);
+
+        if(!$respuesta)
+        {
+            $nMedico = $nivelMedico[0]['id_flight_level'];
+            $errorMessage = "Su nivel medico es '$nMedico' y no condice con la reserva que desea realizar. La reserva es nivel '$level[0]'";
+            $this->session->execute("errorReservation", $errorMessage);
+            header("location:/logueado/execute");
+            exit();
+        }
+
+        if($respuesta)
+        {
+            $dia=null;
+            $fechaSalida=null;
+            $horaDeSalida=null;
+            $idTipoDeVuelo=null;
+
+            if (!empty($_POST['diaVuelo'])) {
+                $dia = $_POST['diaVuelo'];
+            }
+            if (!empty($_POST['diaSalida'])) {
+                $fechaSalida=$_POST['diaSalida'];
+            }
+            if (!empty($_POST['departure_time'])) {
+                $horaDeSalida=$_POST['departure_time'];
+            }
+            if (!empty($_POST['RocketTypeID'])) {
+                $idTipoDeVuelo=$_POST['RocketTypeID'];
+            }
+
+           if(isset($_POST['ReservarSubOrbital'])) {
+
+           $this->RealizarReservasSubOrbital($dia, $vuelos[0], $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
+           }
+
+           if(isset($_POST['ReservarTour'])) {
+
+           $this->RealizarReservasTours($dia, $vuelos[0], $fechaSalida);
+           }
+
+        }
+
+
+
+    }
     public  function validate(){
         if ($this->session->sessionShow('usuario') == null) {
             header("location:/login");
@@ -107,11 +177,11 @@ class ReservarController
     {
 
         //$cab = $this->getCabinasDelAvionDisponibles($datos[0], $vuelos, $fechaSalida);
-        $cab = $this->getCabinasDelAvionDisponibles($vuelos, $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
+        $cab = $this->getCabinasDisponiblesDelAvion($vuelos, $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
 
         $datos=$this->BusquedaModel->getSubOrbitalParaReservar($dia,$vuelos);
-
-        $data = array("vuelo"=>$vuelos,"Datos"=>$datos,"cabines"=>$cab,"departure_date"=>$fechaSalida,);
+var_dump($datos);
+        $data = array("vuelo"=>$vuelos,"Datos"=>$datos,"cabines"=>$cab,"departure_date"=>$fechaSalida,"Tipo"=>"SubOrbital");
 
         $this->printer->generateView('Reserva.html',$data);
     }
@@ -122,7 +192,7 @@ class ReservarController
      * @return array|array[]
      */
 
-    public function getCabinasDelAvionDisponibles($idVuelo, $fechaSalida,$idTipoDeVuelo, $horaSalida): array
+    public function getCabinasDisponiblesDelAvion($idVuelo, $fechaSalida, $idTipoDeVuelo, $horaSalida): array
     {
         $cabinas = $this->BusquedaModel->getCabinas();
 

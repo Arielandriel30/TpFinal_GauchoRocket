@@ -41,6 +41,7 @@
                 <form method="post" action="/compra/mostrarVuelosReservados">
                 <tr>
                     <td>{{code}}</td>
+
                     <td>{{departure}}</td>
                     <td>{{destination}}</td>
                     <td>{{departure_date}}</td>
@@ -49,8 +50,8 @@
                     <td>{{side}}</td>
                     <td>{{short_name}}</td>
                     <td>{{plate}}</td>
-                    <td>{{RocketTypeID}}</td>
-                     <input type="hidden" name="vuelos[]" value="{{code}}">
+                    <input type="hidden" name="vuelos[]" value="{{code}}">
+                    <input type="hidden" name="space_flight_id" value="{{id}}">
                     <input type="hidden" name="departure_date" value="{{departure_date}}">
                     <input type="hidden" name="departure_time" value="{{departure_time}}">
                     <input type="hidden" name="duration" value="{{duration}}">
@@ -58,7 +59,8 @@
                     <input type="hidden" name="origen" value="{{departure}}">
                     <input type="hidden" name="cohete" value="{{plate}}">
                     <input type="hidden" name="idLevel" value="{{fl}}"  >
-
+                    <input type="hidden" name="idTipoRocket" value="{{RocketTypeID}}"  >
+                    <input type="hidden" name="TipoDeReserva" value="{{Tipo}}"  >
        <!--             <td> <input type="hidden" name="diaVuelo" value="{{day}}" checked></td>
                     <td> <input type="hidden" name="idLevel" value="{{fl}}"  checked></td>-->
                     <td><input type="submit" name="ReservarVuelo" class="btn btn-primary mt-2" value="Reservar"></td>
