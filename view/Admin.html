@@ -34,11 +34,12 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Earnings (Monthly)</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            Usuarios Registrados</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        {{#usuarios}}{{cantidad}}{{/usuarios}}
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -121,19 +122,10 @@
                             <!-- Card Header - Dropdown -->
                             <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Centros Médicos Asignados</h6>
                                 <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                         aria-labelledby="dropdownMenuLink">
-                                        <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    <input type="hidden" value={{#graficos}}{{.}}{{/graficos}}>
+                                        <canvas id="totalUsers" width="400" height="400"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -343,8 +335,72 @@
                 </div>
 
             </div>
-
         </div>
-
+        
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.8.0/dist/chart.min.js"></script>
+
+<script>
+
+</script>
+<script>
+    getCant();
+  function getCant()
+  {
+    const url = "/reportes/getCant";
+    const http = new XMLHttpRequest();
+    http.open("POST", url, true);
+    http.send();
+    http.onreadystatechange = function(){
+        if (this.readyState == 4 && this.status == 200){
+            const res = JSON.parse(this.responseText);
+            let nombre = [];
+            let cantidad = [];
+            for (let i = 0; i < res.length; i++){
+                nombre.push(res[i]['m']);
+                cantidad.push(res[i]['Cantidad']);
+            }
+            const ctx = document.getElementById('totalUsers').getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+            labels:nombre,
+            datasets: [{
+                label: 'Centros Médicos Asignados',
+                data: cantidad,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+        }
+    }
+}
+
+
+    
+    </script>
 {{>footer}}
