@@ -133,13 +133,13 @@ class BusquedaController
         for ($i = 0; $i < count($result); $i++) {
             if ($diaSemanal == $semana[$result[$i]["day"]]) {
 
-                $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+ 7 days")));
+                $result[$i] += array("fechaSalida" => date("y-m-d", strtotime($hoy . "+ 7 days")));
             } elseif ($diaSemanal > $semana[$result[$i]["day"]]) {
                 $diferencia = 7 - ($diaSemanal - $semana[$result[$i]["day"]]);
-                $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " . $diferencia . " days")));
+                $result[$i] += array("fechaSalida" => date("y-m-d", strtotime($hoy . "+  " . $diferencia . " days")));
             } else {
                 $diferencia =  $semana[$result[$i]["day"]]-$diaSemanal ;
-                $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " . $diferencia . " days")));
+                $result[$i] += array("fechaSalida" => date("y-m-d", strtotime($hoy . "+  " . $diferencia . " days")));
             }
         }
         return $result;

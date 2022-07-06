@@ -9,4 +9,22 @@ class ReportesModel
         $this->database = $database;
     }
 
+    public function getContadorDatos($column, $table, $alias){
+        return $this->database->query("SELECT count($column) AS $alias FROM $table
+                                        ");
+    }
+
+    public function getSumaDatos($column, $table ){
+        return $this->database->query("SELECT SUM('$column') FROM '$table'");
+    }
+
+    public function getCentros(){
+        return $this->database->query("SELECT name_medical_center m, 
+        count(id_centro_medico) AS Cantidad FROM  turno t JOIN medical_center m
+        ON t.id_centro_medico = m.id
+                       GROUP BY t.id_centro_medico");
+    }
+
+
+    
 }

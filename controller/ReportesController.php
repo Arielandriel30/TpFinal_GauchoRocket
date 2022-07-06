@@ -13,6 +13,25 @@ class ReportesController
     }
 
     public function execute(){
-        $this->printer->generateView('Admin.html');
+        if ($this->session->sessionShow('usuario') == null) {
+           
+            header("location:/");
+        }
+        if($this->session->sessionShow('usuario') != null){
+        $usuarios = $this->ReportesModel->getContadorDatos('idUsuarios', 'usuario', 'cantidad');
+       
+        
+        $data = array("usuarios"=>$usuarios);
+  
+        $this->printer->generateView('Admin.html', $data);
     }
+  } 
+
+ public function getCant()
+ {
+    $centros = $this->ReportesModel->getCentros();
+    echo json_encode($centros);
+    die();
+    
+ }
 }
