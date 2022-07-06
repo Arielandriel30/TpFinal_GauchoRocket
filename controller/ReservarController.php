@@ -90,6 +90,7 @@ class ReservarController
 
 
     }
+
     public  function validate(){
         if ($this->session->sessionShow('usuario') == null) {
             header("location:/login");
@@ -197,11 +198,11 @@ class ReservarController
 
         //$cabinaDelAvion = $this->BusquedaModel->getCabinaDelAvion($datos["RocketTypeID"]);
         $cabinaDelAvion = $this->BusquedaModel->getCabinaDelAvion($idTipoDeVuelo);
-
+        //var_dump($cabinaDelAvion);
         $cab = array();
 
         if ($cabinaDelAvion[0]["capacity_type_1"] != null) {
-            $esta_disponible = $this->verficarEspacioLibre($cabinaDelAvion[0]["capacity_type_1"], $idVuelo, $fechaSalida, $horaSalida, 1);
+            $esta_disponible = $this->verficarEspacioLibre($cabinaDelAvion[0]["capacity_type_1"], $idTipoDeVuelo, $fechaSalida, $horaSalida, 1);
             if ($esta_disponible) {
                 $cab += array(count($cab) => ["id" => $cabinas[0]["id"], "description" => $cabinas[0]["description"]]);
             }
@@ -209,7 +210,7 @@ class ReservarController
 
         if ($cabinaDelAvion[0]["capacity_type_2"] != null) {
 
-            $esta_disponible = $this->verficarEspacioLibre($cabinaDelAvion[0]["capacity_type_2"], $idVuelo, $fechaSalida, $horaSalida, 2);
+            $esta_disponible = $this->verficarEspacioLibre($cabinaDelAvion[0]["capacity_type_2"],$idTipoDeVuelo, $fechaSalida, $horaSalida, 2);
             if ($esta_disponible) {
                 $cab += array(count($cab) => ["id" => $cabinas[1]["id"], "description" => $cabinas[1]["description"]]);
             }
@@ -217,15 +218,13 @@ class ReservarController
 
         if ($cabinaDelAvion[0]["capacity_type_3"] != null) {
 
-            $esta_disponible = $this->verficarEspacioLibre($cabinaDelAvion[0]["capacity_type_3"], $idVuelo, $fechaSalida, $horaSalida, 3);
+            $esta_disponible = $this->verficarEspacioLibre($cabinaDelAvion[0]["capacity_type_3"], $idTipoDeVuelo, $fechaSalida, $horaSalida, 3);
             if ($esta_disponible) {
                 $cab += array(count($cab) => ["id" => $cabinas[2]["id"], "description" => $cabinas[2]["description"]]);
             }
         }
         return $cab;
     }
-
-
 
     private function verficarEspacioLibre($capacidadDeLaCabina,$idVuelo, $fechaDeSalida, $horaSalida, $idCabina)
     {

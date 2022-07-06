@@ -70,6 +70,8 @@ class CompraController
 
     public function mostrarVuelosReservados(){
         $vuelos=$_POST['vuelos'];
+        $idvuelos=$_POST["idVuelo"];
+        var_dump($vuelos);
         $space_flight_id = isset($_POST["space_flight_id"]) ? $_POST["space_flight_id"] : "";
         $salida = isset($_POST["departure_date"]) ? $_POST["departure_date"] : "";
         $horario = isset($_POST["departure_time"]) ? $_POST["departure_time"] : "";
@@ -122,7 +124,8 @@ class CompraController
 //            var_dump( $reservation_quantity);
 //            var_dump($idcabina);
 //            var_dump($user[0]["idUsuarios"]);
-            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
+            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
+//            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
         }
 
         $valorTotal=sizeof($vuelos)*1000;
