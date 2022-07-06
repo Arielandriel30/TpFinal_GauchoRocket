@@ -79,10 +79,10 @@ class ReservarController
 
            $this->RealizarReservasSubOrbital($dia, $vuelos[0], $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
            }
-            var_dump($_POST['ReservarTour']);
+           // var_dump($_POST['ReservarTour']);
            if(isset($_POST['ReservarTour'])) {
-                var_dump($_POST['ReservarTour']);
-           $this->RealizarReservasTours($dia, $vuelos[0], $fechaSalida);
+           //     var_dump($_POST['ReservarTour']);
+           $this->RealizarReservasTours($dia, $vuelos[0], $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
            }
 
         }
@@ -138,7 +138,7 @@ class ReservarController
                      $this->RealizarReservasSubOrbital($dia, $vuelos[0], $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
                  }
                  if(isset($_POST['ReservarTour'])) {
-                     $this->RealizarReservasTours($dia, $vuelos[0], $fechaSalida);
+                     $this->realizarReservasTours($dia, $vuelos[0], $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
                  }
              }
              else
@@ -245,9 +245,15 @@ class ReservarController
         $this->printer->generateView('Reserva.html');
     }
 
-    private function RealizarReservasTours($dia, $int, $fechaSalida)
+    private function realizarReservasTours($dia,$vuelos,$fechaSalida,$idTipoDeVuelo,$horaDeSalida)
     {
-        echo "Vengop de tour y deveria realizar lo de tours";
+        //$cab = $this->getCabinasDelAvionDisponibles($datos[0], $vuelos, $fechaSalida);
+        $cab = $this->getCabinasDisponiblesDelAvion($vuelos, $fechaSalida,$idTipoDeVuelo,$horaDeSalida);
+        $datos=$this->BusquedaModel->getToursParaReservar($dia,$vuelos);
+        //var_dump($datos);
+        $data = array("vuelo"=>$vuelos,"Datos"=>$datos,"cabines"=>$cab,"departure_date"=>$fechaSalida,"Tipo"=>"SubOrbital");
+
+        $this->printer->generateView('Reserva.html',$data);
     }
 
 }
