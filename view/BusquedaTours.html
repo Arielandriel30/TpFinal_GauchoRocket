@@ -35,7 +35,7 @@
                         <th>Partida</th>
                     </tr>
                     {{#Tours}}
-                    <form method="post" action="/reservar/validate">
+                    <form method="post" action="/reservar/completar">
                     <tr>
                         <td>{{day}}-{{fechaSalida}}</td>
                         <td>{{duration}}</td>
@@ -46,7 +46,7 @@
                         <!--                    <td> <a href='/reservar/validate' >Reservar</a> </td>-->
                         <td> <input type="hidden" name="vuelos[]" value="{{code}}"></td>
                         <td> <input type="hidden" name="idLevel" value="{{fl}}"></td>
-                        <td><input type="submit" name="ReservarTours" class="btn btn-primary mt-2" value="Reservar"></td>
+                        <td><input type="submit" name="ReservarTour" class="btn btn-primary mt-2" value="Reservar"></td>
 
                     </tr>
                     </form>
