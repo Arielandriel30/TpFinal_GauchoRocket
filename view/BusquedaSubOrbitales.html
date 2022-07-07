@@ -32,6 +32,7 @@
                     <th>Duracion</th>
                     <th>Equipo</th>
                     <th>Partida</th>
+                    <th>Hora De Partida</th>
                 </tr>
                 {{#SubOrbital}}
                 <form method="post" action="/reservar/completar">
@@ -41,9 +42,9 @@
                     <td>{{team}}</td>
                     <td>{{departure}}</td>
                     <td>{{departure_time}}</td>
-                    <td>{{RocketTypeID}}</td>
+                    <!--<td>{{RocketTypeID}}</td>
                     <td>{{fl}}</td>
-                    <td>{{code}}</td>
+                    <td>{{code}}</td>-->
                     <td> <input type="hidden" name="vuelos[]" value="{{code}}"></td>
                     <td> <input type="hidden" name="diaVuelo" value="{{day}}" checked></td>
                     <td> <input type="hidden" name="diaSalida" value="{{fechaSalida}}" checked></td>
