@@ -68,25 +68,6 @@ class BusquedaController
              } else {
                 $result=$this->adjuntarFechaDeSalida($result);
 
-            /*     date_default_timezone_set("America/Argentina/San_Luis");
-                 $semana = ["L" => 1, "M" => 2, "X" => 3, "J" => 4, "V" => 5, "S" => 6, "D" => 7];
-                 $hoy = date("Y-m-d H:i:s", time());
-                 $diaSemanal = date("N");
-                 for ($i = 0; $i < count($result); $i++) {
-                     if ($diaSemanal == $semana[$result[$i]["day"]]) {
-                         var_dump( "7 days");
-                         $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+ 7 days")));
-                     } elseif ($diaSemanal > $semana[$result[$i]["day"]]) {
-
-                         $diferencia = 7 - ($diaSemanal - $semana[$result[$i]["day"]]);
-
-                            $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " .$diferencia. " days")));
-                     } else {
-                         $diferencia = $semana[$result[$i]["day"]]-$diaSemanal ;
-                         $result[$i] += array("fechaSalida" => date("d-m-Y", strtotime($hoy . "+  " .$diferencia. " days")));
-                     }
-                 }*/
-
                  $data=array("SubOrbital"=>$result);
                  $this->printer->generateView('BusquedaSubOrbitales.html',$data);
          }

@@ -25,6 +25,13 @@ class ReportesModel
                        GROUP BY t.id_centro_medico");
     }
 
+    public function getCabinas(){
+        return $this->database->query("SELECT c.description AS TIPO, 
+        count(f.cabin_type_id) AS Cantidad FROM cabin_type c JOIN flight_booking f
+        ON c.id = f.cabin_type_id
+                       GROUP BY f.cabin_type_id");
+    }
+
 
     
 }

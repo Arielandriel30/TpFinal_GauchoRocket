@@ -70,6 +70,8 @@ class CompraController
 
     public function mostrarVuelosReservados(){
         $vuelos=$_POST['vuelos'];
+        $idvuelos=$_POST["idVuelo"];
+        var_dump($vuelos);
         $space_flight_id = isset($_POST["space_flight_id"]) ? $_POST["space_flight_id"] : "";
         $salida = isset($_POST["departure_date"]) ? $_POST["departure_date"] : "";
         $horario = isset($_POST["departure_time"]) ? $_POST["departure_time"] : "";
@@ -111,30 +113,19 @@ class CompraController
         if($Tipo=="SubOrbital"){
             $reservation_quantity=1;
             $user=$this->session->sessionShow('resultLogueado');
-            var_dump($vuelos[0]);
-            $idorigen=null;
-            if($origen=="Buenos Aires"){
-                $idorigen=10;
-            }
-            /*if($salida=="Shanghái"){
-                $idsalida='Gourmet';
-            }*/
-            if($origen=="Ankara"){
-                $idorigen=11;
-            }
-            var_dump($origen);
-            var_dump($idorigen);
-            var_dump($salida);
-            var_dump( $horario);
-            var_dump( $duracion);
-            var_dump(  $rocket_id);
-            var_dump(  $space_flight_id);
-            var_dump( $reservation_quantity);
-            var_dump($idcabina);
-            var_dump($user[0]["idUsuarios"]);
-
-
-            $this->reservaModl->SetReservaSubOrbital($vuelos[0],$idorigen, $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
+//            var_dump($vuelos[0]);
+//
+//            var_dump($origen);
+//            var_dump(  $salida);
+//            var_dump( $horario);
+//            var_dump( $duracion);
+//            var_dump(  $rocket_id);
+//            var_dump(  $space_flight_id);
+//            var_dump( $reservation_quantity);
+//            var_dump($idcabina);
+//            var_dump($user[0]["idUsuarios"]);
+            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
+//            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
         }
 
         $valorTotal=sizeof($vuelos)*1000;
