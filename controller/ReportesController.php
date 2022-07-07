@@ -27,10 +27,18 @@ class ReportesController
     }
   } 
 
- public function getCant()
+ public function getCentros()
  {
     $centros = $this->ReportesModel->getCentros();
     echo json_encode($centros);
+    die();
+    
+ }
+
+ public function getCabinas()
+ {
+    $cabinas = $this->ReportesModel->getCabinas();
+    echo json_encode($cabinas);
     die();
     
  }
