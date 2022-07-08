@@ -42,4 +42,12 @@ class ReportesController
     die();
     
  }
+
+ public function getVentas()
+ {
+    $ventas = $this->ReportesModel->getVentas();
+    echo json_encode($ventas);
+    die();
+    
+ }
 }
