@@ -76,4 +76,39 @@ class ReservarModel
             "SELECT * FROM compra WHERE  id='$id'"
         );
     }
+    public function isCheckIn($id){
+        $sql= $this->database->query("SELECT  check_in FROM compra WHERE id='$id'");
+
+        if(isset($sql[0]["check_in"])){
+            if($sql[0]["check_in"]=="1"){
+                return true;
+            }else{
+                return "";
+            }}
+    }
+
+    public function check_in_range($date_start, $date_end, $date_now) {
+        $date_start = strtotime($date_start);
+        $date_end = strtotime($date_end);
+        $date_now = strtotime($date_now);
+        if (($date_now >= $date_start) && ($date_now <= $date_end))
+            return true;
+        return false;
+    }
+
+    public function conversorDeFechasAArray($fechas){
+        $sePuedeCheckIn=array();
+
+        foreach ($fechas as $valor){
+            date_default_timezone_set('America/Argentina/Buenos_Aires');
+            $date_now = date('Y-m-d H:i');
+           // $fechaDeViaje=$fechas[0];
+            $date=date("Y-m-d H:i",strtotime($valor));
+            $date_start=date("Y-m-d H:i",strtotime($date."- 2 days"));
+            $date_end=date("Y-m-d H:i",strtotime($date."- 2 hours"));
+            $devuelto=$this->check_in_range($date_start,$date_end,$date_now);
+            array_push($sePuedeCheckIn,$devuelto);
+        }
+        return $sePuedeCheckIn;
+    }
 }
