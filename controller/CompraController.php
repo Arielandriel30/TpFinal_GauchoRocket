@@ -81,8 +81,9 @@ class CompraController
         $precio=$reserva[0]['precio'];
         $fechaVUuelo=$reserva[0]['fecha_vuelo'];
         $codigo=$reserva[0]['codigo'];
+        $equipo=$reserva[0]['equipo'];
 
-        $this->pdf->armarPdfReserva($usuario,$origen,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
+        $this->pdf->armarPdfReserva($usuario,$origen,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,$equipo,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
         $this->reservaModl->hacerCheckIn($id);
     }
 
@@ -101,7 +102,7 @@ class CompraController
         $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
         $rocket_id = isset($_POST["idTipoRocket"]) ? $_POST["idTipoRocket"] : "";
         $Tipo = isset($_POST["TipoDeReserva"]) ? $_POST["TipoDeReserva"] : "";
-
+        $equipo = isset($_POST["equipo"]) ? $_POST["equipo"] : "";
         if($idcabina=='1'){
             $cabina='Turista';
         }
@@ -141,6 +142,7 @@ class CompraController
 //            var_dump( $reservation_quantity);
 //            var_dump($idcabina);
 //            var_dump($user[0]["idUsuarios"]);
+            var_dump($equipo);
             $precio=1000;
             $dineroLocal=$this->conversor->convertirCreditoAMoneda($precio);
             $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
@@ -148,7 +150,7 @@ class CompraController
             $fechaCompra=date('Y-m-d' );
 
             $idVuelo=$this->reservaModl->getIdFlightBooking($vuelos[0],$user[0]["idUsuarios"]);
-            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$duracion,$cabina,$servicio,$vuelos[0]);
+            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$vuelos[0]);
 
         }
 
