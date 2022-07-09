@@ -1,0 +1,42 @@
+{{> header}}
+
+<body >
+<link rel="stylesheet" href="../public/style.css" type="text/css">
+<header class="w3-container w3-padding" style="background-image: url('../public/img/img1.png')" id="myHeader">
+    <div class=" w3-display-topright w3-padding-16 w3-margin-right">
+
+        <div class="w3-padding-16">
+            <a href='/principal/logout' target="_parent" title="SALIR"><i class="fa fa-sign-out w3-hover-light-grey" style="font-size:30px"></i></a>
+        </div>
+        <!--<a href='/' target="_parent"><button class="w3-btn w3-xlarge  w3-food-spearmint  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver</button></a>-->
+    </div>
+    <a href='/logueado/execute' target="_parent"><button class="w3-btn mt-4  w3-food-spearmint  w3-round-large w3-hover-light-grey"  style="font-weight:900;">Volver</button></a>
+    <div class="w3-center" style="height: 150px ;">
+        <h4 class="texto1">GAUCHO ROCKET</h4>
+        <h1 class=" w3-animate-bottom  texto1" style="display: inline">LOS MEJORES VIAJES ESPACIALES</h1>
+    </div>
+</header>
+
+<div style="width: 80%;margin: auto" class="mb-5" >
+    {{#reservas}}
+    <div class="card mt-5">
+        <div class="card-header">
+            Reserva
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Origen: {{origen}} </h5>
+            <p class="card-text">Fecha de vuelo: {{fecha_vuelo}}</p>
+            <div class="d-flex" style="justify-content: space-between">
+                <p class="card-text">Duración :  {{duracion}}</p>
+                <p class="card-text">Cabina: {{cabina}}</p>
+                <p class="card-text">Servicio: {{servicio}}</p>
+            </div>
+            <p class="card-text">Fecha de compra: {{fecha_compra}}</p>
+            <a href="/compra/generarPdfReserva?id={{id}}" class="btn btn-primary" target="_blank">Check in</a>
+        </div>
+    </div>
+    {{/reservas}}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{{> footer}}

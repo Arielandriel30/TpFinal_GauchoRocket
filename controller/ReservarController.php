@@ -254,5 +254,11 @@ class ReservarController
 
         $this->printer->generateView('Reserva.html',$data);
     }
-
+    public function misReservas(){
+        $user=$this->session->sessionShow('usuario');
+        $id=$this->ReservaModel->getIdUser($user);
+        $reservas=$this->ReservaModel->getReservas($id[0]["idUsuarios"]);
+        $data = array("reservas"=>$reservas);
+        $this->printer->generateView('MisReservas.html',$data);
+    }
 }

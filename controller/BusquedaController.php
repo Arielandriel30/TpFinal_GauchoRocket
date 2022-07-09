@@ -18,11 +18,11 @@ class BusquedaController
         $busquedaDestino = $_POST["viajeDestino"];
         $input_date=$_POST['dateViaje'];
 
-       var_dump($input_date);
-       // $date=date("Y-m-d",strtotime($input_date));
+       //var_dump($input_date);
+       $date=date("Y-m-d",strtotime($input_date));
        //////// var_dump($date);
        /////$result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,$date);
-        $result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,input_date);
+        $result  = $this->busquedaModel->getSpaceFlight($busquedaOrigen,$busquedaDestino,$date);
         /*var_dump($result);*/
         if (!$result){
                 header("location:/");

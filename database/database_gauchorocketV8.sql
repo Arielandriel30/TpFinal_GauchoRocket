@@ -744,4 +744,20 @@ AND l.sort_ > (SELECT l1.sort_ FROM space_flight sf1
                         AND rsft1.short_name ='BA'
                			AND orig1.name = 'Marte')
 ORDER BY l.sort_ ASC
- */;
+ */
+CREATE TABLE  `compra` (
+                           `id` INT NOT NULL AUTO_INCREMENT ,
+                           `id_vuelo` INT NOT NULL ,
+                           `fecha_compra` DATE NOT NULL ,
+                           `id_user` INT NOT NULL ,
+                           `origen` VARCHAR(200) NOT NULL ,
+                           `fecha_vuelo` DATE NOT NULL ,
+                           `cabina` VARCHAR(200) NOT NULL ,
+                           `servicio` VARCHAR(200) NOT NULL ,
+                           PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+
+ALTER TABLE `compra` ADD `codigo` VARCHAR(200) NOT NULL AFTER `servicio`;
+ALTER TABLE `compra` ADD `duracion` VARCHAR(100) NOT NULL AFTER `fecha_vuelo`;
+ALTER TABLE `compra` ADD `precio` INT NOT NULL AFTER `fecha_compra`;
+ ;
