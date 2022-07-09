@@ -41,6 +41,11 @@
             {{^0}}
 
             {{/0}}
+            {{#check_in}}
+            <p class="mt-2" style="font-weight: bold">*Ya se ha realizado el check in*</p>
+            {{/check_in}}
+            {{^check_in}}
+            {{/check_in}}
         </div>
     </div>
     {{/reservas}}

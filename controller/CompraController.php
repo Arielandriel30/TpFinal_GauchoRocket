@@ -68,6 +68,7 @@ class CompraController
         $usuario=$this->session->sessionShow('usuario');
 
         $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$valor,$fechaCompra,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
+
     }
     public function generarPdfReserva() {
         $id=$_GET['id'];
@@ -82,6 +83,7 @@ class CompraController
         $codigo=$reserva[0]['codigo'];
 
         $this->pdf->armarPdfReserva($usuario,$origen,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
+        $this->reservaModl->hacerCheckIn($id);
     }
 
     public function mostrarVuelosReservados(){
@@ -144,7 +146,7 @@ class CompraController
             $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
 //            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
             $fechaCompra=date('Y-m-d' );
-            //$date=date("Y-m-d",strtotime($fechaCompra."- 1 days"));
+
             $idVuelo=$this->reservaModl->getIdFlightBooking($vuelos[0],$user[0]["idUsuarios"]);
             $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$duracion,$cabina,$servicio,$vuelos[0]);
 

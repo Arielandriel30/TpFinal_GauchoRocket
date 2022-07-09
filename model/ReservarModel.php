@@ -76,6 +76,17 @@ class ReservarModel
             "SELECT * FROM compra WHERE  id='$id'"
         );
     }
+
+    public function hacerCheckIn($id){
+        return $this->database->query(
+            "UPDATE compra SET check_in='1' WHERE id='$id'"
+        );
+    }
+    public function getAllCheckIn($idUser){
+        return $this->database->query(
+            "SELECT check_in FROM compra WHERE  id_user='$idUser'"
+        );
+    }
     public function isCheckIn($id){
         $sql= $this->database->query("SELECT  check_in FROM compra WHERE id='$id'");
 

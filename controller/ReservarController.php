@@ -266,9 +266,13 @@ class ReservarController
 
         $devuelto=$this->ReservaModel->conversorDeFechasAArray($fechas);
 
-
         for($i=0;$i<count($devuelto);$i++){
                array_push($reservas[$i],$devuelto[$i]);
+        }
+        for($i=0;$i<count($reservas);$i++){
+            if($reservas[$i]['check_in']=="1"){
+                $reservas[$i]['check_in']=true;
+            }
         }
 
         $data = array("reservas"=>$reservas);
