@@ -33,5 +33,9 @@ class ReportesModel
     }
 
 
+    public function getVentas(){
+        return $this->database->query("SELECT ");
+    }
+
     
 }
