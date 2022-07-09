@@ -45,9 +45,10 @@ class ReservarModel
 
     /**INSERT INTO `gauchorocket`.`flight_booking` (`id`, `code`, `from_id`,  `departure_date`, `departure_time`, `duration`, `rocket_id`, `space_flight_id`, `reservation_quantity`, `cabin_type_id`, `user_id`) VALUES ('6', 'ed', '0', '0', 'awfa', 'aaf', 'aa', 'a', 'a', 'a', 'a', 'a');*/
 
-    public function guardarReserva($idVuelo,$fechaCompra,$idUser,$origen,$fechaVuelo,$cabina,$servicio){
+    public function guardarReserva($idVuelo,$fechaCompra,$precio,$idUser,$origen,$fechaVuelo,$duracion,$cabina,$servicio,$codigo){
         $this->database->queryExecute(
-            "INSERT INTO compra(id_vuelo, fecha_compra, id_user,origen,fecha_vuelo,cabina,servicio) VALUES ('$idVuelo','$fechaCompra','$idUser','$origen','$fechaVuelo','$cabina','$servicio')"
+            "INSERT INTO compra(id_vuelo, fecha_compra,precio, id_user,origen,fecha_vuelo,duracion,cabina,servicio,codigo) 
+            VALUES ('$idVuelo','$fechaCompra','$precio','$idUser','$origen','$fechaVuelo','$duracion','$cabina','$servicio','$codigo')"
         );
     }
     public function getIdFlightBooking($idVuelo,$idUser){
@@ -70,5 +71,9 @@ class ReservarModel
             "SELECT name FROM station WHERE  id='$id'"
         );
     }
-
+    public function getReservaPorId($id){
+        return $this->database->query(
+            "SELECT * FROM compra WHERE  id='$id'"
+        );
+    }
 }

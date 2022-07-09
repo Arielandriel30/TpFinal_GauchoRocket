@@ -16,6 +16,7 @@
         <h1 class=" w3-animate-bottom  texto1" style="display: inline">LOS MEJORES VIAJES ESPACIALES</h1>
     </div>
 </header>
+
 <div style="width: 80%;margin: auto" class="mb-5" >
     {{#reservas}}
     <div class="card mt-5">
@@ -25,13 +26,17 @@
         <div class="card-body">
             <h5 class="card-title">Origen: {{origen}} </h5>
             <p class="card-text">Fecha de vuelo: {{fecha_vuelo}}</p>
-            <p class="card-text">Cabina: {{cabina}}</p>
-            <p class="card-text">Servicio: {{servicio}}</p>
+            <div class="d-flex" style="justify-content: space-between">
+                <p class="card-text">Duración :  {{duracion}}</p>
+                <p class="card-text">Cabina: {{cabina}}</p>
+                <p class="card-text">Servicio: {{servicio}}</p>
+            </div>
             <p class="card-text">Fecha de compra: {{fecha_compra}}</p>
-            <a href="#" class="btn btn-primary">Check in</a>
+            <a href="/compra/generarPdfReserva?id={{id}}" class="btn btn-primary" target="_blank">Check in</a>
         </div>
     </div>
     {{/reservas}}
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {{> footer}}

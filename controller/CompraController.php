@@ -47,8 +47,9 @@ class CompraController
             $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
             $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
             $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
+            $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
 
-            $data = array("valor"=>$total,"dinero"=>$dineroLocal,"fecha"=>$fechaActual,'date'=>$fecha,'destino'=>$destino,'origen'=>$origen,'cabina'=>$cabina,'servicio'=>$servicio);
+            $data = array("valor"=>$total,"dinero"=>$dineroLocal,"fecha"=>$fechaActual,'date'=>$fecha,'destino'=>$destino,'origen'=>$origen,'cabina'=>$cabina,'servicio'=>$servicio,'codigo'=>$codigo);
             $this->printer->generateView('Confirmacion.html',$data);
         }
     }
@@ -62,16 +63,31 @@ class CompraController
         $valor = isset($_POST["dinero"]) ? $_POST["dinero"] : "";
         $fecha= isset($_POST["fecha"]) ? $_POST["fecha"] : "";
         $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
+        $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
 
         $usuario=$this->session->sessionShow('usuario');
 
-        $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$valor,$fechaCompra,"Vuelo desde $origen hasta $destino el día $fecha con codigo 41545");
+        $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$valor,$fechaCompra,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
+    }
+    public function generarPdfReserva() {
+        $id=$_GET['id'];
+
+        $reserva=$this->reservaModl->getReservaPorId($id);
+        $usuario=$this->session->sessionShow('usuario');
+        $origen=$reserva[0]['origen'];
+        $cabina=$reserva[0]['cabina'];
+        $servicio=$reserva[0]['servicio'];
+        $precio=$reserva[0]['precio'];
+        $fechaVUuelo=$reserva[0]['fecha_vuelo'];
+        $codigo=$reserva[0]['codigo'];
+
+        $this->pdf->armarPdfReserva($usuario,$origen,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
     }
 
     public function mostrarVuelosReservados(){
         $vuelos=$_POST['vuelos'];
         $idvuelos=$_POST["idVuelo"];
-//        var_dump($vuelos);
+
         $space_flight_id = isset($_POST["space_flight_id"]) ? $_POST["space_flight_id"] : "";
         $salida = isset($_POST["departure_date"]) ? $_POST["departure_date"] : "";
         $horario = isset($_POST["departure_time"]) ? $_POST["departure_time"] : "";
@@ -116,7 +132,6 @@ class CompraController
 //            var_dump($vuelos[0]);
             $origenVuelo=$this->reservaModl->getStation($origen);
             $fechaVuelo=date("Y-m-d",strtotime($salida));
-
 //            var_dump( $horario);
 //            var_dump( $duracion);
 //            var_dump(  $rocket_id);
@@ -124,12 +139,14 @@ class CompraController
 //            var_dump( $reservation_quantity);
 //            var_dump($idcabina);
 //            var_dump($user[0]["idUsuarios"]);
+            $precio=1000;
+            $dineroLocal=$this->conversor->convertirCreditoAMoneda($precio);
             $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
 //            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
             $fechaCompra=date('Y-m-d' );
-            $date=date("Y-m-d",strtotime($fechaCompra."- 1 days"));
+            //$date=date("Y-m-d",strtotime($fechaCompra."- 1 days"));
             $idVuelo=$this->reservaModl->getIdFlightBooking($vuelos[0],$user[0]["idUsuarios"]);
-            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$date,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$cabina,$servicio);
+            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$duracion,$cabina,$servicio,$vuelos[0]);
 
         }
 
