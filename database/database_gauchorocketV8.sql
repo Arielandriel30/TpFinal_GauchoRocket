@@ -755,4 +755,9 @@ CREATE TABLE  `compra` (
                            `cabina` VARCHAR(200) NOT NULL ,
                            `servicio` VARCHAR(200) NOT NULL ,
                            PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+
+ALTER TABLE `compra` ADD `codigo` VARCHAR(200) NOT NULL AFTER `servicio`;
+ALTER TABLE `compra` ADD `duracion` VARCHAR(100) NOT NULL AFTER `fecha_vuelo`;
+ALTER TABLE `compra` ADD `precio` INT NOT NULL AFTER `fecha_compra`;
  ;
