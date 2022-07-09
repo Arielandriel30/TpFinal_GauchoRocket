@@ -71,7 +71,7 @@ class CompraController
     public function mostrarVuelosReservados(){
         $vuelos=$_POST['vuelos'];
         $idvuelos=$_POST["idVuelo"];
-        var_dump($vuelos);
+//        var_dump($vuelos);
         $space_flight_id = isset($_POST["space_flight_id"]) ? $_POST["space_flight_id"] : "";
         $salida = isset($_POST["departure_date"]) ? $_POST["departure_date"] : "";
         $horario = isset($_POST["departure_time"]) ? $_POST["departure_time"] : "";
@@ -114,9 +114,9 @@ class CompraController
             $reservation_quantity=1;
             $user=$this->session->sessionShow('resultLogueado');
 //            var_dump($vuelos[0]);
-//
-//            var_dump($origen);
-//            var_dump(  $salida);
+            $origenVuelo=$this->reservaModl->getStation($origen);
+            $fechaVuelo=date("Y-m-d",strtotime($salida));
+
 //            var_dump( $horario);
 //            var_dump( $duracion);
 //            var_dump(  $rocket_id);
@@ -126,6 +126,11 @@ class CompraController
 //            var_dump($user[0]["idUsuarios"]);
             $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
 //            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
+            $fechaCompra=date('Y-m-d' );
+            $date=date("Y-m-d",strtotime($fechaCompra."- 1 days"));
+            $idVuelo=$this->reservaModl->getIdFlightBooking($vuelos[0],$user[0]["idUsuarios"]);
+            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$date,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$cabina,$servicio);
+
         }
 
         $valorTotal=sizeof($vuelos)*1000;
