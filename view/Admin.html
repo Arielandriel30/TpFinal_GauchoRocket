@@ -1,5 +1,5 @@
 {{>header}}
-<body >
+<body style="background-image: url('../public/img/img1.png')">
 <link rel="stylesheet" href="../public/style.css" type="text/css">
 <header class="w3-container w3-padding" style="background-image: url('../public/img/img1.png')" id="myHeader">
     <div class=" w3-display-topright w3-padding-16 w3-margin-right">
@@ -53,10 +53,11 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            Total recaudado</div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">xxxx</div>
+                                            Total recaudado en el Año</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">$ {{#total}}{{ventas}}{{/total}}</div>
                                     </div>
                                     <div class="col-auto">
+                                        
                                         <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
