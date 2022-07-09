@@ -761,4 +761,5 @@ ALTER TABLE `compra` ADD `codigo` VARCHAR(200) NOT NULL AFTER `servicio`;
 ALTER TABLE `compra` ADD `duracion` VARCHAR(100) NOT NULL AFTER `fecha_vuelo`;
 ALTER TABLE `compra` ADD `precio` INT NOT NULL AFTER `fecha_compra`;
 ALTER TABLE `compra` ADD `check_in` TINYINT(1) NOT NULL AFTER `codigo`;
+ALTER TABLE `compra` ADD `equipo` VARCHAR(200) NOT NULL AFTER `fecha_vuelo`;
  ;
