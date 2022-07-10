@@ -34,19 +34,20 @@
             </div>
             <p class="card-text">Fecha de compra: {{fecha_compra}}</p>
 
+            {{^check_in}}
             {{#0}}
-
             <a href="/compra/generarPdfReserva?id={{id}}"  class="btn btn-primary" target="_blank">Check in</a>
-
             {{/0}}
+            {{/check_in}}
+            {{^check_in}}
             {{^0}}
-
+            <p class="mt-2" style="font-weight: bold">*No estás en fecha para realizar el Check-In*</p>
             {{/0}}
+            {{/check_in}}
             {{#check_in}}
             <p class="mt-2" style="font-weight: bold">*Ya se ha realizado el check in*</p>
             {{/check_in}}
-            {{^check_in}}
-            {{/check_in}}
+            
         </div>
     </div>
     {{/reservas}}
