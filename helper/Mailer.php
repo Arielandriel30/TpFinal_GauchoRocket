@@ -36,7 +36,7 @@ class Mailer
     }
 
     public function addAttachment($file,$fileName,$encoding){
-        $this->mail->addStringAttachment($file->Output("S",'comprobanteVuelo.pdf'), 'comprobanteVuelo.pdf', $encoding = 'base64', $type = 'application/pdf');
+        $this->mail->addStringAttachment($file->Output("S",$fileName), $fileName, $encoding, $type = 'application/pdf');
     }
 
     public function sendMessage(){

@@ -55,7 +55,7 @@ class CompraController
 
             $data = array("valor"=>$total,"dinero"=>$dineroLocal,"fecha"=>$fechaActual,'date'=>$fecha,'destino'=>$destino,'origen'=>$origen,'cabina'=>$cabina,'servicio'=>$servicio,'codigo'=>$codigo);
             $this->printer->generateView('Confirmacion.html',$data);
-            $filePDF= $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$dineroLocal,$fechaActual,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
+            $filePDF= $this->pdf->armarPdf($usuario[0]["nameU"],$origen,$destino,$cabina,$servicio,$dineroLocal,$fechaActual,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
             $mailer = new Mailer($this->getMessageSubject($usuario[0]["nameU"]), "Generaste una reserva", $usuario[0]["email"]);
             $mailer->addAttachment($filePDF, "reserva.pdf", "base64");
             $mailer->sendMessage();
