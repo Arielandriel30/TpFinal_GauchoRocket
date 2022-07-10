@@ -36,6 +36,10 @@ class TurnoController
             $user = $this->session->sessionShow('resultLogueado');
             $idUser= $user[0]["idUsuarios"];
             $this->generarTurno($centroMedicoElejido,  $diaTurno, $horaTurno ,$idUser);
+            $centros = $this->TurnoModel->getCentrosMedicos();
+            $centros[1]["name_medical_center"];
+            var_dump($centros);
+            $this->TurnoModel->enviarEmailDeConfimacionDelTurno($user,$centros[1]["name_medical_center"],  $diaTurno, $horaTurno );
             $this->RealizarChequeo($idUser);
             //header("location:/");
             exit();

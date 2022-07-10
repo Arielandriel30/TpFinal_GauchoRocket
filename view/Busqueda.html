@@ -23,8 +23,8 @@
     <!-- Page content -->
     <div class="w3-content" style="max-width:2000px;margin-top:46px">
 
-        <form method="post" action="/reservar/validate">
-        <!-- The Band Section -->
+
+        <!-- The  Section -->
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
             <h2 class="w3-wide">Viajes encontrados</h2>
             <table class="w3-table w3-striped w3-bordered">
@@ -41,8 +41,7 @@
                     <th>Reservar</th>
                 </tr>
                   {{#flight}}
-
-
+                <form method="post" action="/reservar/completar">
                     <tr>
                                  <td>{{code}}</td>
                                  <td>{{departure}}</td>
@@ -53,12 +52,22 @@
                                  <td>{{side}}</td>
                                  <td>{{short_name}}</td>
                                  <td>{{plate}}</td>
-                                  <td> <input type="checkbox" name="vuelos[]" value="{{code}}"></td>
-                             </tr>
+                                 <td>{{RocketTypeID}}</td>
+                                 <td>{{fl}}</td>
+                        <td>{{day}}</td>
+                        <input type="hidden" name="vuelos[]" value="{{code}}">
+                        <input type="hidden" name="idsf" value="{{id}}">
+                        <input type="hidden" name="diaVuelo" value="{{day}}" checked>
+                        <input type="hidden" name="diaSalida" value="{{departure_date}}" checked>
+                        <input type="hidden" name="idLevel" value="{{fl}}"  checked>
+                        <input type="hidden" name="departure_time" value="{{departure_time}}"  checked>
+                        <input type="hidden" name="RocketTypeID" value="{{RocketTypeID}}"  checked>
+                        <td><input type="submit" name="ReservarBusqueda" class="btn btn-primary mt-2" value="Reservar"></td>
+                    </tr>
+                </form>
                 {{/flight}}
             </table>
-            <input type="submit" name="submit" class="btn btn-primary mt-2" value="Reservar">
-        </form>
+
             <!--
                         <table class="w3-table w3-striped w3-bordered">
                             <caption>Ejemplo de tabla</caption>

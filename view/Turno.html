@@ -31,6 +31,10 @@
         </form>-->
         <p style="color:rgb(185, 255, 233);
         font-family: 'Tomorrow', sans-serif;">Seleccione un Centro Medico del siguiente menú:</p>
+
+        {{#Nivel medico}}
+        <h2 class="w3-wide">{{Nivel medico}}- Nivel medico obtenido </h2>
+        {{/Nivel medico}}
         <form action="/turno/validate" class="w3-center" method="post">
                 <div class="form-group w3-center">
                 <label for="medical_center" class="sr-only">Centros:</label><br>
@@ -56,9 +60,6 @@
         <h2 class="w3-wide">{{Turno Error }}</h2>
         {{/Turno Error}}
 
-        {{#Nivel medico}}
-        <h2 class="w3-wide">{{Nivel medico}}- Nivel medico obtenido </h2>
-        {{/Nivel medico}}
         {{#turno}}
         <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="">
             <h2 class="w3-wide">Datos Del Turno Generado</h2>

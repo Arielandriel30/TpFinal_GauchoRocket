@@ -33,6 +33,7 @@
                         <th>Duracion</th>
                         <th>Equipo</th>
                         <th>Partida</th>
+                        <th>Hora De Partida</th>
                     </tr>
                     {{#Tours}}
                     <form method="post" action="/reservar/completar">
@@ -41,6 +42,7 @@
                         <td>{{duration}}</td>
                         <td>{{team}}</td>
                         <td>{{departure}}</td>
+                        <td>{{departure_time}}</td>
                         <!--                    <td>{{code}}</td>-->
                         <!--                    <td>{{fl}}</td>-->
                         <!--                    <td> <a href='/reservar/validate' >Reservar</a> </td>-->
