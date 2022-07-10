@@ -28,14 +28,30 @@
             <p class="card-text">Fecha de vuelo: {{fecha_vuelo}}</p>
             <div class="d-flex" style="justify-content: space-between">
                 <p class="card-text">Duración :  {{duracion}}</p>
+                <p class="card-text">Equipo :  {{equipo}}</p>
                 <p class="card-text">Cabina: {{cabina}}</p>
                 <p class="card-text">Servicio: {{servicio}}</p>
             </div>
             <p class="card-text">Fecha de compra: {{fecha_compra}}</p>
-            <a href="/compra/generarPdfReserva?id={{id}}" class="btn btn-primary" target="_blank">Check in</a>
+
+            {{^check_in}}
+            {{#0}}
+            <a href="/compra/generarPdfReserva?id={{id}}"  class="btn btn-primary" target="_blank">Check in</a>
+            {{/0}}
+            {{/check_in}}
+            {{^check_in}}
+            {{^0}}
+            <p class="mt-2" style="font-weight: bold">*No estás en fecha para realizar el Check-In*</p>
+            {{/0}}
+            {{/check_in}}
+            {{#check_in}}
+            <p class="mt-2" style="font-weight: bold">*Ya se ha realizado el check in*</p>
+            {{/check_in}}
+            
         </div>
     </div>
     {{/reservas}}
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

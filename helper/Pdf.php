@@ -35,10 +35,10 @@ class Pdf
         $this->pdf->Image("public/temp/qr.png","60","170");
 
 
-        $this->pdf->Output("","comprobanteVuelo");
+        return $this->pdf;
     }
 
-    public function armarPdfReserva($pasajero,$partida,$clase,$servicio,$precio,$fecha,$codigo,$contenidoQr){
+    public function armarPdfReserva($pasajero,$partida,$clase,$servicio,$precio,$fecha,$codigo,$equipo,$contenidoQr){
 
         $this->qr->crearQr($contenidoQr);
         $this->pdf->AddPage();
@@ -52,6 +52,7 @@ class Pdf
         $this->pdf->Cell(10, 10, 'VUELO',0,1);
         $this->pdf->Cell(10, 10, 'Pasajero: '.$pasajero,0,1);
         $this->pdf->Cell(10, 10, 'Partida: '.$partida,0,1);
+        $this->pdf->Cell(40, 10, 'Equipo: '.$equipo,0,1);
         $this->pdf->Cell(10, 10, 'Clase: '.$clase,0,1);
         $this->pdf->Cell(10, 10, 'Servicio: '.$servicio,0,1);
         $this->pdf->Cell(10, 10, 'Precio: $'.$precio,0,1);
@@ -61,7 +62,7 @@ class Pdf
         $this->pdf->Image("public/temp/qr.png","60","170");
 
 
-        $this->pdf->Output("","comprobanteVuelo");
+        return $this->pdf;
     }
 }
 

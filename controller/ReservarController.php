@@ -259,10 +259,28 @@ class ReservarController
     }
 
     public function misReservas(){
+        $fechas=array();
         $user=$this->session->sessionShow('usuario');
         $id=$this->ReservaModel->getIdUser($user);
         $reservas=$this->ReservaModel->getReservas($id[0]["idUsuarios"]);
+
+       foreach ($reservas as $valor){
+           array_push($fechas,$valor['fecha_vuelo']);
+       }
+
+        $devuelto=$this->ReservaModel->conversorDeFechasAArray($fechas);
+
+        for($i=0;$i<count($devuelto);$i++){
+               array_push($reservas[$i],$devuelto[$i]);
+        }
+        for($i=0;$i<count($reservas);$i++){
+            if($reservas[$i]['check_in']=="1"){
+                $reservas[$i]['check_in']=true;
+            }
+        }
+
         $data = array("reservas"=>$reservas);
+
         $this->printer->generateView('MisReservas.html',$data);
     }
 
