@@ -45,8 +45,8 @@ class CompraController
             $fechaActual=date('d/m/Y H:i:s',time());
 
             $fecha = isset($_POST["fecha"]) ? $_POST["fecha"] : "";
-            $destino = isset($_POST["destino"]) ? $_POST["destino"] : "";
-            $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
+            $destino = isset($_POST["destination"]) ? $_POST["destination"] : "";
+            $origen = isset($_POST["departure"]) ? $_POST["departure"] : "";
             $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
             $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
             $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
@@ -139,30 +139,21 @@ class CompraController
         //$horaDESalida=$_POST["HoraSalida"];
 
         //Como fiferenciosi es sub tour o entre destinos?
-        if($Tipo=="SubOrbital"){
+
             $reservation_quantity=1;
             $user=$this->session->sessionShow('resultLogueado');
-//            var_dump($vuelos[0]);
             $origenVuelo=$this->reservaModl->getStation($origen);
             $fechaVuelo=date("Y-m-d",strtotime($salida));
-//            var_dump( $horario);
-//            var_dump( $duracion);
-//            var_dump(  $rocket_id);
-//            var_dump(  $space_flight_id);
-//            var_dump( $reservation_quantity);
-//            var_dump($idcabina);
-//            var_dump($user[0]["idUsuarios"]);
-            var_dump($equipo);
+
             $precio=1000;
+            $reservationCode=$vuelos[0].'-'.rand().time();
             $dineroLocal=$this->conversor->convertirCreditoAMoneda($precio);
-            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
-//            $this->reservaModl->SetReserva($vuelos[0],$origen,  $salida, $horario,  $duracion , $rocket_id, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
+            $this->reservaModl->SetReserva($reservationCode,$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
             $fechaCompra=date('Y-m-d' );
-
             $idVuelo=$this->reservaModl->getIdFlightBooking($vuelos[0],$user[0]["idUsuarios"]);
-            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$vuelos[0]);
+            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$reservationCode);
 
-        }
+
 
         $valorTotal=sizeof($vuelos)*1000;
         $data = array("vuelo"=>$vuelos,'cohete'=>$cohete,'cabina'=>$cabina,'servicio'=>$servicio,'origen'=>$origen,'salida'=>$salida,'horario'=>$horario,'duracion'=>$duracion,'destino'=>$destino,"valor"=>1000,"total"=>$valorTotal,"TipoDeReserva"=>$Tipo);

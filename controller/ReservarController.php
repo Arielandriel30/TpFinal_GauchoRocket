@@ -65,8 +65,8 @@ class ReservarController
             if (!empty($_POST['diaVuelo'])) {
                 $dia = $_POST['diaVuelo'];
             }
-            if (!empty($_POST['diaSalida'])) {
-                $fechaSalida=$_POST['diaSalida'];
+            if (!empty($_POST['departure_date'])) {
+                $fechaSalida=$_POST['departure_date'];
             }
             if (!empty($_POST['departure_time'])) {
                 $horaDeSalida=$_POST['departure_time'];
@@ -289,12 +289,12 @@ class ReservarController
         if (!empty($_POST['idsf'])) {
             $idsf = $_POST['idsf'];
         }
-        var_dump($idsf);
+       // var_dump($idsf);
         //$cab = $this->getCabinasDelAvionDisponibles($datos[0], $vuelos, $fechaSalida);
         $cab = $this->getCabinasDisponiblesDelAvion($vuelos, $fechaSalida, $idTipoDeVuelo, $horaDeSalida);
-        var_dump($cab);
-        $datos=$this->BusquedaModel->getSpaceFlightParaReservar($idsf,$vuelos);
-        var_dump($datos);
+        //var_dump($cab);
+        $datos=$this->BusquedaModel->getSpaceFlightParaReservar($vuelos, $idsf);
+        //var_dump($datos);
 
         $data = array("vuelo"=>$vuelos,"Datos"=>$datos,"cabines"=>$cab,"departure_date"=>$fechaSalida,"Tipo"=>"SubOrbital");
         $this->printer->generateView('Reserva.html',$data);

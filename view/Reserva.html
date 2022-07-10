@@ -29,13 +29,11 @@
                     <th>Código</th>
                     <th>Origen</th>
                     <th>Destino</th>
-                    <th>Fecha de Salída</th>
-                    <th>Hora Salída</th>
+                    <th>Fecha de Partida</th>
+                    <th>Fecha de Llegada</th>
                     <th>Duración</th>
-                    <th>Sentido</th>
                     <th>Nombre</th>
                     <th>Placa</th>
-                    <th>Reservar</th>
                 </tr>
                 {{#Datos}}
                 <form method="post" action="/compra/mostrarVuelosReservados">
@@ -44,9 +42,8 @@
                     <td>{{departure}}</td>
                     <td>{{destination}}</td>
                     <td>{{departure_date}}</td>
-                    <td>{{departure_time}}</td>
+                    <td>{{destination_date}}</td>
                     <td>{{duration}}</td>
-                    <td>{{side}}</td>
                     <td>{{team}}</td>
                     <td>{{plate}}</td>
                     <input type="hidden" name="vuelos[]" value="{{code}}">

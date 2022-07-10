@@ -111,58 +111,94 @@ class BusquedaModel{
     }
 
     public function  getSpaceFlight($stationO,$stationD,$date){
-        /*return $this->database->query("
-SELECT f.rocket_id, 'EMLV' as code, 'Marte'departure, 'Luna' destination, f.Fecha_de_Salida departure_date,f.Hora_de_Salida departure_time, f.duration, 'VUELTA', 'BA' as short_name, 'AAAA1233' plate
-FROM
-(SELECT
-DATE (DATE_ADD(sf.departure_date, INTERVAL SUM(l.duration) HOUR))  Fecha_de_Salida,
-TIME(DATE_ADD(sf.departure_date, INTERVAL SUM(l.duration) HOUR)) Hora_de_Salida,
-SUM(l.duration) duration,
-sf.rocket_id
-FROM space_flight sf
-JOIN space_flight_type sft  ON sft.id= sf.space_flight_type_id
-JOIN route rou ON rou.id=sf.route_id
-JOIN lane l ON l.route_id = rou.id
-JOIN station rs ON rs.id = l.station_id
-JOIN station orig ON  orig.id = sf.departure
-JOIN space_flight_type rsft  ON rsft.id= l.flight_type_id
-WHERE sft.short_name='C1'
-AND rsft.short_name ='BA'
-AND orig.name = 'Marte'
-AND l.sort_ > (SELECT l1.sort_ FROM space_flight sf1
-                        JOIN space_flight_type sft1  ON sft1.id= sf1.space_flight_type_id
-                        JOIN route rou1 ON rou1.id=sf1.route_id
-                        JOIN lane l1 ON l1.route_id = rou1.id
-                        JOIN station des1 ON des1.id = l1.station_id
-                		JOIN station orig1 ON  orig1.id = sf1.departure
-                        JOIN space_flight_type rsft1  ON rsft1.id= l1.flight_type_id
-                		WHERE des1.name='Luna'
-                        AND sft1.short_name='C1'
-                        AND rsft1.short_name ='BA'
-               			AND orig1.name = 'Marte')
-GROUP BY sf.rocket_id, sf.departure_date
-HAVING DATE (DATE_ADD(sf.departure_date, INTERVAL SUM(l.duration) HOUR))= STR_TO_DATE('03,06,2022','%d,%m,%Y')
-ORDER BY l.sort_ ASC)f");*/
-      return $this->database->query(sprintf("Select sf.id, code, so.name AS departure, sd.name AS destination, departure_date, departure_time, duration, side, sft.short_name, plate, rt.flight_type_id as fl,rt.id AS RocketTypeID
-        FROM flight_booking sf
-        JOIN station so ON sf.from_id = so.id
-        JOIN station sd ON sf.to_id = sd.id
-        JOIN rocket r ON sf.rocket_id=r.id
-        JOIN rocket_type rt ON rt.id = r.rocket_type_id
-        JOIN space_flight_type sft ON rt.flight_type_id=sft.id
-        WHERE UPPER(so.name) like UPPER(CONCAT('%%$stationO%%')) and UPPER(sd.name) like UPPER(CONCAT('%%$stationD%%')) and DATE(departure_date)='$date'"));
+      return $this->database->query(sprintf("SELECT sf.id, CONCAT(SUBSTRING(orig.name,1,1),SUBSTRING(dest.name,1,1),r.plate,'-',sf.id,lorig.id,ldest.id) 'code', orig.name 'departure', dest.name 'destination', DATE_ADD(sf.departure_date, INTERVAL lorig.acum_time HOUR) 'departure_date',DATE_ADD(sf.departure_date, INTERVAL ldest.acum_time HOUR) 'destination_date',ldest.duration 'duration', rsft.short_name 'rTypeName', rt.name 'fType', r.plate 'plate', rt.id 'RocketTypeID'
+                                                            FROM space_flight sf
+                                                            JOIN route rou ON rou.id=sf.route_id 
+                                                            JOIN lane lorig ON lorig.space_flight_id = sf.id
+                                                            JOIN station orig ON orig.id = lorig.station_id 
+                                                            JOIN lane ldest ON ldest.space_flight_id = sf.id
+                                                            JOIN station dest ON dest.id = ldest.station_id 
+                                                            JOIN space_flight_type rsft  ON rsft.id= lorig.flight_type_id
+                                                            JOIN rocket r ON r.id = sf.rocket_id
+                                                            JOIN rocket_type rt ON rt.id = r.rocket_type_id
+                                                            WHERE
+                                                            orig.name<>dest.name
+                                                            AND UPPER(orig.name) LIKE UPPER(CONCAT('%%$stationO%%'))
+                                                            AND UPPER(dest.name) LIKE UPPER(CONCAT('%%$stationD%%'))
+                                                            AND sf.space_flight_type_id = rsft.id
+                                                            AND lorig.space_flight_id = sf.id
+                                                            AND lorig.sort_ <= ldest.sort_ 
+                                                            GROUP BY sf.id, rou.id, rsft.id, lorig.sort_, lorig.space_flight_id,sf.departure_date,lorig.acum_time
+                                                            HAVING departure_date >= $date
+                                                            ORDER BY lorig.flight_type_id, lorig.sort_ ASC"));
     }
 
 
-    public function  getSpaceFlightParaReservar($date,$idvuelos){
-        return $this->database->query(sprintf("Select sf.id, code, so.name AS departure, sd.name AS destination, departure_date, departure_time, duration, side, sft.short_name, plate, rt.flight_type_id as fl,rt.id AS RocketTypeID
-        FROM space_flight sf
-        JOIN station so ON sf.from_id = so.id
-        JOIN station sd ON sf.to_id = sd.id
-        JOIN rocket r ON sf.rocket_id=r.id
-        JOIN rocket_type rt ON rt.id = r.rocket_type_id
-        JOIN space_flight_type sft ON rt.flight_type_id=sft.id
-        WHERE sf.id='$idvuelos'"));
+    public function  getSpaceFlightParaReservar($code,$idvuelos){
+        return $this->database->query(sprintf("SELECT
+    sf.id,
+    CONCAT(
+        SUBSTRING(orig.name, 1, 1),
+        SUBSTRING(dest.name, 1, 1),
+        r.plate,
+        '-',
+        sf.id,
+        lorig.id,
+        ldest.id
+    ) 'code',
+    orig.name 'departure',
+    dest.name 'destination',
+    DATE_ADD(
+        sf.departure_date,
+        INTERVAL lorig.acum_time HOUR
+    ) 'departure_date',
+    DATE_ADD(
+        sf.departure_date,
+        INTERVAL ldest.acum_time HOUR
+    ) 'destination_date',
+    ldest.duration 'duration',
+    rsft.short_name 'rTypeName',
+    rt.name 'team',
+    r.plate 'plate',
+    r.id 'rocketID',
+    rt.id 'RocketTypeID',
+    rt.flight_type_id 'fl'
+FROM
+    space_flight sf
+JOIN route rou ON
+    rou.id = sf.route_id
+JOIN lane lorig ON
+    lorig.space_flight_id = sf.id
+JOIN station orig ON
+    orig.id = lorig.station_id
+JOIN lane ldest ON
+    ldest.space_flight_id = sf.id
+JOIN station dest ON
+    dest.id = ldest.station_id
+JOIN space_flight_type rsft ON
+    rsft.id = lorig.flight_type_id
+JOIN rocket r ON
+    r.id = sf.rocket_id
+JOIN rocket_type rt ON
+    rt.id = r.rocket_type_id
+WHERE
+sf.id = '$idvuelos'
+GROUP BY
+    sf.id,
+    rou.id,
+    rsft.id,
+    lorig.space_flight_id,
+    sf.departure_date,
+    lorig.acum_time,
+    lorig.id,
+    ldest.id,
+    r.plate,
+    orig.name,
+    dest.name
+HAVING code = '$code'
+ORDER BY
+    lorig.flight_type_id, 
+    lorig.sort_ ASC"));
     }
      public function  getCabinaDelAvion($idRocketType){
         return $this->database->query(sprintf("SELECT * FROM rocket_type

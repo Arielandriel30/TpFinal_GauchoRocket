@@ -32,13 +32,12 @@
                     <th>Código</th>
                     <th>Origen</th>
                     <th>Destino</th>
-                    <th>Fecha de Salída</th>
-                    <th>Hora Salída</th>
+                    <th>Fecha de Partida</th>
+                    <th>Fecha de Llegada</th>
                     <th>Duración</th>
-                    <th>Sentido</th>
-                    <th>Nombre</th>
+                    <th>Nombre de equipo/th>
+                    <th>Tipo de equipo</th>
                     <th>Placa</th>
-                    <th>Reservar</th>
                 </tr>
                   {{#flight}}
                 <form method="post" action="/reservar/completar">
@@ -47,10 +46,10 @@
                                  <td>{{departure}}</td>
                                  <td>{{destination}}</td>
                                  <td>{{departure_date}}</td>
-                                 <td>{{departure_time}}</td>
+                                 <td>{{destination_date}}</td>
                                  <td>{{duration}}</td>
-                                 <td>{{side}}</td>
-                                 <td>{{short_name}}</td>
+                                 <td>{{rTypeName}}</td>
+                                 <td>{{fType}}</td>
                                  <td>{{plate}}</td>
                                  <td>{{RocketTypeID}}</td>
                                  <td>{{fl}}</td>
