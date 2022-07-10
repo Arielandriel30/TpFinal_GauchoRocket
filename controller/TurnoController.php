@@ -39,7 +39,7 @@ class TurnoController
             $centros = $this->TurnoModel->getCentrosMedicos();
             $centros[1]["name_medical_center"];
 //            var_dump($centros);
-//            $this->TurnoModel->enviarEmailDeConfimacionDelTurno($user,$centros[1]["name_medical_center"],  $diaTurno, $horaTurno );
+            $this->TurnoModel->enviarEmailDeConfimacionDelTurno($user,$centros[1]["name_medical_center"],  $diaTurno, $horaTurno );
             $this->RealizarChequeo($idUser);
             $userLevel = $this->session->sessionShow('nivel');
 //            var_dump($userLevel);
