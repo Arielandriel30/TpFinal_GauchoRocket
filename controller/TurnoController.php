@@ -38,9 +38,12 @@ class TurnoController
             $this->generarTurno($centroMedicoElejido,  $diaTurno, $horaTurno ,$idUser);
             $centros = $this->TurnoModel->getCentrosMedicos();
             $centros[1]["name_medical_center"];
-            var_dump($centros);
-            $this->TurnoModel->enviarEmailDeConfimacionDelTurno($user,$centros[1]["name_medical_center"],  $diaTurno, $horaTurno );
+//            var_dump($centros);
+//            $this->TurnoModel->enviarEmailDeConfimacionDelTurno($user,$centros[1]["name_medical_center"],  $diaTurno, $horaTurno );
             $this->RealizarChequeo($idUser);
+            $userLevel = $this->session->sessionShow('nivel');
+//            var_dump($userLevel);
+            $this->TurnoModel->enviarEmailDeResultadoMedicoo($user,$userLevel[0]["id_flight_level"]);
             //header("location:/");
             exit();
         }
@@ -68,6 +71,8 @@ class TurnoController
         $data=array("medical"=>$result,"Nivel medico"=>"Usted obtuvo el siguiente nivel medico como resultado del chequeo medico: ".$resultadoChequeo."-",
         "nivel", $nivel);
         $this->printer->generateView('Turno.html',$data);
+
+
     }
     private function generateRandomLevel(){
         return rand(1,3);
