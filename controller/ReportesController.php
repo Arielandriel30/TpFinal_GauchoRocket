@@ -19,9 +19,9 @@ class ReportesController
         }
         if($this->session->sessionShow('usuario') != null){
         $usuarios = $this->ReportesModel->getContadorDatos('idUsuarios', 'usuario', 'cantidad');
-       
+        $total = $this->ReportesModel->getAnual();
         
-        $data = array("usuarios"=>$usuarios);
+        $data = array("usuarios"=>$usuarios, "total"=>$total);
   
         $this->printer->generateView('Admin.html', $data);
     }
@@ -47,6 +47,7 @@ class ReportesController
  {
     $ventas = $this->ReportesModel->getVentas();
     echo json_encode($ventas);
+    
     die();
     
  }

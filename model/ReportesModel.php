@@ -34,8 +34,16 @@ class ReportesModel
 
 
     public function getVentas(){
-        return $this->database->query("SELECT ");
-    }
+        return $this->database->query(" SELECT MONTHNAME(c.fecha_compra) AS mes, SUM(c.precio) AS ventas
+        FROM compra c
+        GROUP BY MONTH (c.fecha_compra)");
+   }
 
+   public function getAnual(){
+       return $this->database->query(" SELECT SUM(c.precio) AS ventas
+       FROM compra c
+       GROUP BY YEAR (c.fecha_compra)");
+  }
+   
     
 }
