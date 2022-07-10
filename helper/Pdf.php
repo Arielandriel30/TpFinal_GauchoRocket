@@ -35,7 +35,7 @@ class Pdf
         $this->pdf->Image("public/temp/qr.png","60","170");
 
 
-        $this->pdf->Output("","comprobanteVuelo");
+        return $this->pdf;
     }
 
     public function armarPdfReserva($pasajero,$partida,$clase,$servicio,$precio,$fecha,$codigo,$equipo,$contenidoQr){
@@ -62,7 +62,7 @@ class Pdf
         $this->pdf->Image("public/temp/qr.png","60","170");
 
 
-        $this->pdf->Output("","comprobanteVuelo");
+        return $this->pdf;
     }
 }
 

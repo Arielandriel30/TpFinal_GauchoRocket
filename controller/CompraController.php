@@ -1,4 +1,5 @@
 <?php
+require_once 'helper/Mailer.php';
 
 class CompraController
 {
@@ -9,6 +10,7 @@ class CompraController
     private $conversor;
     private $pdf;
     private $reservaModl;
+    private $mailer;
 
     public function __construct($printer, $reservaModel,$CompraModel,$qr, $session,$conversor,$pdf)
     {
@@ -49,8 +51,14 @@ class CompraController
             $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
             $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
 
+            $usuario=$this->session->sessionShow('resultLogueado');
+
             $data = array("valor"=>$total,"dinero"=>$dineroLocal,"fecha"=>$fechaActual,'date'=>$fecha,'destino'=>$destino,'origen'=>$origen,'cabina'=>$cabina,'servicio'=>$servicio,'codigo'=>$codigo);
             $this->printer->generateView('Confirmacion.html',$data);
+            $filePDF= $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$dineroLocal,$fechaActual,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
+            $mailer = new Mailer($this->getMessageSubject($usuario[0]["nameU"]), "Generaste una reserva", $usuario[0]["email"]);
+            $mailer->addAttachment($filePDF, "reserva.pdf", "base64");
+            $mailer->sendMessage();
         }
     }
 
@@ -64,11 +72,13 @@ class CompraController
         $fecha= isset($_POST["fecha"]) ? $_POST["fecha"] : "";
         $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
         $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
-
         $usuario=$this->session->sessionShow('usuario');
 
-        $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$valor,$fechaCompra,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
-
+        $filePDF= $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$valor,$fechaCompra,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
+        $filePDF->Output("","comprobanteVuelo");
+    }
+    private function getMessageSubject($usuario){
+        return "Gracias $usuario por confiar en Gaucho Rocket";
     }
     public function generarPdfReserva() {
         $id=$_GET['id'];
@@ -82,8 +92,8 @@ class CompraController
         $fechaVUuelo=$reserva[0]['fecha_vuelo'];
         $codigo=$reserva[0]['codigo'];
         $equipo=$reserva[0]['equipo'];
-
-        $this->pdf->armarPdfReserva($usuario,$origen,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,$equipo,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
+        $filePDF = $this->pdf->armarPdfReserva($usuario,$origen,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,$equipo,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
+        $filePDF->Output("","comprobanteVuelo");
         $this->reservaModl->hacerCheckIn($id);
     }
 

@@ -12,7 +12,7 @@ class Mailer
 {
     private $mail;
 
-    public function __construct($subject, $message, $address)
+    public function  __construct($subject, $message, $address)
     {
         $mailerConfiguration = $this->readConfiguration();
         $this->createConfiguration($mailerConfiguration, $subject, $message, $address);
@@ -33,6 +33,10 @@ class Mailer
         $this->mail->isHTML(true);
         $this->mail->Subject =$subject;
         $this->mail->Body = $message;
+    }
+
+    public function addAttachment($file,$fileName,$encoding){
+        $this->mail->addStringAttachment($file->Output("S",'comprobanteVuelo.pdf'), 'comprobanteVuelo.pdf', $encoding = 'base64', $type = 'application/pdf');
     }
 
     public function sendMessage(){
