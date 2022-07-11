@@ -3,6 +3,7 @@ include_once("MySqlDatabase.php");
 include_once("Printer.php");
 include_once("Router.php");
 include_once("Session.php");
+include_once("Image.php");
 include_once ("Qr.php");
 require_once("MustachePrinter.php");
 include_once("controller/LoginController.php");
@@ -137,7 +138,8 @@ public function getRegisterModel()
     public function getReportesController() {
         return new ReportesController($this->getPrinter(),
             $this->getReportesModel(),
-            $this->getSession());
+            $this->getSession(),
+            $this->getImage());
     }
 
     private function getReportesModel()
@@ -189,6 +191,12 @@ public function getSession() {
 ///////////Conversor de moneda//////
     public function getConversorMoneda() {
         return new ConversorMoneda();
+    }
+
+    ///////Captura Imagen////
+    public function getImage()
+    {
+        return new Archivo();
     }
 
 }
