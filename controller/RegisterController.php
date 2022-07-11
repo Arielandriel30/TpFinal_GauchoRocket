@@ -9,8 +9,9 @@ class RegisterController
     private $hash;
     private $session;
     private $validador;
+    private $loginModel;
 
-    public function __construct($printer, $registerModel, $logueadoController, $session,$validador)
+    public function __construct($printer, $registerModel, $logueadoController, $session, $validador, $loginModel)
     {
 
       $this->printer = $printer;
@@ -18,6 +19,7 @@ class RegisterController
       $this->logueadoController =  $logueadoController;
       $this->session = $session;
       $this->validador=$validador;
+      $this->loginModel = $loginModel;
     }
 
     public function execute() {
@@ -61,10 +63,13 @@ class RegisterController
         $result  = $this->registerModel->getRegisteredUser($usuario,$pass,$hash);
         if ($result){
             $this->registerModel->activatedUser($usuario,$pass,$hash);
+            $nivel = $this->loginModel->ResultadoChequeo($usuario, $pass);
             $this->session->execute("usuario", $usuario);
-            $this->session->execute('nivel', null);
+            $this->session->execute('resultLogueado', $result);
+            $admin=$this->loginModel->isAdmin($usuario);
+            $this->session->execute('admin',$admin);
+            $this->session->execute('nivel', $nivel);
             $this->logueadoController->execute();
-            exit();
         } else {
             $this->execute();
             exit();
