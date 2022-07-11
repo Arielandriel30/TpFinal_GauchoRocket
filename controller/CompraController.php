@@ -92,6 +92,8 @@ class CompraController
         $codigo=$reserva[0]['codigo'];
         $equipo=$reserva[0]['equipo'];
         $asiento=isset($_POST["asiento"]) ? $_POST["asiento"] : "";
+        $destino=$reserva[0]['destino'];
+
         $filePDF = $this->pdf->armarPdfReserva($usuario,$origen,$destino,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,$equipo,$asiento,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
         $filePDF->Output("","comprobanteVuelo");
         $this->reservaModl->hacerCheckIn($id);
@@ -113,8 +115,7 @@ class CompraController
         $rocket_id = isset($_POST["idTipoRocket"]) ? $_POST["idTipoRocket"] : "";
         $Tipo = isset($_POST["TipoDeReserva"]) ? $_POST["TipoDeReserva"] : "";
         $equipo = isset($_POST["equipo"]) ? $_POST["equipo"] : "";
-        var_dump($origen);
-        var_dump($destino);
+
         if($idcabina=='1'){
             $cabina='Turista';
         }
