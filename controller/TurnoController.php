@@ -39,7 +39,7 @@ class TurnoController
             $centros = $this->TurnoModel->getCentrosMedicos();
             $centros[1]["name_medical_center"];
 //            var_dump($centros);
-//            $this->TurnoModel->enviarEmailDeConfimacionDelTurno($user,$centros[1]["name_medical_center"],  $diaTurno, $horaTurno );
+            $this->TurnoModel->enviarEmailDeConfimacionDelTurno($user,$centros[1]["name_medical_center"],  $diaTurno, $horaTurno );
             $this->RealizarChequeo($idUser);
             $userLevel = $this->session->sessionShow('nivel');
 //            var_dump($userLevel);
@@ -49,7 +49,7 @@ class TurnoController
         }
         else{
             $result  = $this->TurnoModel->getCentrosMedicos();
-            $data=array("medical"=>$result,"Turno Error"=>"No existe la capacidad para este centro medico: -".$centroMedicoElejido."-, en las fechas indicadas");
+            $data=array("medical"=>$result,"Turno Error"=>"No hay turno disponible para este centro medico: -".$centroMedicoElejido."-, en las fechas indicadas");
             $this->printer->generateView('Turno.html',$data);
         }
 
@@ -68,7 +68,7 @@ class TurnoController
         $nivel = $this->TurnoModel->resultadoChequeo($idUser);
         $this->session->execute('nivel', $nivel);
         $result  = $this->TurnoModel->getCentrosMedicos();
-        $data=array("medical"=>$result,"Nivel medico"=>"Usted obtuvo el siguiente nivel medico como resultado del chequeo medico: ".$resultadoChequeo."-",
+        $data=array("medical"=>$result,"Nivel medico"=>"Usted obtuvo el siguiente nivel médico: ".$resultadoChequeo."-",
         "nivel", $nivel);
         $this->printer->generateView('Turno.html',$data);
 

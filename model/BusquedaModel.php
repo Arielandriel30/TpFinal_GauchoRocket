@@ -111,7 +111,7 @@ class BusquedaModel{
     }
 
     public function  getSpaceFlight($stationO,$stationD,$date){
-      return $this->database->query(sprintf("SELECT sf.id, CONCAT(SUBSTRING(orig.name,1,1),SUBSTRING(dest.name,1,1),r.plate,'-',sf.id,lorig.id,ldest.id) 'code', orig.name 'departure', dest.name 'destination', DATE_ADD(sf.departure_date, INTERVAL lorig.acum_time HOUR) 'departure_date',DATE_ADD(sf.departure_date, INTERVAL ldest.acum_time HOUR) 'destination_date',ldest.duration 'duration', rsft.short_name 'rTypeName', rt.name 'fType', r.plate 'plate', rt.id 'RocketTypeID'
+      return $this->database->query(sprintf("SELECT sf.id, CONCAT(SUBSTRING(orig.name,1,1),SUBSTRING(dest.name,1,1),r.plate,'-',sf.id,lorig.id,ldest.id) 'code', orig.name 'departure', dest.name 'destination', DATE_ADD(sf.departure_date, INTERVAL lorig.acum_time HOUR) 'departure_date',DATE_ADD(sf.departure_date, INTERVAL ldest.acum_time HOUR) 'destination_date',ldest.duration 'duration', rsft.short_name 'rTypeName', rt.name 'fType', r.plate 'plate', rt.id 'RocketTypeID', rt.flight_type_id 'fl'
                                                             FROM space_flight sf
                                                             JOIN route rou ON rou.id=sf.route_id 
                                                             JOIN lane lorig ON lorig.space_flight_id = sf.id

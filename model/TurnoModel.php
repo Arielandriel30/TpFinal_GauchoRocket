@@ -55,22 +55,22 @@ class TurnoModel
     }
 
     public function enviarEmailDeConfimacionDelTurno($usuario,$centroMedico,$diaTurno,$horaDeTurno){
-        var_dump($usuario);
+       // var_dump($usuario);
         $this->sendMailer( $usuario[0]["nameU"],$this->getMessageTurno($usuario[0]["nameU"],$centroMedico,$diaTurno,$horaDeTurno),$usuario[0]["email"]);
     }
 
     public function enviarEmailDeResultadoMedicoo($usuario,$level){
-        var_dump($usuario);
+      //  var_dump($usuario);
         $this->sendMailer( $usuario[0]["nameU"],$this->getMessageResult($usuario[0]["nameU"],$level),$usuario[0]["email"]);
     }
 
     private function getMessageTurno($usuario,$centroMedico,$diaTurno,$horaDeTurno){
-        return "Estimado Usuario: $usuario,\n El Turno fue generado correctamente,
-                    Usted Elijio En Centro medico de: $centroMedico,\n 
-                    Para el dia: $diaTurno, a la hora:$horaDeTurno";
+        return "Estimado Usuario: $usuario,\n El turno fué generado correctamente,
+                    Usted eligió el Centro médico de: $centroMedico,\n 
+                    Para el día: $diaTurno, a la hora:$horaDeTurno";
     }
 
     private function getMessageResult($usuario,$level){
-        return "Estimado $usuario; El resultado de su examenes medico le dieron una resultado de nivel correspondiente al NIVEL $level, Con el Cual podra realizar Las reservas para los vuelos interezados";
+        return "Estimado $usuario; En base al resultado de sus exámenes médicos su nivel es  $level";
     }
 }
