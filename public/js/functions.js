@@ -173,11 +173,7 @@ function tomarImagenPorSeccion(div,nombre) {
 			data:base,
 			success:function(respuesta) {	
 				respuesta = parseInt(respuesta);
-				if (respuesta > 0) {
-					alert("Imagen creada con exito!");
-				} else {
-					alert("No se pudo crear la imagen :(");
-				}
+				
 			}
 		});
 	});	
