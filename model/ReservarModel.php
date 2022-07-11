@@ -51,15 +51,21 @@ class ReservarModel
             VALUES ('$idVuelo','$fechaCompra','$precio','$idUser','$origen','$destino','$fechaVuelo','$equipo','$duracion','$cabina','$servicio','$codigo')"
         );
     }
+
     public function getIdFlightBooking($idVuelo,$idUser){
         return $this->database->query(
             "SELECT id FROM flight_booking WHERE code='$idVuelo' AND user_id='$idUser'"
         );
     }
     public function getReservas($idUser){
+        var_dump("SELECT c.* , fb.departure_time FROM compra c
+                    join  flight_booking fb on fb.code=c.codigo
+                    WHERE c.id_user='$idUser'");
+
         return $this->database->query(
-            "SELECT * FROM compra WHERE  id_user='$idUser'"
-        );
+            "SELECT c.* , fb.departure_time FROM compra c
+                    join  flight_booking fb on fb.code=c.codigo
+                    WHERE c.id_user='$idUser'");
     }
     public function getIdUser($user){
         return $this->database->query(
@@ -82,11 +88,13 @@ class ReservarModel
             "UPDATE compra SET check_in='1' WHERE id='$id'"
         );
     }
+
     public function getAllCheckIn($idUser){
         return $this->database->query(
             "SELECT check_in FROM compra WHERE  id_user='$idUser'"
         );
     }
+
     public function isCheckIn($id){
         $sql= $this->database->query("SELECT  check_in FROM compra WHERE id='$id'");
 

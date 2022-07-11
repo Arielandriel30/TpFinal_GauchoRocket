@@ -263,9 +263,11 @@ class ReservarController
         $fechas=array();
         $user=$this->session->sessionShow('usuario');
         $id=$this->ReservaModel->getIdUser($user);
+
         $reservas=$this->ReservaModel->getReservas($id[0]["idUsuarios"]);
 
        foreach ($reservas as $valor){
+
            array_push($fechas,$valor['fecha_vuelo']);
        }
 
