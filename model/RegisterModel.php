@@ -32,10 +32,13 @@ class RegisterModel {
     }
 
     public function  activatedUser($usuario, $pass, $hash){
+        $user = $this->getUsuario($usuario);
         $pass = $this->encryptedPass($pass);
         $query = "UPDATE `usuario` SET is_blocked = 0
          WHERE nameU = '$usuario' AND passwordU = '$pass' AND hash = '$hash'";
         $this->database->queryExecute($query);
+        $mailer = new Mailer($this->getMessageSubject($usuario), $this->getActivatedUserMessage(), $user[0]["email"]);
+        $mailer->sendMessage();
     }
 
     public function  updatePassword($usuario, $pass, $hash){
@@ -73,6 +76,7 @@ class RegisterModel {
     private function getMessageSubject($usuario){
         return "Bienvenido $usuario a Gaucho Rocket";
     }
+
     private function getRegisterMessage(){
         return "Para terminar con la activación dirigirse al siguiente link http://localhost/register/verify?hash=".$this->hash;
     }
@@ -81,6 +85,9 @@ class RegisterModel {
         return "Para terminar obtener una nueva contraseña dirigirse al siguiente link http://localhost/register/newPassword?hash=".$this->hash;
     }
 
+    private function getActivatedUserMessage(){
+        return "Felicitaciones su cuenta está activa. Por favor no se olvide de relizar el chequeo médico para poder disfrutar de los vuelos";
+    }
 
 }
 
