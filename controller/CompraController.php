@@ -45,8 +45,8 @@ class CompraController
             $fechaActual=date('d/m/Y H:i:s',time());
 
             $fecha = isset($_POST["fecha"]) ? $_POST["fecha"] : "";
-            $destino = isset($_POST["destination"]) ? $_POST["destination"] : "";
-            $origen = isset($_POST["departure"]) ? $_POST["departure"] : "";
+            $destino = isset($_POST["destino"]) ? $_POST["destino"] : "";
+            $origen = isset($_POST["origen"]) ? $_POST["origen"] : "";
             $cabina = isset($_POST["cabina"]) ? $_POST["cabina"] : "";
             $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
             $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
@@ -73,26 +73,27 @@ class CompraController
         $servicio = isset($_POST["servicio"]) ? $_POST["servicio"] : "";
         $codigo = isset($_POST["codigo"]) ? $_POST["codigo"] : "";
         $usuario=$this->session->sessionShow('usuario');
-
-        $filePDF= $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$valor,$fechaCompra,$codigo,"Vuelo desde $origen el día $fecha con codigo $codigo");
+        $filePDF= $this->pdf->armarPdf($usuario,$origen,$destino,$cabina,$servicio,$valor,$fechaCompra);
         $filePDF->Output("","comprobanteVuelo");
     }
     private function getMessageSubject($usuario){
         return "Gracias $usuario por confiar en Gaucho Rocket";
     }
     public function generarPdfReserva() {
-        $id=$_GET['id'];
+        $id=isset($_POST["id"]) ? $_POST["id"] : "";;
 
         $reserva=$this->reservaModl->getReservaPorId($id);
         $usuario=$this->session->sessionShow('usuario');
         $origen=$reserva[0]['origen'];
+        $destino=$reserva[0]['destino'];
         $cabina=$reserva[0]['cabina'];
         $servicio=$reserva[0]['servicio'];
         $precio=$reserva[0]['precio'];
         $fechaVUuelo=$reserva[0]['fecha_vuelo'];
         $codigo=$reserva[0]['codigo'];
         $equipo=$reserva[0]['equipo'];
-        $filePDF = $this->pdf->armarPdfReserva($usuario,$origen,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,$equipo,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
+        $asiento=isset($_POST["asiento"]) ? $_POST["asiento"] : "";
+        $filePDF = $this->pdf->armarPdfReserva($usuario,$origen,$destino,$cabina,$servicio,$precio,$fechaVUuelo,$codigo,$equipo,$asiento,"Vuelo desde $origen el día $fechaVUuelo con codigo $codigo");
         $filePDF->Output("","comprobanteVuelo");
         $this->reservaModl->hacerCheckIn($id);
     }
@@ -113,6 +114,8 @@ class CompraController
         $rocket_id = isset($_POST["idTipoRocket"]) ? $_POST["idTipoRocket"] : "";
         $Tipo = isset($_POST["TipoDeReserva"]) ? $_POST["TipoDeReserva"] : "";
         $equipo = isset($_POST["equipo"]) ? $_POST["equipo"] : "";
+        var_dump($origen);
+        var_dump($destino);
         if($idcabina=='1'){
             $cabina='Turista';
         }
@@ -142,21 +145,22 @@ class CompraController
 
             $reservation_quantity=1;
             $user=$this->session->sessionShow('resultLogueado');
-            $origenVuelo=$this->reservaModl->getStation($origen);
+            //$origenVuelo=$this->reservaModl->getStation($origen);
             $fechaVuelo=date("Y-m-d",strtotime($salida));
-
+            $lugarSalida=$this->CompraModel->buscarPlanetaPorId($origen);
             $precio=1000;
             $reservationCode=$vuelos[0].'-'.rand().time();
             $dineroLocal=$this->conversor->convertirCreditoAMoneda($precio);
             $this->reservaModl->SetReserva($reservationCode,$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
-            $fechaCompra=date('Y-m-d' );
-            $idVuelo=$this->reservaModl->getIdFlightBooking($vuelos[0],$user[0]["idUsuarios"]);
-            $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$reservationCode);
+            $fechaCompra=date('Y-m-d H:i');
+            $idVuelo=$this->reservaModl->getIdFlightBooking($reservationCode,$user[0]["idUsuarios"]);
 
 
 
         $valorTotal=sizeof($vuelos)*1000;
         $data = array("vuelo"=>$vuelos,'cohete'=>$cohete,'cabina'=>$cabina,'servicio'=>$servicio,'origen'=>$origen,'salida'=>$salida,'horario'=>$horario,'duracion'=>$duracion,'destino'=>$destino,"valor"=>1000,"total"=>$valorTotal,"TipoDeReserva"=>$Tipo);
         $this->printer->generateView('Compra.html',$data);
+        $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origen,$destino,$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$reservationCode);
+
     }
 }
