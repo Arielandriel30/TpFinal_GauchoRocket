@@ -139,7 +139,8 @@ public function getRegisterModel()
         return new ReportesController($this->getPrinter(),
             $this->getReportesModel(),
             $this->getSession(),
-            $this->getImage());
+            $this->getImage(),
+            $this->getPdf());
     }
 
     private function getReportesModel()

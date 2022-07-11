@@ -60,5 +60,14 @@ class Pdf
 
         return $this->pdf;
     }
+    public function pdfReportes(){
+        $this->pdf->AddPage();
+        $this->pdf->SetTitle('Reportes Graficos Gaucho-Rocket');
+        $this->pdf->SetFont('Arial', 'B', 16);
+        $this->pdf->Cell(100,20,'Reportes Graficos Gaucho-Rocket',1,0,'C');
+        $this->pdf->Image("public/imgchart/reportesGraficos.png", 5 ,40, 200 , 180);
+        
+        return $this->pdf;
+    }
 }
 
