@@ -62,6 +62,7 @@ class RegisterController
         if ($result){
             $this->registerModel->activatedUser($usuario,$pass,$hash);
             $this->session->execute("usuario", $usuario);
+            $this->session->execute('nivel', null);
             $this->logueadoController->execute();
             exit();
         } else {
