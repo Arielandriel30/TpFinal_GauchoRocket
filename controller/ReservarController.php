@@ -282,9 +282,11 @@ class ReservarController
             if($reservas[$i]['check_in']=="1"){
                 $reservas[$i]['check_in']=true;
                 array_push($Resultado,$reservas[$i]);
-            }else{$date_now = strtotime(date("Y-m-d", time()));
-                     $date_fly = strtotime($reservas[$i]['fecha_vuelo']);
-                if($date_fly>$date_now)
+            }else{
+                $date_now = strtotime(date("Y-m-d", time()));
+                $date_fly = strtotime($reservas[$i]['fecha_vuelo']);
+
+                if($date_fly>=$date_now)
                 {   array_push($Resultado,$reservas[$i]);
 
                 }
