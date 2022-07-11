@@ -16,7 +16,7 @@ function getVentas()
           }
           const ctx = document.getElementById('Ventas').getContext('2d');
           const myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'pie',
           data: {
           labels: nombre,
           datasets: [{
@@ -70,7 +70,7 @@ function getVentas()
             }
             const ctx = document.getElementById('Centros').getContext('2d');
             const myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'pie',
             data: {
             labels:nombre,
             datasets: [{
@@ -124,7 +124,7 @@ function getVentas()
             data: {
             labels:nombre,
             datasets: [{
-                label: 'Centros Médicos Asignados',
+                label: 'Cabinas más Pedidas',
                 data: cantidad,
                 backgroundColor: [
                     'rgb(255, 99, 132)',
@@ -151,6 +151,35 @@ function getVentas()
     }
 }
 
+$(document).ready(function(){
+    $('#btnimgGrafica').click(function(){
+        tomarImagenPorSeccion('reportesGraficos','reportesGraficos');
+    });
+});
 
-    
+function tomarImagenPorSeccion(div,nombre) {
+
+	html2canvas(document.querySelector("#" + div)).then(canvas => {
+		var img = canvas.toDataURL();
+        const url = "/reportes/crearImagen";
+		console.log(img);
+		base = "img=" + img + "&nombre=" + nombre;
+        
+      
+        
+		$.ajax({
+			type:"POST",
+			url: url,
+			data:base,
+			success:function(respuesta) {	
+				respuesta = parseInt(respuesta);
+				if (respuesta > 0) {
+					alert("Imagen creada con exito!");
+				} else {
+					alert("No se pudo crear la imagen :(");
+				}
+			}
+		});
+	});	
+}    
     

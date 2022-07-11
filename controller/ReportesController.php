@@ -5,11 +5,13 @@ class ReportesController
     private $printer;
     private $ReportesModel;
     private $session;
+    private $creaImagen;
 
-    public function __construct($printer, $ReportesModel, $session){
+    public function __construct($printer, $ReportesModel, $session, $creaImagen){
         $this->printer = $printer;
         $this->ReportesModel = $ReportesModel;
         $this->session = $session;
+        $this->creaImagen = $creaImagen;
     }
 
     public function execute(){
@@ -50,5 +52,12 @@ class ReportesController
     
     die();
     
+ }
+
+ public function crearImagen()
+ {
+    $img = $_POST['img'];
+	$nombre=$_POST['nombre'];
+    echo $this->creaImagen->subeimagen64temp($img, $nombre);
  }
 }
