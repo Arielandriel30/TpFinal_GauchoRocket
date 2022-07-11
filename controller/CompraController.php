@@ -149,11 +149,13 @@ class CompraController
             $reservationCode=$vuelos[0].'-'.rand().time();
             $dineroLocal=$this->conversor->convertirCreditoAMoneda($precio);
             $this->reservaModl->SetReserva($reservationCode,$origen,  $salida, $horario,  $duracion , $idvuelos, $space_flight_id,$reservation_quantity, $idcabina, $user[0]["idUsuarios"]);
-            $fechaCompra=date('Y-m-d' );
+
+            $hoy = date("Y-m-d H:i:s", time());
+
+            $fechaCompra=date('Y-m-d H:i:s' );
             $idVuelo=$this->reservaModl->getIdFlightBooking($vuelos[0],$user[0]["idUsuarios"]);
+
             $this->reservaModl->guardarReserva($idVuelo[0]['id'],$fechaCompra,$dineroLocal ,$user[0]["idUsuarios"],$origenVuelo[0]['name'],$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$reservationCode);
-
-
 
         $valorTotal=sizeof($vuelos)*1000;
         $data = array("vuelo"=>$vuelos,'cohete'=>$cohete,'cabina'=>$cabina,'servicio'=>$servicio,'origen'=>$origen,'salida'=>$salida,'horario'=>$horario,'duracion'=>$duracion,'destino'=>$destino,"valor"=>1000,"total"=>$valorTotal,"TipoDeReserva"=>$Tipo);

@@ -275,15 +275,32 @@ class ReservarController
         for($i=0;$i<count($devuelto);$i++){
                array_push($reservas[$i],$devuelto[$i]);
         }
+        $Resultado=array();
         for($i=0;$i<count($reservas);$i++){
+
             if($reservas[$i]['check_in']=="1"){
                 $reservas[$i]['check_in']=true;
+                array_push($Resultado,$reservas[$i]);
+            }else{$date_now = strtotime(date("Y-m-d", time()));
+                     $date_fly = strtotime($reservas[$i]['fecha_vuelo']);
+                if($date_fly>$date_now)
+                {   array_push($Resultado,$reservas[$i]);
+
+                }
+                else{
+                    /*  var_dump(date("Y-m-d", time()));
+                var_dump($date_now);
+                var_dump($reservas[$i]['fecha_vuelo']);
+                var_dump($date_fly );*/
+                    $reservas[$i]=null;
+//                echo "Estas fechas son inposibles<br>";
+                }
             }
         }
-
-        $data = array("reservas"=>$reservas);
+        $data = array("reservas"=>$Resultado);
 
         $this->printer->generateView('MisReservas.html',$data);
+
     }
 
     private function RealizarReservasBusquedas($dia, $vuelos, $fechaSalida, $idTipoDeVuelo, $horaDeSalida)

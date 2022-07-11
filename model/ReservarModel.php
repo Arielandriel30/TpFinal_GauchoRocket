@@ -58,9 +58,6 @@ class ReservarModel
         );
     }
     public function getReservas($idUser){
-        var_dump("SELECT c.* , fb.departure_time FROM compra c
-                    join  flight_booking fb on fb.code=c.codigo
-                    WHERE c.id_user='$idUser'");
 
         return $this->database->query(
             "SELECT c.* , fb.departure_time FROM compra c
