@@ -2,17 +2,19 @@
 
 class ReportesController
 {
-    private $printer;
-    private $ReportesModel;
-    private $session;
-    private $creaImagen;
+   private $printer;
+   private $ReportesModel;
+   private $session;
+   private $creaImagen;
+   private $pdf;
 
-    public function __construct($printer, $ReportesModel, $session, $creaImagen){
-        $this->printer = $printer;
-        $this->ReportesModel = $ReportesModel;
-        $this->session = $session;
-        $this->creaImagen = $creaImagen;
-    }
+   public function __construct($printer, $ReportesModel, $session, $creaImagen, $pdf){
+       $this->printer = $printer;
+       $this->ReportesModel = $ReportesModel;
+       $this->session = $session;
+       $this->creaImagen = $creaImagen;
+       $this->pdf = $pdf;
+   }
 
     public function execute(){
         if ($this->session->sessionShow('usuario') == null) {
@@ -59,5 +61,11 @@ class ReportesController
     $img = $_POST['img'];
 	$nombre=$_POST['nombre'];
     echo $this->creaImagen->subeimagen64temp($img, $nombre);
+    
+ }
+
+ public function generarPdf() {
+    $filePDF= $this->pdf->pdfReportes();
+    $filePDF->Output("","reportesGraficos");
  }
 }

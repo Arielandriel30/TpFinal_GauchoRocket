@@ -29,7 +29,6 @@ include_once("Validador.php");
 include_once("Pdf.php");
 include_once("fpdf/fpdf/fpdf.php");
 
-
 class Configuration
 {
     public function getLoginController()
@@ -85,7 +84,8 @@ public function getRegisterController()
        $this->getRegisterModel(),
        $this->getLogueadoController(),
        $this->getSession(),
-       $this->getValidador()
+       $this->getValidador(),
+        $this->getLoginModel()
     );
 }
 
@@ -139,7 +139,8 @@ public function getRegisterModel()
         return new ReportesController($this->getPrinter(),
             $this->getReportesModel(),
             $this->getSession(),
-            $this->getImage());
+            $this->getImage(),
+            $this->getPdf());
     }
 
     private function getReportesModel()

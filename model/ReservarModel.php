@@ -45,10 +45,10 @@ class ReservarModel
 
     /**INSERT INTO `gauchorocket`.`flight_booking` (`id`, `code`, `from_id`,  `departure_date`, `departure_time`, `duration`, `rocket_id`, `space_flight_id`, `reservation_quantity`, `cabin_type_id`, `user_id`) VALUES ('6', 'ed', '0', '0', 'awfa', 'aaf', 'aa', 'a', 'a', 'a', 'a', 'a');*/
 
-    public function guardarReserva($idVuelo,$fechaCompra,$precio,$idUser,$origen,$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$codigo){
+    public function guardarReserva($idVuelo,$fechaCompra,$precio,$idUser,$origen,$destino,$fechaVuelo,$equipo,$duracion,$cabina,$servicio,$codigo){
         $this->database->queryExecute(
-            "INSERT INTO compra(id_vuelo, fecha_compra,precio, id_user,origen,fecha_vuelo,equipo,duracion,cabina,servicio,codigo) 
-            VALUES ('$idVuelo','$fechaCompra','$precio','$idUser','$origen','$fechaVuelo','$equipo','$duracion','$cabina','$servicio','$codigo')"
+            "INSERT INTO compra(id_vuelo, fecha_compra,precio, id_user,origen,destino,fecha_vuelo,equipo,duracion,cabina,servicio,codigo) 
+            VALUES ('$idVuelo','$fechaCompra','$precio','$idUser','$origen','$destino','$fechaVuelo','$equipo','$duracion','$cabina','$servicio','$codigo')"
         );
     }
 
