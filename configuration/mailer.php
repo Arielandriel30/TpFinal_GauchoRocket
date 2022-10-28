@@ -17,8 +17,8 @@ try{
     $mail->Host       = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;
     // $mail->SMTPDebug  = true;
-    $mail->Username   = 'gaucho.rocket.w2@gmail.com';
-    $mail->Password   = 'G4uCh@R0cK$';
+    $mail->Username   = '';
+    $mail->Password   = '';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = 465;
 
